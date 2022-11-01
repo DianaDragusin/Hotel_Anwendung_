@@ -1,13 +1,13 @@
 package model;
 
 public class Room {
-    private int id;
+    private static int id;
     private Type type;
     private double price;
     private int nrPers;
 
-    public Room(int id, Type type, double price, int nrPers) {
-        this.id = id;
+    public Room( Type type, double price, int nrPers) {
+        this.id = 1;
         this.type = type;
         this.price = price;
         this.nrPers = nrPers;
@@ -17,9 +17,6 @@ public class Room {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public Type getType() {
         return type;
