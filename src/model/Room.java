@@ -43,10 +43,6 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" +
-                "type=" + type +
-                ", price=" + price +
-                ", nrPers=" + nrPers +
-                '}';
+        return "Room(" + id + ", Type: " + type + ", " + price +" lei, " + nrPers + "Pers)";
     }
 }
