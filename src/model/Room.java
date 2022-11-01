@@ -17,7 +17,6 @@ public class Room {
         return id;
     }
 
-
     public Type getType() {
         return type;
     }
@@ -40,5 +39,14 @@ public class Room {
 
     public void setNrPers(int nrPers) {
         this.nrPers = nrPers;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "type=" + type +
+                ", price=" + price +
+                ", nrPers=" + nrPers +
+                '}';
     }
 }

@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Client extends Person {
-    private List<Coupon> couponList= new ArrayList<>();
+    private List<Coupon> couponList;
 
-    public Client(String firstName, String lastName) {
-        super(firstName, lastName);
+    public Client(String firstName, String lastName, String username, String password) {
+        super(firstName, lastName, username, password);
+        this.couponList = new ArrayList<>();
     }
 
     public List<Coupon> getCouponList() {
@@ -17,6 +18,7 @@ public class Client extends Person {
     public void setCouponList(List<Coupon> couponList) {
         this.couponList = couponList;
     }
+
     private String Coupons ()
     {
         String couponString = "";
@@ -28,8 +30,10 @@ public class Client extends Person {
 
         return  couponString;
     }
-   public String toStringClient()
-   {
-       return "model.Client (" + Person.getId() + ", " + getFirstName() + ", " + getLastName() + ", \nCoupons: " + Coupons() + " )";
-   }
+
+    @Override
+    public String toString() {
+        return "Client (" + super.toString() + ", \nCoupons: " + Coupons() + " )";
+    }
+
 }

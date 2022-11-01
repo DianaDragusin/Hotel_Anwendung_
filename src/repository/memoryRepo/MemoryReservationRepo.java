@@ -2,11 +2,12 @@ package repository.memoryRepo;
 
 import model.Reservation;
 import repository.ICrud;
+import repository.ReservationRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemoryReservationRepo implements ICrud<Integer, Reservation> {
+public class MemoryReservationRepo implements ReservationRepository {
     List<Reservation> reservations;
 
     public MemoryReservationRepo() {
@@ -34,4 +35,5 @@ public class MemoryReservationRepo implements ICrud<Integer, Reservation> {
     public Reservation findbyID(Integer id) {
         return reservations.get(id);
     }
+
 }

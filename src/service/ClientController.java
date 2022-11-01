@@ -2,14 +2,19 @@ package service;
 
 import model.Coupon;
 import model.Option;
+import model.Reservation;
+import repository.memoryRepo.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
 
 public class ClientController {
 
-    private ClientRepository clientRepository;
+    private MemoryClientRepo clientRepo;
+    private MemoryRoomRepo roomRepo;
+    private MemoryReservationRepo reservationRepo;
+    private MemoryCleanerRepo cleanerRepo;
+    private MemoryCleaningsRepo cleaningsRepo;
 
     public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrPers){
 
@@ -18,7 +23,7 @@ public class ClientController {
     public String makeReservation(Option option, Coupon coupon){
         //.....
         applyCoupon(coupon);
-        return "Reservation created successfully"
+        return "Reservation created successfully";
     }
     private String applyCoupon(Coupon coupon){
         return "Coupon applied successfully";
@@ -26,12 +31,10 @@ public class ClientController {
     }
     public String deleteReservation(Reservation reservation){
         return "Reservation deleted successfully";
-        return "Reservation not found";
+        //return "Reservation not found";
     }
     public List<Reservation> seeAllReservations(){
         return null;
     }
-
-
 
 }

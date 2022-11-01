@@ -2,12 +2,13 @@ package repository.memoryRepo;
 
 import model.Room;
 import repository.ICrud;
+import repository.RoomRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemoryRoomRepo implements ICrud<Integer, Room> {
-    List<Room> rooms;
+public class MemoryRoomRepo implements RoomRepository {
+    private List<Room> rooms;
 
     public MemoryRoomRepo(List<Room> rooms) {
         this.rooms = new ArrayList<>();

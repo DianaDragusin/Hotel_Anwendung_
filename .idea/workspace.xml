@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="Hotel implementierung">
-      <change afterPath="$PROJECT_DIR$/src/model/Reservation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryClientRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryReservationRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryRoomRepo.java" afterDir="false" />
+    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="Controller">
+      <change afterPath="$PROJECT_DIR$/src/model/Cleaner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/Cleaning.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/ClientRespository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/ReservationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/RoomRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryCleanerRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryCleaningsRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Hotel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Coupon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Coupon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Employee.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Option.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Option.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Reservation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryClientRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryReservationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryReservationRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryRoomRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/ManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ManagerController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +32,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -80,7 +93,21 @@
       <option name="project" value="LOCAL" />
       <updated>1667285255634</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Controller">
+      <created>1667289123943</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1667289123943</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Controller">
+      <created>1667289136347</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1667289136347</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -102,6 +129,7 @@
     <MESSAGE value="more testing" />
     <MESSAGE value="client, coupon, person, crud + some packages done" />
     <MESSAGE value="Hotel implementierung" />
-    <option name="LAST_COMMIT_MESSAGE" value="Hotel implementierung" />
+    <MESSAGE value="Controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="Controller" />
   </component>
 </project>

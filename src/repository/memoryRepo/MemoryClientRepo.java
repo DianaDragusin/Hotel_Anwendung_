@@ -1,12 +1,13 @@
 package repository.memoryRepo;
 
 import model.Client;
+import repository.ClientRespository;
 import repository.ICrud;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemoryClientRepo implements ICrud<Integer, Client> {
+public class MemoryClientRepo implements ClientRespository {
 
     private List<Client> clients;
 

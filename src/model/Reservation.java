@@ -4,27 +4,26 @@ import java.time.LocalDate;
 
 public class Reservation {
     private static int id;
-
-    private int idClient;
+    private String username;
     private LocalDate start;
     private LocalDate end;
-    public Reservation(LocalDate start, LocalDate end) {
+    public Reservation(String username, LocalDate start, LocalDate end) {
         id = 1;
+        this.username = username;
         this.start = start;
         this.end = end;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public static int getId() {
         return id;
-    }
-
-
-    public int getIdClient() {
-        return idClient;
-    }
-
-    public void setIdClient(int idClient) {
-        this.idClient = idClient;
     }
 
     public LocalDate getStart() {
@@ -41,5 +40,10 @@ public class Reservation {
 
     public void setEnd(LocalDate end) {
         this.end = end;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation: " + id + " Client " + username + " checkIn " + start + " checkOut " + end;
     }
 }
