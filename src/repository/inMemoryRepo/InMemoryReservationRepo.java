@@ -1,16 +1,15 @@
-package repository.memoryRepo;
+package repository.inMemoryRepo;
 
 import model.Reservation;
-import repository.ICrud;
-import repository.ReservationRepository;
+import repository.IReservationRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemoryReservationRepo implements ReservationRepository {
+public class InMemoryReservationRepo implements IReservationRepository {
     List<Reservation> reservations;
 
-    public MemoryReservationRepo() {
+    public InMemoryReservationRepo() {
         this.reservations = new ArrayList<Reservation>();
     }
 
@@ -26,9 +25,10 @@ public class MemoryReservationRepo implements ReservationRepository {
 
     @Override
     public void update(Integer id, Reservation reservation) {
-        reservations.get(id).setIdClient(reservation.getIdClient());
-        reservations.get(id).setStart(reservation.getStart());
-        reservations.get(id).setEnd(reservation.getEnd());
+        Reservation oldRes = reservations.get(id);
+        oldRes.setIdUser(reservation.getIdUser());
+        oldRes.setStart(reservation.getStart());
+        oldRes.setEnd(reservation.getEnd());
     }
 
     @Override

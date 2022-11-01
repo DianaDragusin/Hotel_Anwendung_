@@ -1,14 +1,14 @@
 package service;
 
 import model.Room;
-import repository.memoryRepo.*;
+import repository.inMemoryRepo.*;
 
 public class ManagerController {
-    private MemoryClientRepo clientRepo;
-    private MemoryRoomRepo roomRepo;
-    private MemoryReservationRepo reservationRepo;
-    private MemoryCleanerRepo cleanerRepo;
-    private MemoryCleaningsRepo cleaningsRepo;
+    private InMemoryClientRepo clientRepo;
+    private InMemoryRoomRepo roomRepo;
+    private InMemoryReservationRepo reservationRepo;
+    private InMemoryCleanerRepo cleanerRepo;
+    private InMemoryCleaningsRepo cleaningsRepo;
 
     public void addRoom(Room room){
         roomRepo.add(room);
@@ -18,5 +18,8 @@ public class ManagerController {
     }
     public void updateRoom(int id, Room room){
         roomRepo.update(id,room);
+    }
+    public Room findRoomById(int id){
+        return roomRepo.findbyID(id);
     }
 }

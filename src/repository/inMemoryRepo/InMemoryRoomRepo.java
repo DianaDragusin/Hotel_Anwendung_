@@ -1,16 +1,15 @@
-package repository.memoryRepo;
+package repository.inMemoryRepo;
 
 import model.Room;
-import repository.ICrud;
-import repository.RoomRepository;
+import repository.IRoomRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemoryRoomRepo implements RoomRepository {
+public class InMemoryRoomRepo implements IRoomRepository {
     private List<Room> rooms;
 
-    public MemoryRoomRepo(List<Room> rooms) {
+    public InMemoryRoomRepo(List<Room> rooms) {
         this.rooms = new ArrayList<>();
     }
 

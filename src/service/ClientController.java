@@ -3,18 +3,18 @@ package service;
 import model.Coupon;
 import model.Option;
 import model.Reservation;
-import repository.memoryRepo.*;
+import repository.inMemoryRepo.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class ClientController {
 
-    private MemoryClientRepo clientRepo;
-    private MemoryRoomRepo roomRepo;
-    private MemoryReservationRepo reservationRepo;
-    private MemoryCleanerRepo cleanerRepo;
-    private MemoryCleaningsRepo cleaningsRepo;
+    private InMemoryClientRepo clientRepo;
+    private InMemoryRoomRepo roomRepo;
+    private InMemoryReservationRepo reservationRepo;
+    private InMemoryCleanerRepo cleanerRepo;
+    private InMemoryCleaningsRepo cleaningsRepo;
 
     public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrPers){
 

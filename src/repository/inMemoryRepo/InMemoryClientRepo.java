@@ -1,17 +1,16 @@
-package repository.memoryRepo;
+package repository.inMemoryRepo;
 
 import model.Client;
-import repository.ClientRespository;
-import repository.ICrud;
+import repository.IClientRespository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemoryClientRepo implements ClientRespository {
+public class InMemoryClientRepo implements IClientRespository {
 
     private List<Client> clients;
 
-    public MemoryClientRepo(List<Client> clients) {
+    public InMemoryClientRepo(List<Client> clients) {
         this.clients = new ArrayList<>();
     }
 

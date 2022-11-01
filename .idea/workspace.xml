@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="revizuire totala&#10;metode toString&#10;Repository&#10;legaturi&#10;logica">
+    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="toString room">
+      <change afterPath="$PROJECT_DIR$/src/repository/ICleanerRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/ICleaningsrepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Reservation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/ClientRespository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/IClientRespository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/ReservationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/IReservationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/RoomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/IRoomRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryCleanerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryCleanerRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryCleaningsRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryCleaningsRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryClientRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryReservationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryReservationRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryRoomRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/ManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ManagerController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,8 +27,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -51,6 +65,7 @@
       <workItem from="1667139369573" duration="350000" />
       <workItem from="1667217209770" duration="4145000" />
       <workItem from="1667284470390" duration="4267000" />
+      <workItem from="1667315683530" duration="6743000" />
     </task>
     <task id="LOCAL-00001" summary="commit 4">
       <created>1667139692561</created>
@@ -94,7 +109,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667304102410</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="toString room">
+      <created>1667304504525</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1667304504525</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,6 +140,7 @@
     <MESSAGE value="Hotel implementierung" />
     <MESSAGE value="Controller" />
     <MESSAGE value="revizuire totala&#10;metode toString&#10;Repository&#10;legaturi&#10;logica" />
-    <option name="LAST_COMMIT_MESSAGE" value="revizuire totala&#10;metode toString&#10;Repository&#10;legaturi&#10;logica" />
+    <MESSAGE value="toString room" />
+    <option name="LAST_COMMIT_MESSAGE" value="toString room" />
   </component>
 </project>

@@ -7,7 +7,7 @@ public class Room {
     private int nrPers;
 
     public Room( Type type, double price, int nrPers) {
-        this.id = 1;
+        id = 1;
         this.type = type;
         this.price = price;
         this.nrPers = nrPers;
