@@ -1,0 +1,166 @@
+Index: src/service/ClientController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package service;\r\n\r\nimport model.Coupon;\r\nimport model.Option;\r\nimport model.Reservation;\r\nimport repository.inMemoryRepo.*;\r\n\r\nimport java.time.LocalDate;\r\nimport java.util.List;\r\n\r\npublic class ClientController {\r\n\r\n    private InMemoryClientRepo clientRepo;\r\n    private InMemoryRoomRepo roomRepo;\r\n    private InMemoryReservationRepo reservationRepo;\r\n    private InMemoryCleanerRepo cleanerRepo;\r\n    private InMemoryCleaningsRepo cleaningsRepo;\r\n\r\n    public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrPers){\r\n\r\n        return null;\r\n    }\r\n    public String makeReservation(Option option, Coupon coupon){\r\n        //.....\r\n        applyCoupon(coupon);\r\n        return \"Reservation created successfully\";\r\n    }\r\n    private String applyCoupon(Coupon coupon){\r\n        return \"Coupon applied successfully\";\r\n        //return \"Coupon not found\";\r\n    }\r\n    public String deleteReservation(Reservation reservation){\r\n        return \"Reservation deleted successfully\";\r\n        //return \"Reservation not found\";\r\n    }\r\n    public List<Reservation> seeAllReservations(){\r\n        return null;\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/service/ClientController.java b/src/service/ClientController.java
+--- a/src/service/ClientController.java	(revision e5161c4db4b1c10a3c4e9f8721974751bba5cb09)
++++ b/src/service/ClientController.java	(date 1667819516158)
+@@ -1,11 +1,10 @@
+ package service;
+ 
+-import model.Coupon;
+-import model.Option;
+-import model.Reservation;
++import model.*;
+ import repository.inMemoryRepo.*;
+ 
+ import java.time.LocalDate;
++import java.util.ArrayList;
+ import java.util.List;
+ 
+ public class ClientController {
+@@ -16,6 +15,18 @@
+     private InMemoryCleanerRepo cleanerRepo;
+     private InMemoryCleaningsRepo cleaningsRepo;
+ 
++    private List<Room> searchSingleRoom(LocalDate checkIn, LocalDate checkOut)
++    {
++        List<Room> rooms = new ArrayList<>();
++        for (Room room : roomRepo.getAll())
++        {
++            if (room.getType().equals(Type.SINGLE) )
++            {
++                for (Reservation reservation : reservationRepo.getAll())
++            }
++        }
++        return rooms;
++    }
+     public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrPers){
+ 
+         return null;
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_01_11_2022_09_50__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_01_11_2022_09_50__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_01_11_2022_09_50__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_01_11_2022_09_50__Changes_.xml	(revision e5161c4db4b1c10a3c4e9f8721974751bba5cb09)
++++ /dev/null	(revision e5161c4db4b1c10a3c4e9f8721974751bba5cb09)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_01_11_2022_09_50_[Changes]" date="1667289069361" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_11_2022_09_50_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 01.11.2022 09:50 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"6eac5dba-35b3-43a4-bb77-fc3f5a0b373a\" name=\"Changes\" comment=\"toString room\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/repository/ICleanerRepository.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/repository/ICleaningsrepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/model/Reservation.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/model/Reservation.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/model/Room.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/model/Room.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/repository/ClientRespository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/repository/IClientRespository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/repository/ReservationRepository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/repository/IReservationRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/repository/RoomRepository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/repository/IRoomRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/repository/memoryRepo/MemoryCleanerRepo.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryCleanerRepo.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/repository/memoryRepo/MemoryCleaningsRepo.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryCleaningsRepo.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/repository/memoryRepo/MemoryClientRepo.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryClientRepo.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/repository/memoryRepo/MemoryReservationRepo.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryReservationRepo.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/repository/memoryRepo/MemoryRoomRepo.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryRoomRepo.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/service/ClientController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/service/ClientController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/service/ManagerController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/service/ManagerController.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Enum\" />\r\n        <option value=\"Class\" />\r\n        <option value=\"Interface\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2GqnZ5mqkEktb99oIBbT1ukowsr\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;\r\n  }\r\n}</component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"6eac5dba-35b3-43a4-bb77-fc3f5a0b373a\" name=\"Changes\" comment=\"\" />\r\n      <created>1667125036173</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1667125036173</updated>\r\n      <workItem from=\"1667125037801\" duration=\"298000\" />\r\n      <workItem from=\"1667139369573\" duration=\"350000\" />\r\n      <workItem from=\"1667217209770\" duration=\"4145000\" />\r\n      <workItem from=\"1667284470390\" duration=\"4267000\" />\r\n      <workItem from=\"1667315683530\" duration=\"6743000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"commit 4\">\r\n      <created>1667139692561</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1667139692561</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"more testing\">\r\n      <created>1667140494722</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1667140494722</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Hotel implementierung\">\r\n      <created>1667285255634</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1667285255634</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Controller\">\r\n      <created>1667289123943</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1667289123943</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"Controller\">\r\n      <created>1667289136347</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1667289136347</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"revizuire totala&#10;metode toString&#10;Repository&#10;legaturi&#10;logica\">\r\n      <created>1667304102410</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1667304102410</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"toString room\">\r\n      <created>1667304504525</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1667304504525</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"8\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"commit 4\" />\r\n    <MESSAGE value=\"more testing\" />\r\n    <MESSAGE value=\"client, coupon, person, crud + some packages done\" />\r\n    <MESSAGE value=\"Hotel implementierung\" />\r\n    <MESSAGE value=\"Controller\" />\r\n    <MESSAGE value=\"revizuire totala&#10;metode toString&#10;Repository&#10;legaturi&#10;logica\" />\r\n    <MESSAGE value=\"toString room\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"toString room\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision e5161c4db4b1c10a3c4e9f8721974751bba5cb09)
++++ b/.idea/workspace.xml	(date 1667820155337)
+@@ -1,22 +1,12 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="toString room">
+-      <change afterPath="$PROJECT_DIR$/src/repository/ICleanerRepository.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/repository/ICleaningsrepository.java" afterDir="false" />
++    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="Repositories created">
++      <change afterPath="$PROJECT_DIR$/src/model/Reservation_Room.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_11_2022_09_50__Changes_.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/model/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Reservation.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/model/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Room.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/repository/ClientRespository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/IClientRespository.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/repository/ReservationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/IReservationRepository.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/repository/RoomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/IRoomRepository.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryCleanerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryCleanerRepo.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryCleaningsRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryCleaningsRepo.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryClientRepo.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryReservationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryReservationRepo.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/repository/memoryRepo/MemoryRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryRoomRepo.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ClientController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/service/ManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ManagerController.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -27,8 +17,8 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="Enum" />
+-        <option value="Class" />
+         <option value="Interface" />
++        <option value="Class" />
+       </list>
+     </option>
+   </component>
+@@ -66,6 +56,7 @@
+       <workItem from="1667217209770" duration="4145000" />
+       <workItem from="1667284470390" duration="4267000" />
+       <workItem from="1667315683530" duration="6743000" />
++      <workItem from="1667815554006" duration="4309000" />
+     </task>
+     <task id="LOCAL-00001" summary="commit 4">
+       <created>1667139692561</created>
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_18\" project-jdk-name=\"19\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision e5161c4db4b1c10a3c4e9f8721974751bba5cb09)
++++ b/.idea/misc.xml	(date 1667756717702)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_18" project-jdk-name="19" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_19" default="true" project-jdk-name="19" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/model/Reservation_Room.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/model/Reservation_Room.java b/src/model/Reservation_Room.java
+new file mode 100644
+--- /dev/null	(date 1667819516134)
++++ b/src/model/Reservation_Room.java	(date 1667819516134)
+@@ -0,0 +1,27 @@
++package model;
++
++public class Reservation_Room {
++    private int reservation;
++    private int room;
++
++    public Reservation_Room(int reservation, int room) {
++        this.reservation = reservation;
++        this.room = room;
++    }
++
++    public int getReservation() {
++        return reservation;
++    }
++
++    public void setReservation(int reservation) {
++        this.reservation = reservation;
++    }
++
++    public int getRoom() {
++        return room;
++    }
++
++    public void setRoom(int room) {
++        this.room = room;
++    }
++}

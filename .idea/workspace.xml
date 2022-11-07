@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="rename form memory to inMemory&#10;check extension and implementation with interfaces&#10;some logic changes on classes">
-      <change afterPath="$PROJECT_DIR$/src/repository/fileRepo/FileCleanerRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/fileRepo/FileCleaningsRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/fileRepo/FileClientRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/fileRepo/FileReservationRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/fileRepo/FileRoomRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/ICrud.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/ICrud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryCleanerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryCleanerRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryClientRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryReservationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryReservationRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryRoomRepo.java" afterDir="false" />
+    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="test">
+      <change beforePath="$PROJECT_DIR$/src/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ClientController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +111,21 @@
       <option name="project" value="LOCAL" />
       <updated>1667322604074</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Reservation Rooms plus generate options started">
+      <created>1667820354999</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1667820354999</updated>
+    </task>
+    <task id="LOCAL-00010" summary="test">
+      <created>1667820470988</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1667820470988</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,6 +151,8 @@
     <MESSAGE value="revizuire totala&#10;metode toString&#10;Repository&#10;legaturi&#10;logica" />
     <MESSAGE value="toString room" />
     <MESSAGE value="rename form memory to inMemory&#10;check extension and implementation with interfaces&#10;some logic changes on classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="rename form memory to inMemory&#10;check extension and implementation with interfaces&#10;some logic changes on classes" />
+    <MESSAGE value="Reservation Rooms plus generate options started" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
 </project>

@@ -25,6 +25,7 @@ public class ClientController {
                 for (Reservation reservation : reservationRepo.getAll())
                 {
                     // do something
+                    // else
                 }
             }
         }
