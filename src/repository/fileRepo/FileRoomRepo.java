@@ -1,6 +1,7 @@
 package repository.fileRepo;
 
 import model.Room;
+import model.Type;
 import repository.IRoomRepository;
 
 import java.util.List;
@@ -28,6 +29,12 @@ public class FileRoomRepo implements IRoomRepository {
 
     @Override
     public List<Room> getAll() {
+        return null;
+    }
+
+
+    @Override
+    public List<Room> typeRooms(Type t) {
         return null;
     }
 }

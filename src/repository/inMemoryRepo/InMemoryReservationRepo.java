@@ -1,13 +1,17 @@
 package repository.inMemoryRepo;
 
 import model.Reservation;
+import model.Reservation_Room;
+import model.Room;
 import repository.IReservationRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryReservationRepo implements IReservationRepository {
     List<Reservation> reservations;
+    List<Reservation_Room> reservations_rooms ;
 
     public InMemoryReservationRepo() {
         this.reservations = new ArrayList<Reservation>();
@@ -43,4 +47,26 @@ public class InMemoryReservationRepo implements IReservationRepository {
         return reservations;
     }
 
+    @Override
+    public List<Integer> returnAllUnAvailableRooms(LocalDate start, LocalDate end) {
+        List<Integer> rooms = new ArrayList<>();
+        for (Reservation reservation : reservations)
+        {
+            if ((reservation.getStart() == start && reservation.getEnd() == end) || (reservation.getStart().isBefore(start) && reservation.getEnd().isBefore(end) ) || (reservation.getStart().isAfter(start) && reservation.getEnd().isAfter(end) ) || (reservation.getStart().isBefore(start) && reservation.getEnd().isAfter(end) ) )
+            {
+                for (Reservation_Room line : reservations_rooms)
+                {
+                    if (line.getReservation() == reservation.getId())
+                    {
+                        if (!rooms.contains(line.getRoom()) )
+                        {
+                            rooms.add(line.getRoom());
+                        }
+                    }
+                }
+            }
+
+        }
+        return rooms;
+    }
 }

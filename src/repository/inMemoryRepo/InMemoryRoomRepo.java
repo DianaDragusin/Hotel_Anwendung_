@@ -1,6 +1,7 @@
 package repository.inMemoryRepo;
 
 import model.Room;
+import model.Type;
 import repository.IRoomRepository;
 
 import java.util.ArrayList;
@@ -44,4 +45,17 @@ public class InMemoryRoomRepo implements IRoomRepository {
     }
 
 
+
+    @Override
+    public List<Room> typeRooms(Type t) {
+        List<Room>typeRooms = new ArrayList<>();
+        for (Room room : rooms)
+        {
+            if (room.getType() == t)
+            {
+                rooms.add(room);
+            }
+        }
+        return rooms;
+    }
 }

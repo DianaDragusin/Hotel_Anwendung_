@@ -22,7 +22,7 @@ public class Reservation {
         this.idUser = idUser;
     }
 
-    public static int getId() {
+    public  int getId() {
         return id;
     }
 
