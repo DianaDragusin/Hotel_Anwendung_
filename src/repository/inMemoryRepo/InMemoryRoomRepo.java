@@ -13,9 +13,11 @@ public class InMemoryRoomRepo implements IRoomRepository {
         this.rooms = new ArrayList<>();
     }
 
+
     @Override
-    public void add(Room room) {
-     rooms.add(room)  ;
+    public boolean add(Room room) {
+     rooms.add(room);
+     return true;
     }
 
     @Override
@@ -24,14 +26,22 @@ public class InMemoryRoomRepo implements IRoomRepository {
     }
 
     @Override
-    public void update(Integer id, Room room) {
+    public boolean update(Integer id, Room room) {
         rooms.get(id).setPrice(room.getPrice());
         rooms.get(id).setType(room.getType());
         rooms.get(id).setNrPers(room.getNrPers());
+        return true;
     }
 
     @Override
     public Room findbyID(Integer id) {
         return rooms.get(id);
     }
+
+    @Override
+    public List<Room> getAll() {
+        return rooms;
+    }
+
+
 }

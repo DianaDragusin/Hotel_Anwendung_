@@ -13,9 +13,12 @@ public class InMemoryCleanerRepo implements ICleanerRepository {
         this.cleanerList = cleanerList;
     }
 
+
+
     @Override
-    public void add(Cleaner cleaner) {
+    public boolean add(Cleaner cleaner) {
         cleanerList.add(cleaner);
+        return true;
     }
 
     @Override
@@ -24,18 +27,24 @@ public class InMemoryCleanerRepo implements ICleanerRepository {
     }
 
     @Override
-    public void update(Integer id, Cleaner cleaner) {
+    public boolean update(Integer id, Cleaner cleaner) {
         Cleaner oldCleaner = cleanerList.get(id);
         oldCleaner.setFirstName(cleaner.getFirstName());
         oldCleaner.setLastName(cleaner.getLastName());
         oldCleaner.setUsername(cleaner.getUsername());
         oldCleaner.setPassword(cleaner.getPassword());
         oldCleaner.setSalary(cleaner.getSalary());
+        return true;
     }
 
     @Override
     public Cleaner findbyID(Integer id) {
         return cleanerList.get(id);
+    }
+
+    @Override
+    public List<Cleaner> getAll() {
+        return cleanerList;
     }
 
     public List<Cleaner> seeAllCleaners(){

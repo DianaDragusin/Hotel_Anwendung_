@@ -14,8 +14,9 @@ public class InMemoryReservationRepo implements IReservationRepository {
     }
 
     @Override
-    public void add(Reservation reservation) {
+    public boolean add(Reservation reservation) {
         reservations.add(reservation);
+        return true;
     }
 
     @Override
@@ -24,16 +25,22 @@ public class InMemoryReservationRepo implements IReservationRepository {
     }
 
     @Override
-    public void update(Integer id, Reservation reservation) {
+    public boolean update(Integer id, Reservation reservation) {
         Reservation oldRes = reservations.get(id);
         oldRes.setIdUser(reservation.getIdUser());
         oldRes.setStart(reservation.getStart());
         oldRes.setEnd(reservation.getEnd());
+        return true;
     }
 
     @Override
     public Reservation findbyID(Integer id) {
         return reservations.get(id);
+    }
+
+    @Override
+    public List<Reservation> getAll() {
+        return reservations;
     }
 
 }
