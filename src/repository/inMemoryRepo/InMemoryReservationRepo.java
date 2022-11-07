@@ -25,7 +25,19 @@ public class InMemoryReservationRepo implements IReservationRepository {
 
     @Override
     public boolean delete(Integer id) {
-        reservations.remove(reservations.get(id));
+        if (reservations.get(id) != null) {
+            for (Reservation_Room res_room : reservations_rooms)
+            {
+                if (res_room.getReservation() == reservations.get(id).getId())
+                {
+                    reservations_rooms.remove( res_room);
+                }
+            }
+            reservations.remove(reservations.get(id));
+            return true;
+        }
+        else {return false;}
+
     }
 
     @Override
@@ -34,6 +46,7 @@ public class InMemoryReservationRepo implements IReservationRepository {
         oldRes.setIdUser(reservation.getIdUser());
         oldRes.setStart(reservation.getStart());
         oldRes.setEnd(reservation.getEnd());
+        oldRes.setPrice(reservation.getPrice());
         return true;
     }
 
@@ -68,5 +81,22 @@ public class InMemoryReservationRepo implements IReservationRepository {
 
         }
         return rooms;
+    }
+
+    @Override
+    public List<Reservation_Room> GetAllReservedRooms() {
+        return reservations_rooms;
+    }
+
+
+    @Override
+    public void add(Reservation reservation, List<Room> rooms) {
+        reservations.add(reservation);
+        for (Room room : rooms)
+        {
+            Reservation_Room res_room = new Reservation_Room(reservation.getId(),room.getId());
+            reservations_rooms.add(res_room);
+        }
+
     }
 }

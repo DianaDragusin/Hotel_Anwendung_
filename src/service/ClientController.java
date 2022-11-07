@@ -74,27 +74,38 @@ public class ClientController {
     }
     public String makeReservation(Option option, Coupon coupon, String username,LocalDate start, LocalDate end){
        // work to do
-        Reservation reservation = new Reservation(username,start,end);
-        reservationRepo.add(reservation);
-        for (Room room : option.getRooms())
-        {
-            Reservation_Room res_room = new Reservation_Room(reservation.getId(),room.getId());
+        Reservation reservation = new Reservation(username,start,end, option.getTotalPrice());
+        reservation.setPrice(applyCoupon(coupon,option.getTotalPrice()));
+        reservationRepo.add(reservation,option.getRooms());
 
-        }
 
-        applyCoupon(coupon);
+
         return "Reservation created sucssfully";
     }
-    private String applyCoupon(Coupon coupon){
-        return "Coupon applied sucssfully";
-        //return "Coupon not found";
+    private double applyCoupon(Coupon coupon,double price){
+
+       int per = (100 -  coupon.getPercentage())/100;
+       price = price * per;
+       return price;
+
     }
     public String deleteReservation(Reservation reservation){
+        reservationRepo.delete(reservation.getId());
+
+
         return "Reservation deleted sucssfully";
         //return "Reservation not found";
     }
-    public List<Reservation> seeAllReservations(){
-        return null;
+    public List<Reservation> seeAllReservations(String username){
+        List<Reservation> reservationList = new ArrayList<>() ;
+        for(Reservation res: reservationRepo.getAll())
+        {
+            if (res.getIdUser().equals(username))
+            {
+                reservationList.add(res);
+            }
+        }
+        return  reservationList;
     }
 
 }

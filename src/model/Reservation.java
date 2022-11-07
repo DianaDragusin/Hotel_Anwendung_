@@ -7,11 +7,21 @@ public class Reservation {
     private String idUser;
     private LocalDate start;
     private LocalDate end;
-    public Reservation(String username, LocalDate start, LocalDate end) {
+    private double price;
+    public Reservation(String username, LocalDate start, LocalDate end, double price) {
         id = 1;
         this.idUser = username;
         this.start = start;
         this.end = end;
+        this.price = price;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getIdUser() {
