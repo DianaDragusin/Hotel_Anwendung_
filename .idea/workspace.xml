@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="genenerate option version 1 ended, modified classes and started make reservation">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Reservation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/IReservationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/IReservationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryReservationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryReservationRepo.java" afterDir="false" />
+    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="ClientController done">
+      <change beforePath="$PROJECT_DIR$/src/service/CleanerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/CleanerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ClientController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +55,7 @@
       <workItem from="1667315683530" duration="6825000" />
       <workItem from="1667491706876" duration="47000" />
       <workItem from="1667815607961" duration="4169000" />
-      <workItem from="1667842719491" duration="5299000" />
+      <workItem from="1667842719491" duration="6419000" />
     </task>
     <task id="LOCAL-00001" summary="commit 4">
       <created>1667139692561</created>
@@ -144,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667828374210</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="ClientController done">
+      <created>1667848230929</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1667848230929</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,6 +178,7 @@
     <MESSAGE value="test" />
     <MESSAGE value="genenerate option started plus Reservation Rooms class created" />
     <MESSAGE value="genenerate option version 1 ended, modified classes and started make reservation" />
-    <option name="LAST_COMMIT_MESSAGE" value="genenerate option version 1 ended, modified classes and started make reservation" />
+    <MESSAGE value="ClientController done" />
+    <option name="LAST_COMMIT_MESSAGE" value="ClientController done" />
   </component>
 </project>

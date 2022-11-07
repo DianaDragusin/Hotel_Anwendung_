@@ -1,7 +1,10 @@
 package service;
 
 import model.Cleaner;
+import model.Coupon;
 import repository.inMemoryRepo.InMemoryCleanerRepo;
+
+import java.util.List;
 
 public class CleanerController {
     private InMemoryCleanerRepo cleanerRepo;
@@ -29,6 +32,15 @@ public class CleanerController {
     public String changePassword(String username, String newPassword){
         cleanerRepo.findByUsername(username).setPassword(newPassword);
         return "Password changed successfully!";
+    }
+    public String changeDetails(String firstName, String lastName, String username, List<Coupon> coupons)
+    {
+        if (cleanerRepo.findByUsername(username)!=null) {
+            cleanerRepo.findByUsername(username).setFirstName(firstName);
+            cleanerRepo.findByUsername(username).setLastName(lastName);
+
+        }
+        return "Details changed succesfully";
     }
 
 

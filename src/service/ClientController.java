@@ -107,5 +107,33 @@ public class ClientController {
         }
         return  reservationList;
     }
+    public String register(String firstName, String lastName, String username, String password){
+        if(clientRepo.add(new Client(firstName,lastName,username,password))){
+            return "Client registered successfully!";
+        }
+        return "Couldn't register client!";
+    }
+    public String changeDetails(String firstName, String lastName, String username, List<Coupon> coupons)
+    {
+        if (clientRepo.findByUsername(username)!=null) {
+            clientRepo.findByUsername(username).setFirstName(firstName);
+            clientRepo.findByUsername(username).setLastName(lastName);
+            clientRepo.findByUsername(username).setCouponList(coupons);
+        }
+        return "Details changed succesfully";
+    }
+    public boolean login(String username, String password){
+        for( Client c : clientRepo.getAll()){
+            if(c.getUsername().equals(username) && c.getPassword().equals(password)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String changePassword(String username, String newPassword){
+        clientRepo.findByUsername(username).setPassword(newPassword);
+        return "Password changed successfully!";
+    }
 
 }
