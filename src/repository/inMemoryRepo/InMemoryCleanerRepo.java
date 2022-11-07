@@ -1,34 +1,49 @@
 package repository.inMemoryRepo;
 
 import model.Cleaner;
-import model.Room;
+import model.Client;
 import repository.ICleanerRepository;
 
 import java.util.List;
 
 public class InMemoryCleanerRepo implements ICleanerRepository {
-    private List<Cleaner> cleanerList;
+    private List<Cleaner> cleaners;
 
     public InMemoryCleanerRepo(List<Cleaner> cleanerList) {
-        this.cleanerList = cleanerList;
+        this.cleaners = cleanerList;
     }
-
-
 
     @Override
     public boolean add(Cleaner cleaner) {
-        cleanerList.add(cleaner);
+        //uberprufe, dass der username unique bleibt
+        if(cleaner_exists(cleaner)){
+            return false;
+        }
+        this.cleaners.add(cleaner);
         return true;
     }
 
+    private boolean cleaner_exists(Cleaner cleaner){
+        for(Cleaner u : cleaners){
+            if(u.getUsername().equals(cleaner.getUsername())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
-    public void delete(Integer id) {
-        cleanerList.remove(cleanerList.get(id));
+    public boolean delete(Integer id) {
+        if(findbyID(id)!=null){
+            cleaners.remove(cleaners.get(id));
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean update(Integer id, Cleaner cleaner) {
-        Cleaner oldCleaner = cleanerList.get(id);
+        Cleaner oldCleaner = cleaners.get(id);
         oldCleaner.setFirstName(cleaner.getFirstName());
         oldCleaner.setLastName(cleaner.getLastName());
         oldCleaner.setUsername(cleaner.getUsername());
@@ -39,16 +54,22 @@ public class InMemoryCleanerRepo implements ICleanerRepository {
 
     @Override
     public Cleaner findbyID(Integer id) {
-        return cleanerList.get(id);
+        return cleaners.get(id);
     }
 
     @Override
     public List<Cleaner> getAll() {
-        return cleanerList;
+        return cleaners;
     }
 
-    public List<Cleaner> seeAllCleaners(){
-        return cleanerList;
+    @Override
+    public Cleaner findByUsername(String username) {
+        for(Cleaner c : cleaners){
+            if(c.getUsername().equals(username)){
+                return c;
+            }
+        }
+        return null;
     }
 
 }

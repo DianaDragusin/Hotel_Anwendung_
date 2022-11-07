@@ -13,7 +13,7 @@ public class FileRoomRepo implements IRoomRepository {
     }
 
     @Override
-    public void delete(Integer integer) {
+    public boolean delete(Integer integer) {
 
     }
 

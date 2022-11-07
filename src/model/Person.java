@@ -16,7 +16,7 @@ public abstract class Person {
 
     }
 
-    public static int getId() {
+    public int getId() {
         return id;
     }
 

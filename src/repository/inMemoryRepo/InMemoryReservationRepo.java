@@ -24,7 +24,7 @@ public class InMemoryReservationRepo implements IReservationRepository {
     }
 
     @Override
-    public void delete(Integer id) {
+    public boolean delete(Integer id) {
         reservations.remove(reservations.get(id));
     }
 

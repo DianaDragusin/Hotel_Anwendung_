@@ -9,7 +9,24 @@
       <change beforePath="$PROJECT_DIR$/src/repository/fileRepo/FileRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/fileRepo/FileRoomRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryReservationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryReservationRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryRoomRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ClientController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/CleanerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_11_2022_19_44__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_11_2022_19_44__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_11_2022_13_22__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_11_2022_13_22__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31_10_2022_20_34__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31_10_2022_20_34__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/ICleanerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/ICleanerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/IClientRespository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/IClientRespository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/ICrud.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/ICrud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/fileRepo/FileCleanerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/fileRepo/FileCleanerRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/fileRepo/FileClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/fileRepo/FileClientRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/fileRepo/FileReservationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/fileRepo/FileReservationRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/fileRepo/FileRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/fileRepo/FileRoomRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryCleanerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryCleanerRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryClientRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryReservationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryReservationRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/inMemoryRepo/InMemoryRoomRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/ManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ManagerController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

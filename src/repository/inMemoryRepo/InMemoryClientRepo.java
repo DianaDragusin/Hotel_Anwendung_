@@ -45,8 +45,12 @@ public class InMemoryClientRepo implements IClientRespository {
     }
 
     @Override
-    public void delete(Integer id) {
-       clients.remove(clients.get(id));
+    public boolean delete(Integer id) {
+        if(findbyID(id)!=null){
+            clients.remove(clients.get(id));
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -70,4 +74,13 @@ public class InMemoryClientRepo implements IClientRespository {
     }
 
 
+    @Override
+    public Client findByUsername(String username) {
+        for(Client c : clients){
+            if(c.getUsername().equals(username)){
+                return c;
+            }
+        }
+        return null;
+    }
 }

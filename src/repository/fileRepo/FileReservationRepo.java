@@ -12,7 +12,7 @@ public class FileReservationRepo implements IReservationRepository {
     }
 
     @Override
-    public void delete(Integer integer) {
+    public boolean delete(Integer integer) {
 
     }
 

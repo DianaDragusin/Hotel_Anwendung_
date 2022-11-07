@@ -22,8 +22,12 @@ public class InMemoryRoomRepo implements IRoomRepository {
     }
 
     @Override
-    public void delete(Integer id) {
-        rooms.remove(rooms.get(id));
+    public boolean delete(Integer id) {
+        if(findbyID(id)!=null){
+            rooms.remove(rooms.get(id));
+            return true;
+        }
+        return false;
     }
 
     @Override

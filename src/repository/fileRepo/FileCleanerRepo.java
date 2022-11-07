@@ -7,18 +7,13 @@ import java.util.List;
 
 public class FileCleanerRepo implements ICleanerRepository {
     @Override
-    public List<Cleaner> seeAllCleaners() {
-        return null;
-    }
-
-    @Override
     public boolean add(Cleaner cleaner) {
         return false;
     }
 
     @Override
-    public void delete(Integer integer) {
-
+    public boolean delete(Integer integer) {
+        return false;
     }
 
     @Override
@@ -33,6 +28,11 @@ public class FileCleanerRepo implements ICleanerRepository {
 
     @Override
     public List<Cleaner> getAll() {
+        return null;
+    }
+
+    @Override
+    public Cleaner findByUsername(String username) {
         return null;
     }
 }
