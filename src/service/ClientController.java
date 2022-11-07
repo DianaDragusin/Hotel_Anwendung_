@@ -1,11 +1,10 @@
 package service;
 
-import model.Coupon;
-import model.Option;
-import model.Reservation;
+import model.*;
 import repository.inMemoryRepo.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientController {
@@ -16,6 +15,21 @@ public class ClientController {
     private InMemoryCleanerRepo cleanerRepo;
     private InMemoryCleaningsRepo cleaningsRepo;
 
+    private List<Room> searchSingleRoom(LocalDate checkIn, LocalDate checkOut)
+    {
+        List<Room> rooms = new ArrayList<>();
+        for (Room room : roomRepo.getAll())
+        {
+            if (room.getType().equals(Type.SINGLE) )
+            {
+                for (Reservation reservation : reservationRepo.getAll())
+                {
+                    // do something
+                }
+            }
+        }
+        return rooms;
+    }
     public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrPers){
 
         return null;
