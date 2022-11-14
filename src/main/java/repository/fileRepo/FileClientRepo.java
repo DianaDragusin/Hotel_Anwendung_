@@ -11,7 +11,7 @@ public class FileClientRepo implements IClientRespository {
 
     private String filePath;
     public FileClientRepo() {
-        this.filePath = "D:\\Andreea\\Facultate\\Anul 2\\FortgeschritteneProgrammierungssysteme\\Seminar\\Seminar5\\src\\main\\resources\\users.json";
+        this.filePath = "D:\\Andreea\\Facultate\\Anul 2\\MAP\\HotelApp\\src\\main\\resources\\clients.json";
         this.populate();
     }
 
@@ -24,6 +24,8 @@ public class FileClientRepo implements IClientRespository {
             Client client2 = new Client("Laura", "Georgescu","laurgeor","22laura");
             Client client3 = new Client("Catalin", "Olariu","cataola","24catalin");
             mapper.writeValue(Paths.get(filePath).toFile(), client1);
+            mapper.writeValue(Paths.get(filePath).toFile(), client2);
+            mapper.writeValue(Paths.get(filePath).toFile(), client3);
             // print book
             //System.out.println(book);
         } catch (Exception ex) {

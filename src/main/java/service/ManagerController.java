@@ -112,8 +112,8 @@ public class ManagerController {
 
     // RESERVATION
 
-    public List<Reservation> seeAllReservations(){
-        return reservationRepo.getAll();
-    }
+//    public List<Reservation> seeAllReservations(){
+//        return reservationRepo.getAll();
+//    }
 
 }

@@ -1,5 +1,6 @@
 import model.Client;
 import model.Coupon;
+import repository.fileRepo.FileClientRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,9 @@ public class Main {
 
       l.add(cou); l.add(cou2); l.add(cou3);
       c.setCouponList(l);
-        System.out.println(c);
+      System.out.println(c);
+
+      FileClientRepo fcr = new FileClientRepo();
+
     }
 }

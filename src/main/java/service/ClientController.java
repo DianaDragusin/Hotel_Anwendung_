@@ -80,9 +80,6 @@ public class ClientController {
         reservation.setPrice(applyCoupon(coupon,option.getTotalPrice()));
         reservationRepo.addReservation(reservation,option.getRooms());
 
-
-
-
         return "Reservation created sucssfully";
     }
     private double applyCoupon(Coupon coupon,double price){

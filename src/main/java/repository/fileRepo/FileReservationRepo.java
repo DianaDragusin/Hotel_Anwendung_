@@ -9,30 +9,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class FileReservationRepo implements IReservationRepository {
-    @Override
-    public boolean add(Reservation reservation) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Integer integer) {
-
-    }
-
-    @Override
-    public boolean update(Integer integer, Reservation reservation) {
-        return false;
-    }
-
-    @Override
-    public Reservation findbyID(Integer integer) {
-        return null;
-    }
-
-    @Override
-    public List<Reservation> getAll() {
-        return null;
-    }
 
     @Override
     public List<Integer> returnAllUnAvailableRooms(LocalDate start, LocalDate end) {
@@ -40,12 +16,23 @@ public class FileReservationRepo implements IReservationRepository {
     }
 
     @Override
-    public List<Reservation_Room> GetAllReservedRooms() {
+    public List<Integer> GetAllReservedRoomsForAUser(String username) {
         return null;
     }
 
     @Override
-    public void add(Reservation reservation, List<Room> rooms) {
+    public List<Reservation> GetAllReservationsForAUser(String username) {
+        return null;
+    }
+
+    @Override
+    public void addReservation(Reservation reservation, List<Room> rooms) {
 
     }
+
+    @Override
+    public boolean deleteReservation(Integer id) {
+        return false;
+    }
+
 }
