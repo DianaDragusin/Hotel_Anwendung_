@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="In file + maven">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/clients.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileClientRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileReservationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileReservationRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileRoomRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +85,7 @@
       <workItem from="1668182909575" duration="652000" />
       <workItem from="1668422755100" duration="493000" />
       <workItem from="1668423888943" duration="2622000" />
-      <workItem from="1668436483653" duration="1188000" />
+      <workItem from="1668436483653" duration="2525000" />
     </task>
     <task id="LOCAL-00001" summary="commit 4">
       <created>1667139692561</created>
@@ -198,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668436247530</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="In file + maven">
+      <created>1668437753942</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1668437753942</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

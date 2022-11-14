@@ -1,17 +1,25 @@
 package repository.fileRepo;
 
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Client;
 import repository.IClientRespository;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileClientRepo implements IClientRespository {
 
     private String filePath;
+    private List<Client> clients;
     public FileClientRepo() {
         this.filePath = "D:\\Andreea\\Facultate\\Anul 2\\MAP\\HotelApp\\src\\main\\resources\\clients.json";
+        this.clients = new ArrayList<>();
         this.populate();
     }
 
@@ -23,9 +31,10 @@ public class FileClientRepo implements IClientRespository {
             Client client1 = new Client("Bob", "Pop","bobpop","00bob");
             Client client2 = new Client("Laura", "Georgescu","laurgeor","22laura");
             Client client3 = new Client("Catalin", "Olariu","cataola","24catalin");
-            mapper.writeValue(Paths.get(filePath).toFile(), client1);
-            mapper.writeValue(Paths.get(filePath).toFile(), client2);
-            mapper.writeValue(Paths.get(filePath).toFile(), client3);
+            clients.add(client1);
+            clients.add(client2);
+            clients.add(client3);
+            mapper.writeValue(Paths.get(filePath).toFile(),clients);
             // print book
             //System.out.println(book);
         } catch (Exception ex) {
