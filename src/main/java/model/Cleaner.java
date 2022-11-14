@@ -5,9 +5,9 @@ import java.time.LocalDate;
 public class Cleaner extends Person {
     private int salary;
 
-    public Cleaner(String firstName, String lastName, String username, String password, int salary) {
+    public Cleaner(String firstName, String lastName, String username, String password) {
         super(firstName, lastName, username, password);
-        this.salary = salary;
+        this.salary = 0;
     }
 
     public int getSalary() {

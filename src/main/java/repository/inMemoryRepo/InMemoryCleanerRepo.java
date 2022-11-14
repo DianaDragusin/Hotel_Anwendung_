@@ -48,7 +48,7 @@ public class InMemoryCleanerRepo implements ICleanerRepository {
         oldCleaner.setLastName(cleaner.getLastName());
         oldCleaner.setUsername(cleaner.getUsername());
         oldCleaner.setPassword(cleaner.getPassword());
-        oldCleaner.setSalary(cleaner.getSalary());
+        //oldCleaner.setSalary(cleaner.getSalary());
         return true;
     }
 

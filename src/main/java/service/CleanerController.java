@@ -9,14 +9,14 @@ import java.util.List;
 
 public class CleanerController {
     private InMemoryCleanerRepo cleanerRepo;
-    private CleanerView cleanerview;
+
 
     public CleanerController(InMemoryCleanerRepo cleanerRepo) {
         this.cleanerRepo = cleanerRepo;
     }
 
-    public String register(String firstName, String lastName, String username, String password, int salary){
-        if(cleanerRepo.add(new Cleaner(firstName,lastName,username,password,salary))){
+    public String register(String firstName, String lastName, String username, String password){
+        if(cleanerRepo.add(new Cleaner(firstName,lastName,username,password))){
             return "Cleaner registered successfully!";
         }
         return "Couldn't register cleaner!";
@@ -35,7 +35,7 @@ public class CleanerController {
         cleanerRepo.findByUsername(username).setPassword(newPassword);
         return "Password changed successfully!";
     }
-    public String changeDetails(String firstName, String lastName, String username, List<Coupon> coupons)
+    public String changeDetails(String firstName, String lastName, String username)
     {
         if (cleanerRepo.findByUsername(username)!=null) {
             cleanerRepo.findByUsername(username).setFirstName(firstName);

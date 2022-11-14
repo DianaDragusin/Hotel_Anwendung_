@@ -15,7 +15,7 @@ public class ClientController {
     private InMemoryReservationRepo reservationRepo;
     private InMemoryCleanerRepo cleanerRepo;
     private InMemoryCleaningsRepo cleaningsRepo;
-    private ClientView clientview;
+
 
 
     private List<Room> searchAvailableTypeRoom(LocalDate checkIn, LocalDate checkOut,Type t)
@@ -90,11 +90,18 @@ public class ClientController {
 
     }
     public String deleteReservation(Reservation reservation){
-        reservationRepo.deleteReservation(reservation.getId());
+       if(reservationRepo.deleteReservation(reservation.getId()))
+       {
+           return "Reservation deleted succssfully";
+       }
+       else
+       {
+           return "Reservation not found";
+       }
 
 
-        return "Reservation deleted succssfully";
-        //return "Reservation not found";
+
+
     }
     public List<Reservation> seeAllReservations(String username){
        return reservationRepo.GetAllReservationsForAUser(username);
@@ -130,9 +137,11 @@ public class ClientController {
             Client c = new Client(newfirstName,newlastName,username,client.getPassword());
             c.setCouponList(client.getCouponList());
             clientRepo.update(client.getId(),c);
+            return "Details changed succesfully";
 
         }
-        return "Details changed succesfully";
+        else  return "Invalid user, the details were not changed";
+
     }
     public boolean login(String username, String password){
         for( Client c : clientRepo.getAll()){
