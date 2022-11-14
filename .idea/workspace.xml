@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="In file + maven">
+    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="Views done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileClientRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/views/ManagerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/ManagerView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +200,21 @@
       <option name="project" value="LOCAL" />
       <updated>1668437753942</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Views done">
+      <created>1668448614659</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1668448614659</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Views done">
+      <created>1668448754367</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1668448754367</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,6 +247,7 @@
     <MESSAGE value="ClientController done" />
     <MESSAGE value="login and register for client and cleaner plus little changes" />
     <MESSAGE value="In file + maven" />
-    <option name="LAST_COMMIT_MESSAGE" value="In file + maven" />
+    <MESSAGE value="Views done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Views done" />
   </component>
 </project>

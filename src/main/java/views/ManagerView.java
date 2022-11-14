@@ -143,4 +143,9 @@ public class ManagerView {
             System.out.println("We have found the cleaner you are looking for\n");
         }
     }
+    private void deleteClientStatus(int id)
+    {
+        String Status = managercontroller.deleteCleaner(id);
+        System.out.println(Status);
+    }
 }
