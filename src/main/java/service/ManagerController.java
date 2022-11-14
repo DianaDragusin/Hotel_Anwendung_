@@ -5,6 +5,7 @@ import repository.inMemoryRepo.*;
 import views.ManagerView;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ManagerController {
     private String password;
@@ -22,7 +23,18 @@ public class ManagerController {
         this.cleaningsRepo = cleaningsRepo;
         this.reservationRepo = reservationRepo;
     }
-
+    public String setSalaryCleaner(String username, int salary)
+    {
+        for (Cleaner c : cleanerRepo.getAll())
+        {
+            if (Objects.equals(c.getUsername(), username))
+            {
+                c.setSalary(salary);
+                return "Salary was succesfully set";
+            }
+        }
+        return "Salary was not set";
+    }
     // PASSWORD
 
     public boolean login(String password){
