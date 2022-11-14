@@ -30,4 +30,9 @@ public class FileClientRepo implements IClientRespository {
     public List<Client> getAll() {
         return null;
     }
+
+    @Override
+    public Client findByUsername(String username) {
+        return null;
+    }
 }

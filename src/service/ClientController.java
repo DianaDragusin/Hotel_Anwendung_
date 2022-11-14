@@ -2,6 +2,7 @@ package service;
 
 import model.*;
 import repository.inMemoryRepo.*;
+import views.ClientView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class ClientController {
     private InMemoryReservationRepo reservationRepo;
     private InMemoryCleanerRepo cleanerRepo;
     private InMemoryCleaningsRepo cleaningsRepo;
+    private ClientView clientview;
 
 
     private List<Room> searchAvailableTypeRoom(LocalDate checkIn, LocalDate checkOut,Type t)
@@ -76,7 +78,8 @@ public class ClientController {
        // work to do
         Reservation reservation = new Reservation(username,start,end, option.getTotalPrice());
         reservation.setPrice(applyCoupon(coupon,option.getTotalPrice()));
-        reservationRepo.add(reservation,option.getRooms());
+        reservationRepo.addReservation(reservation,option.getRooms());
+
 
 
 
@@ -90,22 +93,33 @@ public class ClientController {
 
     }
     public String deleteReservation(Reservation reservation){
-        reservationRepo.delete(reservation.getId());
+        reservationRepo.deleteReservation(reservation.getId());
 
 
-        return "Reservation deleted sucssfully";
+        return "Reservation deleted succssfully";
         //return "Reservation not found";
     }
     public List<Reservation> seeAllReservations(String username){
-        List<Reservation> reservationList = new ArrayList<>() ;
-        for(Reservation res: reservationRepo.getAll())
+       return reservationRepo.GetAllReservationsForAUser(username);
+
+    }
+    public List<Room> seeAllReservedRooms(String username){
+        List<Integer> userRoomsInt = reservationRepo.GetAllReservedRoomsForAUser(username);
+        List<Room>allRooms = roomRepo.getAll();
+        List<Room>userRooms = new ArrayList<>();
+        for (Integer roomid: userRoomsInt)
         {
-            if (res.getIdUser().equals(username))
+            for (Room room : allRooms)
             {
-                reservationList.add(res);
+
+                if (room.getId() == roomid)
+                {
+                    userRooms.add(room);
+                }
             }
         }
-        return  reservationList;
+        return userRooms;
+
     }
     public String register(String firstName, String lastName, String username, String password){
         if(clientRepo.add(new Client(firstName,lastName,username,password))){
@@ -113,12 +127,13 @@ public class ClientController {
         }
         return "Couldn't register client!";
     }
-    public String changeDetails(String firstName, String lastName, String username, List<Coupon> coupons)
-    {
-        if (clientRepo.findByUsername(username)!=null) {
-            clientRepo.findByUsername(username).setFirstName(firstName);
-            clientRepo.findByUsername(username).setLastName(lastName);
-            clientRepo.findByUsername(username).setCouponList(coupons);
+    public String changeDetails(String newfirstName, String newlastName, String username)
+    {   Client client = clientRepo.findByUsername(username);
+        if (client!=null) {
+            Client c = new Client(newfirstName,newlastName,username,client.getPassword());
+            c.setCouponList(client.getCouponList());
+            clientRepo.update(client.getId(),c);
+
         }
         return "Details changed succesfully";
     }

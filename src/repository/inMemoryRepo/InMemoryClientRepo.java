@@ -59,7 +59,7 @@ public class InMemoryClientRepo implements IClientRespository {
             return false;
         }
         clients.get(id).setFirstName(client.getFirstName());
-        clients.get(id).setFirstName(client.getLastName());
+        clients.get(id).setLastName(client.getLastName());
         return true;
     }
 

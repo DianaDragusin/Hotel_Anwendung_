@@ -11,24 +11,21 @@ import java.util.List;
 
 public class InMemoryReservationRepo implements IReservationRepository {
     List<Reservation> reservations;
+
     List<Reservation_Room> reservations_rooms ;
 
     public InMemoryReservationRepo() {
         this.reservations = new ArrayList<Reservation>();
     }
 
-    @Override
-    public boolean add(Reservation reservation) {
-        reservations.add(reservation);
-        return true;
-    }
+
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean deleteReservation(Integer id) {
         if (reservations.get(id) != null) {
             for (Reservation_Room res_room : reservations_rooms)
             {
-                if (res_room.getReservation() == reservations.get(id).getId())
+                if (res_room.getReservation() == id)
                 {
                     reservations_rooms.remove( res_room);
                 }
@@ -40,25 +37,13 @@ public class InMemoryReservationRepo implements IReservationRepository {
 
     }
 
-    @Override
-    public boolean update(Integer id, Reservation reservation) {
-        Reservation oldRes = reservations.get(id);
-        oldRes.setIdUser(reservation.getIdUser());
-        oldRes.setStart(reservation.getStart());
-        oldRes.setEnd(reservation.getEnd());
-        oldRes.setPrice(reservation.getPrice());
-        return true;
-    }
 
-    @Override
-    public Reservation findbyID(Integer id) {
-        return reservations.get(id);
-    }
 
-    @Override
-    public List<Reservation> getAll() {
-        return reservations;
-    }
+
+   // @Override
+   // public List<Reservation> getAll() {
+   //     return reservations;
+  //  }
 
     @Override
     public List<Integer> returnAllUnAvailableRooms(LocalDate start, LocalDate end) {
@@ -84,13 +69,46 @@ public class InMemoryReservationRepo implements IReservationRepository {
     }
 
     @Override
-    public List<Reservation_Room> GetAllReservedRooms() {
-        return reservations_rooms;
+    public List<Integer> GetAllReservedRoomsForAUser(String username) {
+        List<Integer> reservedRooms = new ArrayList<>();
+        for(Reservation res : reservations)
+        {
+            if (res.getIdUser().equals(username))
+            {
+               for (Reservation_Room res_room :reservations_rooms)
+               {
+                   if (res_room.getReservation() == res.getId())
+                   {
+                       reservedRooms.add(res_room.getRoom());
+                   }
+               }
+            }
+        }
+        return reservedRooms;
+    }
+
+    @Override
+    public List<Reservation> GetAllReservationsForAUser(String username) {
+        List<Reservation> userReservations = new ArrayList<>();
+       for(Reservation res : reservations)
+       {
+           if (res.getIdUser().equals(username))
+           {
+               userReservations.add(res);
+           }
+       }
+       return userReservations;
     }
 
 
+    //  @Override
+  //  public List<Reservation_Room> GetAllReservedRooms() {
+   //     return reservations_rooms;
+  //  }
+
+
     @Override
-    public void add(Reservation reservation, List<Room> rooms) {
+    public void addReservation(Reservation reservation, List<Room> rooms) {
         reservations.add(reservation);
         for (Room room : rooms)
         {

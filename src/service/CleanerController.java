@@ -3,11 +3,13 @@ package service;
 import model.Cleaner;
 import model.Coupon;
 import repository.inMemoryRepo.InMemoryCleanerRepo;
+import views.CleanerView;
 
 import java.util.List;
 
 public class CleanerController {
     private InMemoryCleanerRepo cleanerRepo;
+    private CleanerView cleanerview;
 
     public CleanerController(InMemoryCleanerRepo cleanerRepo) {
         this.cleanerRepo = cleanerRepo;
