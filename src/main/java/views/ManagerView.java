@@ -7,6 +7,11 @@ import java.util.List;
 
 public class ManagerView {
     private ManagerController managercontroller;
+
+    public ManagerView(ManagerController managercontroller) {
+        this.managercontroller = managercontroller;
+    }
+
     public void setSalarySatus(String username, int salary)
     {
         String Status  = managercontroller.setSalaryCleaner(username,salary);

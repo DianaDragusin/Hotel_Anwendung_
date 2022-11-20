@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Option {
-    private static int id;
+    public static int state;
+    private  int id;
     private double totalPrice;
     private List<Room> rooms;
 
     public Option(double totalPrice, List<Room> rooms) {
-        id = 1;
+        state ++ ;
+        id = state;
         this.totalPrice = totalPrice;
         this.rooms = rooms;
     }

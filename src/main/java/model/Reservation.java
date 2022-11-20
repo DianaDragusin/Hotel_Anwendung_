@@ -3,14 +3,16 @@ package model;
 import java.time.LocalDate;
 
 public class Reservation {
-    private static int id;
-    private String idUser;
+    public static int state;
+    private  int id;
+    private String username;
     private LocalDate start;
     private LocalDate end;
     private double price;
     public Reservation(String username, LocalDate start, LocalDate end, double price) {
-        id = 1;
-        this.idUser = username;
+        state++;
+        id = state;
+        this.username = username;
         this.start = start;
         this.end = end;
         this.price = price;
@@ -24,12 +26,12 @@ public class Reservation {
         this.price = price;
     }
 
-    public String getIdUser() {
-        return idUser;
+    public String getUsername() {
+        return username;
     }
 
-    public void setIdUser(String idUser) {
-        this.idUser = idUser;
+    public void setUsername(String idUser) {
+        this.username = idUser;
     }
 
     public  int getId() {
@@ -54,6 +56,6 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "Reservation: " + id + " Client " + idUser + " checkIn " + start + " checkOut " + end;
+        return "Reservation: " + id + " Client " + username + " checkIn " + start + " checkOut " + end;
     }
 }

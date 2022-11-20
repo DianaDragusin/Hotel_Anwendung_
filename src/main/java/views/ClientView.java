@@ -13,53 +13,62 @@ import java.util.List;
 public class ClientView {
      private  ClientController clientcontroller;
 
-    private void  printOptions (LocalDate checkin, LocalDate checkout, Integer nrpers)
+    public ClientView(ClientController clientcontroller) {
+        this.clientcontroller = clientcontroller;
+    }
+
+    public void  printOptions (LocalDate checkin, LocalDate checkout, Integer nrpers)
     {
         List<Option> options = clientcontroller.generateOptions(checkin,checkout,nrpers);
         for (Option option :options)
         {
-            option.toString();
+            System.out.println(option.toString());
         }
     }
-    private void  printAllReservedRooms (String username)
+    public void  printAllReservedRooms (String username)
     {
         List<Room> rooms =  clientcontroller.seeAllReservedRooms(username);
         System.out.println(username + "has reserved following rooms:\n");
         for (Room room :rooms)
         {
-            room.toString();
+            System.out.println(room.toString());
         }
     }
-    private void  printAllReservations ( String username)
+    public void  printAllReservations ( String username)
     {
         List<Reservation> reservations =  clientcontroller.seeAllReservations(username);
         System.out.println(username + "has  following reservations:\n");
         for (Reservation res :reservations)
         {
-            res.toString();
+            System.out.println(res.toString());
         }
     }
-    private void makeReservationStatus(Option option, Coupon coupon, String username, LocalDate start, LocalDate end)
+    public void makeReservationStatus(Option option, Coupon coupon, String username, LocalDate start, LocalDate end)
     {
-        String status = clientcontroller.makeReservation(option,coupon,username, start,end);
+        String status = clientcontroller.makeReservation(option,username, start,end);
         System.out.println(status);
     }
-    private void deleteReservationStatus(Reservation reservation)
+    public void makeReservationWithCouponStatus(Option option, Coupon coupon, String username, LocalDate start, LocalDate end)
+    {
+        String status = clientcontroller.makeReservationWithCoupon(option,coupon,username, start,end);
+        System.out.println(status);
+    }
+    public void deleteReservationStatus(Reservation reservation)
     {
         String status = clientcontroller.deleteReservation(reservation);
         System.out.println(status);
     }
-    private void registerStatus(String firstName,String lastName,String username,String password)
+    public void registerStatus(String firstName,String lastName,String username,String password)
     {
         String status = clientcontroller.register(firstName, lastName,username,password);
         System.out.println(status);
     }
-    private  void changeDetailsStatus (String newfirstName,String newlastName,String username)
+    public  void changeDetailsStatus (String newfirstName,String newlastName,String username)
     {
         String status = clientcontroller.changeDetails(newfirstName, newlastName,username);
         System.out.println(status);
     }
-    private void loginStatus(String username, String password)
+    public void loginStatus(String username, String password)
     {
         boolean status = clientcontroller.login(username,password);
         if (status )
@@ -71,7 +80,7 @@ public class ClientView {
 
 
     }
-    private void changePasswordStatus(String username,String password)
+    public void changePasswordStatus(String username,String password)
     {
         String status = clientcontroller.changePassword(username,password);
         System.out.println(status);

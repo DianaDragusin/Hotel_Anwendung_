@@ -4,7 +4,12 @@ import service.CleanerController;
 
 public class CleanerView {
     private CleanerController cleanercontroller;
-    private void registerStatus(String firstName,String lastName,String username,String password,int salary)
+
+    public CleanerView(CleanerController cleanercontroller) {
+        this.cleanercontroller = cleanercontroller;
+    }
+
+    private void registerStatus(String firstName, String lastName, String username, String password, int salary)
     {
         String status = cleanercontroller.register(firstName, lastName,username,password);
         System.out.println(status);

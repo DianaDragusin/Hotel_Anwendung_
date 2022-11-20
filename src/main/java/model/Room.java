@@ -1,13 +1,15 @@
 package model;
 
 public class Room {
-    private static int id;
+    public static int state;
+    private  int id;
     private Type type;
     private double price;
     private int nrPers;
 
     public Room( Type type, double price, int nrPers) {
-        id = 1;
+        state++;
+        this.id = state;
         this.type = type;
         this.price = price;
         this.nrPers = nrPers;
@@ -43,6 +45,6 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room(" + id + ", Type: " + type + ", " + price +" lei, " + nrPers + "Pers)";
+        return "Room(" + id + ", Type: " + type + ", " + price +" lei, " + nrPers + " Pers)";
     }
 }

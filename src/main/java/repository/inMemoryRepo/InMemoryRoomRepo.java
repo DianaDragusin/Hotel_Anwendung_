@@ -1,5 +1,6 @@
 package repository.inMemoryRepo;
 
+import model.Cleaning;
 import model.Room;
 import model.Type;
 import repository.IRoomRepository;
@@ -11,10 +12,24 @@ public class InMemoryRoomRepo implements IRoomRepository {
     private List<Room> rooms;
 
     public InMemoryRoomRepo(List<Room> rooms) {
-        this.rooms = new ArrayList<>();
+        this.rooms =populate_rooms();
     }
 
+    private List<Room> populate_rooms()
+    {
+        Room.state = 0;
+        List<Room>rooms = new ArrayList<>();
+        Room room1 = new Room(Type.SINGLE,300,1);
+        Room room2 = new Room(Type.DOUBLE,400,2);
+        Room room3 = new Room(Type.TRIPLE,700,3);
+        Room room4 = new Room(Type.APARTMENT,1000,4);
+        rooms.add(room1);
+        rooms.add(room2);
+        rooms.add(room3);
+        rooms.add(room4);
+        return  rooms;
 
+    }
     @Override
     public boolean add(Room room) {
      rooms.add(room);
@@ -57,9 +72,9 @@ public class InMemoryRoomRepo implements IRoomRepository {
         {
             if (room.getType() == t)
             {
-                rooms.add(room);
+                typeRooms.add(room);
             }
         }
-        return rooms;
+        return typeRooms;
     }
 }

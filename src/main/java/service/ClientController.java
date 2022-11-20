@@ -16,14 +16,31 @@ public class ClientController {
     private InMemoryCleanerRepo cleanerRepo;
     private InMemoryCleaningsRepo cleaningsRepo;
 
+    public ClientController(InMemoryClientRepo clientRepo, InMemoryRoomRepo roomRepo, InMemoryReservationRepo reservationRepo, InMemoryCleanerRepo cleanerRepo, InMemoryCleaningsRepo cleaningsRepo) {
+        this.clientRepo = clientRepo;
+        this.roomRepo = roomRepo;
+        this.reservationRepo = reservationRepo;
+        this.cleanerRepo = cleanerRepo;
+        this.cleaningsRepo = cleaningsRepo;
+    }
 
-
-    private List<Room> searchAvailableTypeRoom(LocalDate checkIn, LocalDate checkOut,Type t)
+    private List<Room> searchAvailableTypeRoom(LocalDate checkIn, LocalDate checkOut, Type t)
     {
         List<Room> rooms = roomRepo.typeRooms(t);
         for (Integer roomId : reservationRepo.returnAllUnAvailableRooms(checkIn,checkOut))
         {
-            rooms.removeIf(room -> roomId == room.getId());
+
+            for (Room r : rooms)
+            {
+
+                if (r.getId() == roomId)
+                {
+
+                    rooms.remove(r);
+                    System.out.println("aici");
+                }
+            }
+          //  rooms.removeIf(room -> roomId == room.getId());
         }
 
         return rooms;
@@ -34,6 +51,7 @@ public class ClientController {
         List<Room> doubleR = searchAvailableTypeRoom(checkIn,checkOut,Type.DOUBLE);
         List<Room> singleR = searchAvailableTypeRoom(checkIn,checkOut,Type.SINGLE);
         List<Room> rooms = new ArrayList<>();
+
         double totalPrice = 0;
         while(nrPers >0)
         {
@@ -51,6 +69,7 @@ public class ClientController {
                 nrPers = nrPers - 3;
             }
             else if(!doubleR.isEmpty() && nrPers>=2) {
+                System.out.println("siaici");
                 rooms.add(doubleR.get(0));
                 totalPrice = totalPrice + doubleR.get(0).getPrice();
                 doubleR.remove(doubleR.get(0));
@@ -74,10 +93,17 @@ public class ClientController {
         options.add(option);
         return  options;
     }
-    public String makeReservation(Option option, Coupon coupon, String username,LocalDate start, LocalDate end){
+    public String makeReservationWithCoupon(Option option, Coupon coupon, String username,LocalDate start, LocalDate end){
        // work to do
         Reservation reservation = new Reservation(username,start,end, option.getTotalPrice());
         reservation.setPrice(applyCoupon(coupon,option.getTotalPrice()));
+        reservationRepo.addReservation(reservation,option.getRooms());
+
+        return "Reservation created sucssfully";
+    }
+    public String makeReservation(Option option, String username,LocalDate start, LocalDate end){
+        // work to do
+        Reservation reservation = new Reservation(username,start,end, option.getTotalPrice());
         reservationRepo.addReservation(reservation,option.getRooms());
 
         return "Reservation created sucssfully";
@@ -103,7 +129,8 @@ public class ClientController {
 
 
     }
-    public List<Reservation> seeAllReservations(String username){
+    public List<Reservation> seeAllReservations(String username) {
+
        return reservationRepo.GetAllReservationsForAUser(username);
 
     }

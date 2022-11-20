@@ -14,12 +14,18 @@ public class InMemoryReservationRepo implements IReservationRepository {
 
     List<Reservation_Room> reservations_rooms ;
 
-    public InMemoryReservationRepo() {
-        this.reservations = new ArrayList<Reservation>();
+    public InMemoryReservationRepo(List<Reservation> reservations, List<Reservation_Room> reservations_rooms) {
+        this.reservations = reservations;
+        this.reservations_rooms = reservations_rooms;
     }
-
-
-
+    public List<Reservation>getReservations()
+    {
+        return reservations;
+    }
+    public List<Reservation_Room>getReservation_Rooms()
+    {
+        return reservations_rooms;
+    }
     @Override
     public boolean deleteReservation(Integer id) {
         if (reservations.get(id) != null) {
@@ -50,21 +56,36 @@ public class InMemoryReservationRepo implements IReservationRepository {
         List<Integer> rooms = new ArrayList<>();
         for (Reservation reservation : reservations)
         {
-            if ((reservation.getStart() == start && reservation.getEnd() == end) || (reservation.getStart().isBefore(start) && reservation.getEnd().isBefore(end) ) || (reservation.getStart().isAfter(start) && reservation.getEnd().isAfter(end) ) || (reservation.getStart().isBefore(start) && reservation.getEnd().isAfter(end) ) )
+            System.out.println("1");
+            if ((reservation.getStart() == start && reservation.getEnd() == end) ||
+                    (reservation.getStart().isBefore(start) && reservation.getEnd().isBefore(end) ) ||
+                    (reservation.getStart().isAfter(start) && reservation.getEnd().isAfter(end) ) ||
+                    (reservation.getStart().isBefore(start) && reservation.getEnd().isAfter(end) ) )
+
+
+            /*
+            if ((reservation.getStart().isAfter(start) && reservation.getStart().isBefore(end)) ||
+                    (reservation.getStart().isEqual(start)) ||
+                    (reservation.getEnd().isAfter(start) && reservation.getEnd().isBefore(end)) ||
+                    (reservation.getEnd().isEqual(end)) ||
+                    (reservation.getStart().isBefore(start) && reservation.getEnd().isAfter(end))) */
             {
                 for (Reservation_Room line : reservations_rooms)
                 {
+                    System.out.println("2");
                     if (line.getReservation() == reservation.getId())
                     {
-                        if (!rooms.contains(line.getRoom()) )
-                        {
+                       // if (!rooms.contains(line.getRoom()) )
+                        //{
+                            System.out.println("2");
                             rooms.add(line.getRoom());
-                        }
+                        //}
                     }
                 }
             }
 
         }
+        System.out.println("3");
         return rooms;
     }
 
@@ -73,7 +94,7 @@ public class InMemoryReservationRepo implements IReservationRepository {
         List<Integer> reservedRooms = new ArrayList<>();
         for(Reservation res : reservations)
         {
-            if (res.getIdUser().equals(username))
+            if (res.getUsername().equals(username))
             {
                for (Reservation_Room res_room :reservations_rooms)
                {
@@ -92,7 +113,7 @@ public class InMemoryReservationRepo implements IReservationRepository {
         List<Reservation> userReservations = new ArrayList<>();
        for(Reservation res : reservations)
        {
-           if (res.getIdUser().equals(username))
+           if (res.getUsername().equals(username))
            {
                userReservations.add(res);
            }

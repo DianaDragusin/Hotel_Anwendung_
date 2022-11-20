@@ -4,15 +4,25 @@ import model.Cleaner;
 import model.Client;
 import repository.ICleanerRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryCleanerRepo implements ICleanerRepository {
     private List<Cleaner> cleaners;
 
     public InMemoryCleanerRepo(List<Cleaner> cleanerList) {
-        this.cleaners = cleanerList;
+        this.cleaners = populate_cleaners();
     }
-
+    private List<Cleaner> populate_cleaners(){
+        List<Cleaner> cleaners = new ArrayList<>();
+        Cleaner cleaner1 = new Cleaner("Andu", "Andreescu","anduandre","1234");
+        Cleaner cleaner2 = new Cleaner("Laura", "Halmaciu","lauramaciu","2222");
+        Cleaner cleaner3 = new Cleaner("Catalina", "Vasiu","catasiu","24siu");
+        cleaners.add(cleaner1);
+        cleaners.add(cleaner2);
+        cleaners.add(cleaner3);
+        return cleaners;
+    }
     @Override
     public boolean add(Cleaner cleaner) {
         //uberprufe, dass der username unique bleibt
