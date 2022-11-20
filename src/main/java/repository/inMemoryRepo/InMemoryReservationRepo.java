@@ -56,28 +56,28 @@ public class InMemoryReservationRepo implements IReservationRepository {
         List<Integer> rooms = new ArrayList<>();
         for (Reservation reservation : reservations)
         {
-            System.out.println("1");
-            if ((reservation.getStart() == start && reservation.getEnd() == end) ||
+
+          /*  if ((reservation.getStart() == start && reservation.getEnd() == end ) ||
                     (reservation.getStart().isBefore(start) && reservation.getEnd().isBefore(end) ) ||
                     (reservation.getStart().isAfter(start) && reservation.getEnd().isAfter(end) ) ||
                     (reservation.getStart().isBefore(start) && reservation.getEnd().isAfter(end) ) )
 
+          */
 
-            /*
             if ((reservation.getStart().isAfter(start) && reservation.getStart().isBefore(end)) ||
-                    (reservation.getStart().isEqual(start)) ||
+                    (reservation.getStart() == start) ||
                     (reservation.getEnd().isAfter(start) && reservation.getEnd().isBefore(end)) ||
-                    (reservation.getEnd().isEqual(end)) ||
-                    (reservation.getStart().isBefore(start) && reservation.getEnd().isAfter(end))) */
+                    (reservation.getEnd() == end) ||
+                    (reservation.getStart().isBefore(start) && reservation.getEnd().isAfter(end)))
             {
                 for (Reservation_Room line : reservations_rooms)
                 {
-                    System.out.println("2");
+
                     if (line.getReservation() == reservation.getId())
                     {
                        // if (!rooms.contains(line.getRoom()) )
                         //{
-                            System.out.println("2");
+
                             rooms.add(line.getRoom());
                         //}
                     }
@@ -85,7 +85,7 @@ public class InMemoryReservationRepo implements IReservationRepository {
             }
 
         }
-        System.out.println("3");
+
         return rooms;
     }
 

@@ -37,7 +37,7 @@ public class ClientController {
                 {
 
                     rooms.remove(r);
-                    System.out.println("aici");
+
                 }
             }
           //  rooms.removeIf(room -> roomId == room.getId());
@@ -69,7 +69,7 @@ public class ClientController {
                 nrPers = nrPers - 3;
             }
             else if(!doubleR.isEmpty() && nrPers>=2) {
-                System.out.println("siaici");
+
                 rooms.add(doubleR.get(0));
                 totalPrice = totalPrice + doubleR.get(0).getPrice();
                 doubleR.remove(doubleR.get(0));

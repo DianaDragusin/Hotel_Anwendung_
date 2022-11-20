@@ -4,21 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="little changes">
+    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="tests and some changes to the functions and classes related to the tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Option.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Option.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Reservation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryCleanerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryCleanerRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryClientRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryReservationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryReservationRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryRoomRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/CleanerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/CleanerView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/ClientView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/ClientView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/ManagerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/ManagerView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +89,7 @@
       <workItem from="1668423888943" duration="2622000" />
       <workItem from="1668436483653" duration="2525000" />
       <workItem from="1668787788646" duration="1226000" />
-      <workItem from="1668963589456" duration="14312000" />
+      <workItem from="1668963589456" duration="15644000" />
     </task>
     <task id="LOCAL-00001" summary="commit 4">
       <created>1667139692561</created>
@@ -234,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668452719103</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="tests and some changes to the functions and classes related to the tests">
+      <created>1668979024427</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1668979024427</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,6 +266,7 @@
     <MESSAGE value="In file + maven" />
     <MESSAGE value="Views done" />
     <MESSAGE value="little changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="little changes" />
+    <MESSAGE value="tests and some changes to the functions and classes related to the tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="tests and some changes to the functions and classes related to the tests" />
   </component>
 </project>
