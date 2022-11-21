@@ -15,11 +15,11 @@ public class CleanerController {
         this.cleanerRepo = cleanerRepo;
     }
 
-    public String register(String firstName, String lastName, String username, String password){
+    public boolean register(String firstName, String lastName, String username, String password){
         if(cleanerRepo.add(new Cleaner(firstName,lastName,username,password))){
-            return "Cleaner registered successfully!";
+            return true;
         }
-        return "Couldn't register cleaner!";
+        return false;
     }
 
     public boolean login(String username, String password){
@@ -31,18 +31,24 @@ public class CleanerController {
         return false;
     }
 
-    public String changePassword(String username, String newPassword){
-        cleanerRepo.findByUsername(username).setPassword(newPassword);
-        return "Password changed successfully!";
+    public boolean changePassword(String username, String newPassword){
+        if (cleanerRepo.findByUsername(username)!= null)
+        {
+            cleanerRepo.findByUsername(username).setPassword(newPassword);
+            return true;
+        }
+
+        return false;
     }
-    public String changeDetails(String firstName, String lastName, String username)
+    public boolean changeDetails(String firstName, String lastName, String username)
     {
         if (cleanerRepo.findByUsername(username)!=null) {
             cleanerRepo.findByUsername(username).setFirstName(firstName);
             cleanerRepo.findByUsername(username).setLastName(lastName);
-
+           return  true;
         }
-        return "Details changed succesfully";
+        return  false;
+
     }
 
 
