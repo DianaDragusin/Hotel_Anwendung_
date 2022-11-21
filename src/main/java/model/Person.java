@@ -1,25 +1,17 @@
 package model;
 
 public abstract class Person {
-    public static int state;
-    private  int id;
     private String firstName;
     private String lastName;
     private String username;
     private String password;
 
     public Person(String firstName, String lastName, String username, String password) {
-        state ++;
-        id = state;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
 
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getFirstName() {
@@ -55,6 +47,6 @@ public abstract class Person {
 
     @Override
     public String toString() {
-        return id + ", " + firstName + " " + lastName + ", user: " + username;
+        return firstName + " " + lastName + ", user: " + username;
     }
 }

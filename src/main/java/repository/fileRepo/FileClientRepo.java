@@ -49,18 +49,13 @@ public class FileClientRepo implements IClientRespository {
     }
 
     @Override
-    public boolean delete(Integer integer) {
+    public boolean delete(String username) {
         return false;
     }
 
     @Override
-    public boolean update(Integer integer, Client client) {
+    public boolean update(String username, Client client) {
         return false;
-    }
-
-    @Override
-    public Client findbyID(Integer integer) {
-        return null;
     }
 
     @Override
@@ -69,7 +64,7 @@ public class FileClientRepo implements IClientRespository {
     }
 
     @Override
-    public Client findByUsername(String username) {
+    public Client findbyusername(String username) {
         return null;
     }
 }

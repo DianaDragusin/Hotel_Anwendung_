@@ -2,7 +2,6 @@ package repository;
 
 import model.Client;
 
-public interface IClientRespository extends ICrud<Integer,Client>{
+public interface IClientRespository extends ICrud<String,Client>{
 
-    Client findByUsername(String username);
 }

@@ -9,6 +9,7 @@ import java.util.Objects;
 
 public class ManagerController {
     private String password;
+    private int ct;
     private InMemoryRoomRepo roomRepo;
     private InMemoryClientRepo clientRepo;
     private InMemoryCleanerRepo cleanerRepo;
@@ -23,6 +24,7 @@ public class ManagerController {
         this.cleanerRepo = cleanerRepo;
         this.cleaningsRepo = cleaningsRepo;
         this.reservationRepo = reservationRepo;
+        this.ct=0;
     }
     public String setSalaryCleaner(String username, int salary)
     {
@@ -48,29 +50,33 @@ public class ManagerController {
 
     // ROOM
 
+    private String generateRoomId(Type type){
+        ct++;
+        return ct + type.toString();
+    }
     public List<Room> seeAllRooms(){
         return roomRepo.getAll();
     }
     public String addRoom(Type type, double price, int nrPers){
-        if(roomRepo.add(new Room(type,price,nrPers))){
+        if(roomRepo.add(new Room(type,price,nrPers,generateRoomId(type)))){
             return "Room added successfully!";
         }
         return "Couldn't add room!";
     }
-    public String deleteRoom(int id){
+    public String deleteRoom(String id){
         if(roomRepo.delete(id)){
             return "Room deleted successfully!";
         }
         return "Room not found!";
     }
-    public String updateRoom(int id, Room room){
+    public String updateRoom(String id, Room room){
         if(roomRepo.update(id,room)){
             return "Room updated successfully";
         }
         return "Couldn't update room!";
     }
-    public Room findRoomById(int id){
-        return roomRepo.findbyID(id);
+    public Room findRoomById(String id){
+        return roomRepo.findbyusername(id);
     }
 
     // CLIENT
@@ -78,18 +84,15 @@ public class ManagerController {
     public List<Client> seeAllClients(){
         return clientRepo.getAll();
     }
-    public String deleteClient(int id){
-        if(clientRepo.findbyID(id)!=null){
+    public String deleteClient(String id){
+        if(clientRepo.findbyusername(id)!=null){
             clientRepo.delete(id);
             return "Client deleted successfully!";
         }
         return "Client deleted successfully!";
     }
-    public Client findClientById(int id){
-        return clientRepo.findbyID(id);
-    }
     public Client findClientByUsername(String username){
-        return clientRepo.findByUsername(username);
+        return clientRepo.findbyusername(username);
     }
 
     // CLEANER
@@ -97,18 +100,15 @@ public class ManagerController {
     public List<Cleaner> seeAllCleaners(){
         return cleanerRepo.getAll();
     }
-    public String deleteCleaner(int id){
-        if(cleanerRepo.findbyID(id)!=null){
+    public String deleteCleaner(String id){
+        if(cleanerRepo.findbyusername(id)!=null){
             cleanerRepo.delete(id);
             return "Cleaner deleted successfully!";
         }
         return "Cleaner deleted successfully!";
     }
-    public Cleaner findCleanerById(int id){
-        return cleanerRepo.findbyID(id);
-    }
     public Cleaner findCleanerByUsername(String username){
-        return cleanerRepo.findByUsername(username);
+        return cleanerRepo.findbyusername(username);
     }
 
     // CLEANING

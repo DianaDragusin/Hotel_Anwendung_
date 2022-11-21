@@ -1,21 +1,19 @@
 package model;
 
 public class Room {
-    public static int state;
-    private  int id;
+    private String id;
     private Type type;
     private double price;
     private int nrPers;
 
-    public Room( Type type, double price, int nrPers) {
-        state++;
-        this.id = state;
+    public Room( Type type, double price, int nrPers, String id) {
+        this.id = id;
         this.type = type;
         this.price = price;
         this.nrPers = nrPers;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

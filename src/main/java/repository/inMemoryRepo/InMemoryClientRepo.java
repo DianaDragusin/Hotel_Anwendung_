@@ -45,37 +45,26 @@ public class InMemoryClientRepo implements IClientRespository {
     }
 
     @Override
-    public boolean delete(Integer id) {
-        if(findbyID(id)!=null){
-            clients.remove(clients.get(id));
+    public boolean delete(String username) {
+        if(findbyusername(username)!=null){
+            clients.remove(findbyusername(username));
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean update(Integer id, Client client) {
+    public boolean update(String username, Client client) {
         if(client_exists(client)){
             return false;
         }
-        clients.get(id).setFirstName(client.getFirstName());
-        clients.get(id).setLastName(client.getLastName());
+        findbyusername(username).setFirstName(client.getFirstName());
+        findbyusername(username).setLastName(client.getLastName());
         return true;
     }
 
     @Override
-    public Client findbyID(Integer id) {
-        return clients.get(id);
-    }
-
-    @Override
-    public List<Client> getAll() {
-        return clients;
-    }
-
-
-    @Override
-    public Client findByUsername(String username) {
+    public Client findbyusername(String username) {
         for(Client c : clients){
             if(c.getUsername().equals(username)){
                 return c;
@@ -83,4 +72,10 @@ public class InMemoryClientRepo implements IClientRespository {
         }
         return null;
     }
+
+    @Override
+    public List<Client> getAll() {
+        return clients;
+    }
+
 }

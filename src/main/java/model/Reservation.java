@@ -4,14 +4,13 @@ import java.time.LocalDate;
 
 public class Reservation {
     public static int state;
-    private  int id;
+    private String id;
     private String username;
     private LocalDate start;
     private LocalDate end;
     private double price;
-    public Reservation(String username, LocalDate start, LocalDate end, double price) {
-        state++;
-        id = state;
+    public Reservation(String id, String username, LocalDate start, LocalDate end, double price) {
+        this.id = id;
         this.username = username;
         this.start = start;
         this.end = end;
@@ -34,7 +33,7 @@ public class Reservation {
         this.username = idUser;
     }
 
-    public  int getId() {
+    public String getId() {
         return id;
     }
 

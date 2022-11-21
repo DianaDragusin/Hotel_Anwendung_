@@ -32,9 +32,9 @@ public class CleanerController {
     }
 
     public boolean changePassword(String username, String newPassword){
-        if (cleanerRepo.findByUsername(username)!= null)
+        if (cleanerRepo.findbyusername(username)!= null)
         {
-            cleanerRepo.findByUsername(username).setPassword(newPassword);
+            cleanerRepo.findbyusername(username).setPassword(newPassword);
             return true;
         }
 
@@ -42,9 +42,9 @@ public class CleanerController {
     }
     public boolean changeDetails(String firstName, String lastName, String username)
     {
-        if (cleanerRepo.findByUsername(username)!=null) {
-            cleanerRepo.findByUsername(username).setFirstName(firstName);
-            cleanerRepo.findByUsername(username).setLastName(lastName);
+        if (cleanerRepo.findbyusername(username)!=null) {
+            cleanerRepo.findbyusername(username).setFirstName(firstName);
+            cleanerRepo.findbyusername(username).setLastName(lastName);
            return  true;
         }
         return  false;

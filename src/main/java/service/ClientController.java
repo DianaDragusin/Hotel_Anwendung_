@@ -6,6 +6,7 @@ import views.ClientView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ClientController {
@@ -27,13 +28,13 @@ public class ClientController {
     private List<Room> searchAvailableTypeRoom(LocalDate checkIn, LocalDate checkOut, Type t)
     {
         List<Room> rooms = roomRepo.typeRooms(t);
-        for (Integer roomId : reservationRepo.returnAllUnAvailableRooms(checkIn,checkOut))
+        for (String roomId : reservationRepo.returnAllUnAvailableRooms(checkIn,checkOut))
         {
 
             for (Room r : rooms)
             {
 
-                if (r.getId() == roomId)
+                if (r.getId().equals(roomId))
                 {
 
                     rooms.remove(r);
@@ -93,9 +94,13 @@ public class ClientController {
         options.add(option);
         return  options;
     }
+
+    public String generateReservationId(LocalDate checkIn, String username){
+        return checkIn.toString()+"-"+username;
+    }
     public String makeReservationWithCoupon(Option option, Coupon coupon, String username,LocalDate start, LocalDate end){
        // work to do
-        Reservation reservation = new Reservation(username,start,end, option.getTotalPrice());
+        Reservation reservation = new Reservation(generateReservationId(start,username),username,start,end, option.getTotalPrice());
         reservation.setPrice(applyCoupon(coupon,option.getTotalPrice()));
         reservationRepo.addReservation(reservation,option.getRooms());
 
@@ -103,7 +108,7 @@ public class ClientController {
     }
     public String makeReservation(Option option, String username,LocalDate start, LocalDate end){
         // work to do
-        Reservation reservation = new Reservation(username,start,end, option.getTotalPrice());
+        Reservation reservation = new Reservation(generateReservationId(start,username),username,start,end, option.getTotalPrice());
         reservationRepo.addReservation(reservation,option.getRooms());
 
         return "Reservation created sucssfully";
@@ -135,15 +140,15 @@ public class ClientController {
 
     }
     public List<Room> seeAllReservedRooms(String username){
-        List<Integer> userRoomsInt = reservationRepo.GetAllReservedRoomsForAUser(username);
+        List<String> userRoomsString = reservationRepo.GetAllReservedRoomsForAUser(username);
         List<Room>allRooms = roomRepo.getAll();
         List<Room>userRooms = new ArrayList<>();
-        for (Integer roomid: userRoomsInt)
+        for (String roomid: userRoomsString)
         {
             for (Room room : allRooms)
             {
 
-                if (room.getId() == roomid)
+                if (room.getId().equals(roomid))
                 {
                     userRooms.add(room);
                 }
@@ -159,11 +164,11 @@ public class ClientController {
         return "Couldn't register client!";
     }
     public String changeDetails(String newfirstName, String newlastName, String username)
-    {   Client client = clientRepo.findByUsername(username);
+    {   Client client = clientRepo.findbyusername(username);
         if (client!=null) {
             Client c = new Client(newfirstName,newlastName,username,client.getPassword());
             c.setCouponList(client.getCouponList());
-            clientRepo.update(client.getId(),c);
+            clientRepo.update(client.getUsername(),c);
             return "Details changed succesfully";
 
         }
@@ -180,7 +185,7 @@ public class ClientController {
     }
 
     public String changePassword(String username, String newPassword){
-        clientRepo.findByUsername(username).setPassword(newPassword);
+        clientRepo.findbyusername(username).setPassword(newPassword);
         return "Password changed successfully!";
     }
 

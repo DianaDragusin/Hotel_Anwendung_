@@ -12,17 +12,17 @@ public class FileCleanerRepo implements ICleanerRepository {
     }
 
     @Override
-    public boolean delete(Integer integer) {
+    public boolean delete(String s) {
         return false;
     }
 
     @Override
-    public boolean update(Integer integer, Cleaner cleaner) {
+    public boolean update(String s, Cleaner cleaner) {
         return false;
     }
 
     @Override
-    public Cleaner findbyID(Integer integer) {
+    public Cleaner findbyusername(String s) {
         return null;
     }
 
@@ -31,8 +31,4 @@ public class FileCleanerRepo implements ICleanerRepository {
         return null;
     }
 
-    @Override
-    public Cleaner findByUsername(String username) {
-        return null;
-    }
 }

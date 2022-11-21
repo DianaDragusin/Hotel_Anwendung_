@@ -31,7 +31,7 @@ public class FileReservationRepo implements IReservationRepository {
     }
 
     @Override
-    public boolean deleteReservation(Integer id) {
+    public boolean deleteReservation(String id) {
         return false;
     }
 

@@ -84,17 +84,17 @@ public class ManagerView {
             c.toString();
         }
     }
-    public void deleteRoomStatus(int id)
+    public void deleteRoomStatus(String id)
     {
         String status = managercontroller.deleteRoom(id);
         System.out.println(status);
     }
-    public void updateRoomStatus(int id, Room room)
+    public void updateRoomStatus(String id, Room room)
     {
         String status = managercontroller.updateRoom(id,room);
         System.out.println(status);
     }
-    public void findRoomByIdStatus(int id)
+    public void findRoomByIdStatus(String id)
     {
         if (managercontroller.findRoomById(id) == null)
         {
@@ -105,9 +105,9 @@ public class ManagerView {
             System.out.println("We have found the room you are looking for\n");
         }
     }
-    public void findClientByIdStatus(int id)
+    public void findClientByIdStatus(String username)
     {
-        if (managercontroller.findClientById(id) == null)
+        if (managercontroller.findClientByUsername(username) == null)
         {
             System.out.println("This client is not in our system\n");
         }
@@ -138,9 +138,9 @@ public class ManagerView {
             System.out.println("We have found the cleaner you are looking for\n");
         }
     }
-    public void findCleanerByIdStatus(int id)
+    public void findCleanerByIdStatus(String username)
     {
-        if (managercontroller.findCleanerById(id) == null)
+        if (managercontroller.findCleanerByUsername(username) == null)
         {
             System.out.println("This cleaner is not in our system\n");
         }
@@ -149,9 +149,9 @@ public class ManagerView {
             System.out.println("We have found the cleaner you are looking for\n");
         }
     }
-    public void deleteClientStatus(int id)
+    public void deleteClientStatus(String username)
     {
-        String Status = managercontroller.deleteCleaner(id);
+        String Status = managercontroller.deleteCleaner(username);
         System.out.println(Status);
     }
 }

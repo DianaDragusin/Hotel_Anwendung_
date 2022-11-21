@@ -17,12 +17,11 @@ public class InMemoryRoomRepo implements IRoomRepository {
 
     private List<Room> populate_rooms()
     {
-        Room.state = 0;
         List<Room>rooms = new ArrayList<>();
-        Room room1 = new Room(Type.SINGLE,300,1);
-        Room room2 = new Room(Type.DOUBLE,400,2);
-        Room room3 = new Room(Type.TRIPLE,700,3);
-        Room room4 = new Room(Type.APARTMENT,1000,4);
+        Room room1 = new Room(Type.SINGLE,300,1,"1");
+        Room room2 = new Room(Type.DOUBLE,400,2,"2");
+        Room room3 = new Room(Type.TRIPLE,700,3,"3");
+        Room room4 = new Room(Type.APARTMENT,1000,4,"4");
         rooms.add(room1);
         rooms.add(room2);
         rooms.add(room3);
@@ -37,32 +36,36 @@ public class InMemoryRoomRepo implements IRoomRepository {
     }
 
     @Override
-    public boolean delete(Integer id) {
-        if(findbyID(id)!=null){
-            rooms.remove(rooms.get(id));
+    public boolean delete(String id) {
+        if(findbyusername(id)!=null){
+            rooms.remove(findbyusername(id));
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean update(Integer id, Room room) {
-        rooms.get(id).setPrice(room.getPrice());
-        rooms.get(id).setType(room.getType());
-        rooms.get(id).setNrPers(room.getNrPers());
+    public boolean update(String id, Room room) {
+        findbyusername(id).setPrice(room.getPrice());
+        findbyusername(id).setType(room.getType());
+        findbyusername(id).setNrPers(room.getNrPers());
         return true;
     }
 
     @Override
-    public Room findbyID(Integer id) {
-        return rooms.get(id);
+    public Room findbyusername(String id) {
+        for(Room r: rooms){
+            if(r.getId().equals(id)){
+                return r;
+            }
+        }
+        return null;
     }
 
     @Override
     public List<Room> getAll() {
         return rooms;
     }
-
 
 
     @Override
