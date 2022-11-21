@@ -10,24 +10,30 @@ import java.util.List;
 
 public class InMemoryRoomRepo implements IRoomRepository {
     private List<Room> rooms;
+    private int ct;
 
     public InMemoryRoomRepo(List<Room> rooms) {
+        this.ct= 0;
         this.rooms =populate_rooms();
     }
 
     private List<Room> populate_rooms()
     {
         List<Room>rooms = new ArrayList<>();
-        Room room1 = new Room(Type.SINGLE,300,1,"1");
-        Room room2 = new Room(Type.DOUBLE,400,2,"2");
-        Room room3 = new Room(Type.TRIPLE,700,3,"3");
-        Room room4 = new Room(Type.APARTMENT,1000,4,"4");
+        Room room1 = new Room(Type.SINGLE,300,1,generateRoomId(Type.SINGLE));
+        Room room2 = new Room(Type.DOUBLE,400,2,generateRoomId(Type.DOUBLE));
+        Room room3 = new Room(Type.TRIPLE,700,3,generateRoomId(Type.TRIPLE));
+        Room room4 = new Room(Type.APARTMENT,1000,4,generateRoomId(Type.APARTMENT));
         rooms.add(room1);
         rooms.add(room2);
         rooms.add(room3);
         rooms.add(room4);
         return  rooms;
 
+    }
+    public String generateRoomId(Type type){
+        ct++;
+        return ct + type.toString();
     }
     @Override
     public boolean add(Room room) {
@@ -69,7 +75,7 @@ public class InMemoryRoomRepo implements IRoomRepository {
 
 
     @Override
-    public List<Room> typeRooms(Type t) {
+    public List<Room> returnRoomsOfType(Type t) {
         List<Room>typeRooms = new ArrayList<>();
         for (Room room : rooms)
         {

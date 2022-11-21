@@ -48,8 +48,5 @@ public class CleanerController {
            return  true;
         }
         return  false;
-
     }
-
-
 }

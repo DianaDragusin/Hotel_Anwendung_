@@ -11,12 +11,12 @@ import java.util.List;
 public class FileReservationRepo implements IReservationRepository {
 
     @Override
-    public List<Integer> returnAllUnAvailableRooms(LocalDate start, LocalDate end) {
+    public List<String > returnAllUnAvailableRooms(LocalDate start, LocalDate end) {
         return null;
     }
 
     @Override
-    public List<Integer> GetAllReservedRoomsForAUser(String username) {
+    public List<String> GetAllReservedRoomsForAUser(String username) {
         return null;
     }
 
@@ -33,6 +33,11 @@ public class FileReservationRepo implements IReservationRepository {
     @Override
     public boolean deleteReservation(String id) {
         return false;
+    }
+
+    @Override
+    public Reservation findReservationById(String id) {
+        return null;
     }
 
 }

@@ -2,11 +2,9 @@ package service;
 
 import model.*;
 import repository.inMemoryRepo.*;
-import views.ClientView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ClientController {
@@ -27,7 +25,7 @@ public class ClientController {
 
     private List<Room> searchAvailableTypeRoom(LocalDate checkIn, LocalDate checkOut, Type t)
     {
-        List<Room> rooms = roomRepo.typeRooms(t);
+        List<Room> rooms = roomRepo.returnRoomsOfType(t);
         for (String roomId : reservationRepo.returnAllUnAvailableRooms(checkIn,checkOut))
         {
 

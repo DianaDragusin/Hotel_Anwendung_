@@ -9,7 +9,6 @@ import java.util.Objects;
 
 public class ManagerController {
     private String password;
-    private int ct;
     private InMemoryRoomRepo roomRepo;
     private InMemoryClientRepo clientRepo;
     private InMemoryCleanerRepo cleanerRepo;
@@ -24,20 +23,8 @@ public class ManagerController {
         this.cleanerRepo = cleanerRepo;
         this.cleaningsRepo = cleaningsRepo;
         this.reservationRepo = reservationRepo;
-        this.ct=0;
     }
-    public String setSalaryCleaner(String username, int salary)
-    {
-        for (Cleaner c : cleanerRepo.getAll())
-        {
-            if (Objects.equals(c.getUsername(), username))
-            {
-                c.setSalary(salary);
-                return "Salary was succesfully set";
-            }
-        }
-        return "Salary was not set";
-    }
+
     // PASSWORD
 
     public boolean login(String password){
@@ -48,26 +35,34 @@ public class ManagerController {
         return "Password changed successfully!";
     }
 
+    // CLIENT
+
+    public List<Client> seeAllClients(){
+        return clientRepo.getAll();
+    }
+    public Client findClientByUsername(String username){
+        return clientRepo.findbyusername(username);
+    }
+    public String deleteClient(String id){
+        if(clientRepo.findbyusername(id)!=null){
+            clientRepo.delete(id);
+            return "Client deleted successfully!";
+        }
+        return "Client deleted successfully!";
+    }
+
+
     // ROOM
 
-    private String generateRoomId(Type type){
-        ct++;
-        return ct + type.toString();
-    }
+
     public List<Room> seeAllRooms(){
         return roomRepo.getAll();
     }
-    public String addRoom(Type type, double price, int nrPers){
-        if(roomRepo.add(new Room(type,price,nrPers,generateRoomId(type)))){
-            return "Room added successfully!";
-        }
-        return "Couldn't add room!";
+    public void addRoom(Type type, double price, int nrPers){
+        roomRepo.add(new Room(type,price,nrPers,roomRepo.generateRoomId(type)));
     }
-    public String deleteRoom(String id){
-        if(roomRepo.delete(id)){
-            return "Room deleted successfully!";
-        }
-        return "Room not found!";
+    public boolean deleteRoom(String id){
+        return roomRepo.delete(id);
     }
     public String updateRoom(String id, Room room){
         if(roomRepo.update(id,room)){
@@ -79,36 +74,34 @@ public class ManagerController {
         return roomRepo.findbyusername(id);
     }
 
-    // CLIENT
-
-    public List<Client> seeAllClients(){
-        return clientRepo.getAll();
-    }
-    public String deleteClient(String id){
-        if(clientRepo.findbyusername(id)!=null){
-            clientRepo.delete(id);
-            return "Client deleted successfully!";
-        }
-        return "Client deleted successfully!";
-    }
-    public Client findClientByUsername(String username){
-        return clientRepo.findbyusername(username);
-    }
 
     // CLEANER
 
     public List<Cleaner> seeAllCleaners(){
         return cleanerRepo.getAll();
     }
-    public String deleteCleaner(String id){
-        if(cleanerRepo.findbyusername(id)!=null){
-            cleanerRepo.delete(id);
-            return "Cleaner deleted successfully!";
-        }
-        return "Cleaner deleted successfully!";
-    }
     public Cleaner findCleanerByUsername(String username){
         return cleanerRepo.findbyusername(username);
+    }
+    public boolean setSalaryCleaner(String username, int salary)
+    {
+        for (Cleaner c : cleanerRepo.getAll())
+        {
+            if (Objects.equals(c.getUsername(), username))
+            {
+                c.setSalary(salary);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteCleaner(String username){
+        if(cleanerRepo.findbyusername(username)!=null){
+            cleanerRepo.delete(username);
+            return true;
+        }
+        return false;
     }
 
     // CLEANING
