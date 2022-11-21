@@ -59,7 +59,7 @@ public class Ui {
         this.clientController = new ClientController(inMemoryClientRepo, inMemoryRoomRepo, inMemoryReservationRepo, inMemoryCleanerRepo, inMemoryCleaningsRepo);
 
         // Manager Controller
-        this.managerController = new ManagerController(inMemoryRoomRepo, inMemoryClientRepo, inMemoryCleanerRepo, inMemoryCleaningsRepo, inMemoryReservationRepo);
+        this.managerController = new ManagerController(inMemoryRoomRepo, inMemoryClientRepo, inMemoryCleanerRepo, inMemoryCleaningsRepo, inMemoryReservationRepo, "parola1");
     }
 
 
@@ -69,9 +69,9 @@ public class Ui {
             System.out.println("You are redirected to the Client menu..");
             //clientView.showOptions();
         } else if(option == 2){
-            ManagerView managerView = new ManagerView(managerController);
+            this.managerView = new ManagerView(managerController);
             System.out.println("You are redirected to the Manager menu..");
-            //managerView.showOptions();
+            showOptionsManager();
         } else if (option == 3) {
             CleanerView cleanerView = new CleanerView(cleanerController);
             System.out.println("You are redirected to the Cleaner menu..");

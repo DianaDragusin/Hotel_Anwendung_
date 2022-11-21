@@ -16,7 +16,8 @@ public class ManagerController {
     private InMemoryReservationRepo reservationRepo;
 
 
-    public ManagerController(InMemoryRoomRepo roomRepo, InMemoryClientRepo clientRepo, InMemoryCleanerRepo cleanerRepo, InMemoryCleaningsRepo cleaningsRepo, InMemoryReservationRepo reservationRepo) {
+    public ManagerController(InMemoryRoomRepo roomRepo, InMemoryClientRepo clientRepo, InMemoryCleanerRepo cleanerRepo, InMemoryCleaningsRepo cleaningsRepo, InMemoryReservationRepo reservationRepo, String password) {
+        this.password = password;
         this.roomRepo = roomRepo;
         this.clientRepo = clientRepo;
         this.cleanerRepo = cleanerRepo;
