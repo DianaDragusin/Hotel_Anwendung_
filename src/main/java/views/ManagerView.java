@@ -42,9 +42,9 @@ public class ManagerView {
     {
         Scanner myObj = new Scanner(System.in);
         System.out.println("Enter the username of the client you want to find:");
-        String username = myObj.nextLine();
+        int id = Integer.parseInt(myObj.nextLine());
 
-        Client client = managercontroller.findClientByUsername(username);
+        Client client = managercontroller.findClientById(id);
 
         if (client == null)
         {
@@ -58,10 +58,10 @@ public class ManagerView {
     public void deleteClientStatus()
     {
         Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter the username of the client you want to delete:");
-        String username = myObj.nextLine();
+        System.out.println("Enter the id of the client you want to delete:");
+        int id = Integer.parseInt(myObj.nextLine());
 
-        Client client = managercontroller.findClientByUsername(username);
+        Client client = managercontroller.findClientById(id);
 
         if (client == null)
         {
@@ -69,7 +69,7 @@ public class ManagerView {
         }
         else
         {
-            managercontroller.deleteClient(username);
+            managercontroller.deleteClient(id);
             System.out.println("Client successfully deleted!\n");
         }
     }
@@ -113,7 +113,7 @@ public class ManagerView {
     {
         Scanner myObj = new Scanner(System.in);
         System.out.println("Enter the id of the room you want to delete:");
-        String id = myObj.nextLine();
+        int id = Integer.parseInt(myObj.nextLine());
 
         if(managercontroller.deleteRoom(id)){
             System.out.println("Room deleted successfully!\n");
@@ -126,7 +126,7 @@ public class ManagerView {
     {
         Scanner myObj = new Scanner(System.in);
         System.out.println("Enter the id of the room you want to update:");
-        String id = myObj.nextLine();
+        int id = Integer.parseInt(myObj.nextLine());
         Room room = managercontroller.findRoomById(id);
         if(room != null) {
             System.out.println("Enter new type (1-SINGLE, 2-DOUBLE, 3-TRIPLE, 4-APARTMENT:");
@@ -147,7 +147,7 @@ public class ManagerView {
             System.out.println("Enter new capacity (persons):");
             int nrPers = Integer.parseInt(myObj.nextLine());
 
-            String status = managercontroller.updateRoom(id, new Room(type, price, nrPers, id));
+            String status = managercontroller.updateRoom(id, new Room(type, price, nrPers));
             System.out.println(status);
         }else {
             System.out.println("Room not found! Check the id and try again!\n");
@@ -157,7 +157,7 @@ public class ManagerView {
     {
         Scanner myObj = new Scanner(System.in);
         System.out.println("Enter the id of the room you want to find:");
-        String id = myObj.nextLine();
+        int id = Integer.parseInt(myObj.nextLine());
 
         Room room = managercontroller.findRoomById(id);
 
@@ -225,14 +225,14 @@ public class ManagerView {
     public void deleteCleanerStatus(){
         Scanner myObj = new Scanner(System.in);
         System.out.println("Enter the username of the cleaner you want to delete");
-        String username = myObj.nextLine();
+        int id = Integer.parseInt(myObj.nextLine());
 
-        Cleaner cleaner = managercontroller.findCleanerByUsername(username);
+        Cleaner cleaner = managercontroller.findCleanerById(id);
         if(cleaner == null){
             System.out.println("Cleaner was not found. Check the username and try again!\n");
             return;
         }
-        managercontroller.deleteCleaner(username);
+        managercontroller.deleteCleaner(id);
         System.out.println("Cleaner successfully deleted!\n");
     }
 
@@ -269,7 +269,7 @@ public class ManagerView {
     {
         Scanner myObj = new Scanner(System.in);
         System.out.println("Enter the id of the room you want to print cleanings for:");
-        String id = myObj.nextLine();
+        int id = Integer.parseInt(myObj.nextLine());
 
         Room room = managercontroller.findRoomById(id);
 

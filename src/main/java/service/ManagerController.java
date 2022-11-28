@@ -40,8 +40,8 @@ public class ManagerController {
     public List<Client> seeAllClients(){
         return clientRepo.getAll();
     }
-    public Client findClientByUsername(String username){
-        return clientRepo.findByUsername(username);
+    public Client findClientById(int id){
+        return clientRepo.findById(id);
     }
     public String deleteClient(Integer id){
         if(clientRepo.findById(id)!=null){
@@ -93,6 +93,10 @@ public class ManagerController {
     public Cleaner findCleanerByUsername(String username){
         return cleanerRepo.findByUsername(username);
     }
+    public Cleaner findCleanerById(int id){
+        return cleanerRepo.findById(id);
+    }
+
     public boolean setSalaryCleaner(String username, int salary)
     {
         for (Cleaner c : cleanerRepo.getAll())
