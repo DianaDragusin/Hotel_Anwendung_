@@ -26,13 +26,13 @@ public class ClientController {
     private List<Room> searchAvailableTypeRoom(LocalDate checkIn, LocalDate checkOut, Type t)
     {
         List<Room> rooms = roomRepo.returnRoomsOfType(t);
-        for (String roomId : reservationRepo.returnAllUnAvailableRooms(checkIn,checkOut))
+        for (int roomId : reservationRepo.returnAllUnAvailableRooms(checkIn,checkOut))
         {
 
             for (Room r : rooms)
             {
 
-                if (r.getId().equals(roomId))
+                if (r.getId() == roomId)
                 {
 
                     rooms.remove(r);
@@ -44,10 +44,9 @@ public class ClientController {
 
         return rooms;
     }
-    public List<Coupon> showCoupons(String username)
+    public List<Coupon> showCoupons(Integer id)
     {
-
-        return  clientRepo.findbyusername(username).getCouponList();
+        return  clientRepo.findById(id).getCouponList();
     }
     public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrPers){
         List<Room> apartmentsR = searchAvailableTypeRoom(checkIn,checkOut,Type.APARTMENT);
@@ -98,20 +97,17 @@ public class ClientController {
         return  options;
     }
 
-    public String generateReservationId(LocalDate checkIn, String username){
-        return checkIn.toString()+"-"+username;
-    }
-    public String makeReservationWithCoupon(Option option, Coupon coupon, String username,LocalDate start, LocalDate end){
+    public String makeReservationWithCoupon(Option option, Coupon coupon, Integer clientId,LocalDate start, LocalDate end){
        // work to do
-        Reservation reservation = new Reservation(generateReservationId(start,username),username,start,end, option.getTotalPrice());
+        Reservation reservation = new Reservation(clientId,start,end, option.getTotalPrice());
         reservation.setPrice(applyCoupon(coupon,option.getTotalPrice()));
         reservationRepo.addReservation(reservation,option.getRooms());
 
         return "Reservation created sucssfully";
     }
-    public String makeReservation(Option option, String username,LocalDate start, LocalDate end){
+    public String makeReservation(Option option, Integer clientId,LocalDate start, LocalDate end){
         // work to do
-        Reservation reservation = new Reservation(generateReservationId(start,username),username,start,end, option.getTotalPrice());
+        Reservation reservation = new Reservation(clientId,start,end, option.getTotalPrice());
         reservationRepo.addReservation(reservation,option.getRooms());
 
         return "Reservation created sucssfully";
@@ -140,21 +136,21 @@ public class ClientController {
 
 
     }
-    public List<Reservation> seeAllReservations(String username) {
+    public List<Reservation> seeAllReservations(Integer id) {
 
-       return reservationRepo.GetAllReservationsForAUser(username);
+       return reservationRepo.GetAllReservationsForAUser(id);
 
     }
-    public List<Room> seeAllReservedRooms(String username){
-        List<String> userRoomsString = reservationRepo.GetAllReservedRoomsForAUser(username);
+    public List<Room> seeAllReservedRooms(Integer id){
+        List<Integer> userRoomsString = reservationRepo.GetAllReservedRoomsForAUser(id);
         List<Room>allRooms = roomRepo.getAll();
         List<Room>userRooms = new ArrayList<>();
-        for (String roomid: userRoomsString)
+        for (int roomid: userRoomsString)
         {
             for (Room room : allRooms)
             {
 
-                if (room.getId().equals(roomid))
+                if (room.getId() == roomid)
                 {
                     userRooms.add(room);
                 }
@@ -164,7 +160,7 @@ public class ClientController {
 
     }
     public boolean register(String firstName, String lastName, String username, String password){
-        Client c  = clientRepo.findbyusername(username);
+        Client c  = clientRepo.findByUsername(username);
         if (c== null)
         {
             clientRepo.add(new Client(firstName, lastName, username, password));
@@ -172,12 +168,12 @@ public class ClientController {
         }
         else return false;
     }
-    public String changeDetails(String newfirstName, String newlastName, String username)
-    {   Client client = clientRepo.findbyusername(username);
+    public String changeDetails(String newfirstName, String newlastName, Integer id)
+    {   Client client = clientRepo.findById(id);
         if (client!=null) {
-            Client c = new Client(newfirstName,newlastName,username,client.getPassword());
+            Client c = new Client(newfirstName,newlastName,client.getUsername(),client.getPassword());
             c.setCouponList(client.getCouponList());
-            clientRepo.update(client.getUsername(),c);
+            clientRepo.update(id,c);
             return "Details changed succesfully";
 
         }
@@ -193,12 +189,12 @@ public class ClientController {
         return false;
     }
 
-    public String changePassword(String username, String newPassword){
-        clientRepo.findbyusername(username).setPassword(newPassword);
+    public String changePassword(Integer id, String newPassword){
+        clientRepo.findById(id).setPassword(newPassword);
         return "Password changed successfully!";
     }
-    public boolean findUser(String username){
-        Client c = clientRepo.findbyusername(username);
+    public boolean findUser(Integer id){
+        Client c = clientRepo.findById(id);
         return c != null;
 
     }

@@ -41,10 +41,10 @@ public class ManagerController {
         return clientRepo.getAll();
     }
     public Client findClientByUsername(String username){
-        return clientRepo.findbyusername(username);
+        return clientRepo.findByUsername(username);
     }
-    public String deleteClient(String id){
-        if(clientRepo.findbyusername(id)!=null){
+    public String deleteClient(Integer id){
+        if(clientRepo.findById(id)!=null){
             clientRepo.delete(id);
             return "Client deleted successfully!";
         }
@@ -59,10 +59,10 @@ public class ManagerController {
         return roomRepo.getAll();
     }
     public void addRoom(Type type, double price, int nrPers){
-        roomRepo.add(new Room(type,price,nrPers,roomRepo.generateRoomId(type)));
+        roomRepo.add(new Room(type,price,nrPers));
     }
-    public boolean deleteRoom(String id){
-        Room r = roomRepo.findbyusername(id);
+    public boolean deleteRoom(Integer id){
+        Room r = roomRepo.findById(id);
         if(r == null )
         {
             roomRepo.delete(id);
@@ -70,8 +70,8 @@ public class ManagerController {
         }
         return false;
     }
-    public String updateRoom(String id, Room room){
-        Room r = roomRepo.findbyusername(id);
+    public String updateRoom(int id, Room room){
+        Room r = roomRepo.findById(id);
         if(r == null )
         {
             roomRepo.update(id,room);
@@ -80,8 +80,8 @@ public class ManagerController {
 
         return "Couldn't update room!";
     }
-    public Room findRoomById(String id){
-        return roomRepo.findbyusername(id);
+    public Room findRoomById(int id){
+        return roomRepo.findById(id);
     }
 
 
@@ -91,7 +91,7 @@ public class ManagerController {
         return cleanerRepo.getAll();
     }
     public Cleaner findCleanerByUsername(String username){
-        return cleanerRepo.findbyusername(username);
+        return cleanerRepo.findByUsername(username);
     }
     public boolean setSalaryCleaner(String username, int salary)
     {
@@ -106,9 +106,9 @@ public class ManagerController {
         return false;
     }
 
-    public boolean deleteCleaner(String username){
-        if(cleanerRepo.findbyusername(username)!=null){
-            cleanerRepo.delete(username);
+    public boolean deleteCleaner(Integer id){
+        if(cleanerRepo.findById(id)!=null){
+            cleanerRepo.delete(id);
             return true;
         }
         return false;

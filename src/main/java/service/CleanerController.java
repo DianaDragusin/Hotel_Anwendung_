@@ -16,7 +16,7 @@ public class CleanerController {
     }
 
     public boolean register(String firstName, String lastName, String username, String password){
-        Cleaner c  = cleanerRepo.findbyusername(username);
+        Cleaner c  = cleanerRepo.findByUsername(username);
         if (c == null){
             cleanerRepo.add(new Cleaner(firstName,lastName,username,password));
             return true;
@@ -33,20 +33,20 @@ public class CleanerController {
         return false;
     }
 
-    public boolean changePassword(String username, String newPassword){
-        if (cleanerRepo.findbyusername(username)!= null)
+    public boolean changePassword(Integer id, String newPassword){
+        if (cleanerRepo.findById(id)!= null)
         {
-            cleanerRepo.findbyusername(username).setPassword(newPassword);
+            cleanerRepo.findById(id).setPassword(newPassword);
             return true;
         }
 
         return false;
     }
-    public boolean changeDetails(String firstName, String lastName, String username)
+    public boolean changeDetails(String firstName, String lastName, Integer id)
     {
-        if (cleanerRepo.findbyusername(username)!=null) {
-            cleanerRepo.findbyusername(username).setFirstName(firstName);
-            cleanerRepo.findbyusername(username).setLastName(lastName);
+        if (cleanerRepo.findById(id)!=null) {
+            cleanerRepo.findById(id).setFirstName(firstName);
+            cleanerRepo.findById(id).setLastName(lastName);
            return  true;
         }
         return  false;

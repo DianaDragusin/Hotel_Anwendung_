@@ -49,12 +49,12 @@ public class FileClientRepo implements IClientRespository {
     }
 
     @Override
-    public void delete(String username) {
+    public void delete(Integer id) {
 
     }
 
     @Override
-    public void update(String username, Client client) {
+    public void update(Integer id, Client client) {
 
     }
 
@@ -64,7 +64,9 @@ public class FileClientRepo implements IClientRespository {
     }
 
     @Override
-    public Client findbyusername(String username) {
+    public Client findById(Integer id) {
         return null;
     }
+    @Override
+    public Client findByUsername(String username){return null;}
 }

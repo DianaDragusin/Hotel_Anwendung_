@@ -84,14 +84,12 @@ public class CleanerView {
        return status;
 
     }
-    private boolean changePasswordStatus(String username,String password)
+    private boolean changePasswordStatus(Integer id,String password)
     {
-        boolean status = cleanercontroller.changePassword(username,password);
-       return  status;
+        return cleanercontroller.changePassword(id,password);
     }
-    private  boolean changeDetailsStatus (String newfirstName,String newlastName,String username)
+    private  boolean changeDetailsStatus (String newfirstName,String newlastName,Integer id)
     {
-        boolean status = cleanercontroller.changeDetails(newfirstName, newlastName,username);
-        return  status;
+        return cleanercontroller.changeDetails(newfirstName, newlastName,id);
     }
 }

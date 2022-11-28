@@ -12,19 +12,21 @@ public class FileCleanerRepo implements ICleanerRepository {
     }
 
     @Override
-    public void delete(String s) {
+    public void delete(Integer id) {
 
     }
 
     @Override
-    public void update(String s, Cleaner cleaner) {
+    public void update(Integer id, Cleaner cleaner) {
 
     }
 
     @Override
-    public Cleaner findbyusername(String s) {
+    public Cleaner findByUsername(String username) {
         return null;
     }
+    @Override
+    public Cleaner findById(Integer id){return null;}
 
     @Override
     public List<Cleaner> getAll() {

@@ -11,6 +11,7 @@ public class Client extends Person {
         this.couponList = new ArrayList<>();
     }
 
+
     public List<Coupon> getCouponList() {
         return couponList;
     }
