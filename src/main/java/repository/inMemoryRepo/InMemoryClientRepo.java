@@ -43,24 +43,33 @@ public class InMemoryClientRepo implements IClientRespository {
     }
     */
     @Override
-    public void delete(String username) {
+    public void delete(Integer id) {
 
-        clients.remove(findbyusername(username));
-
-    }
-
-    @Override
-    public void update(String username, Client client) {
-
-        findbyusername(username).setFirstName(client.getFirstName());
-        findbyusername(username).setLastName(client.getLastName());
+        clients.remove(findById(id));
 
     }
 
     @Override
-    public Client findbyusername(String username) {
+    public void update(Integer id, Client client) {
+
+        findById(id).setFirstName(client.getFirstName());
+        findById(id).setLastName(client.getLastName());
+
+    }
+
+    @Override
+    public Client findByUsername(String username) {
         for(Client c : clients){
             if(c.getUsername().equals(username)){
+                return c;
+            }
+        }
+        return null;
+    }
+    @Override
+    public Client findById(Integer id){
+        for(Client c : clients){
+            if(c.getId() == id){
                 return c;
             }
         }

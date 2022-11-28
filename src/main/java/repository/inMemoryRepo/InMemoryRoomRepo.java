@@ -1,6 +1,7 @@
 package repository.inMemoryRepo;
 
 import model.Cleaning;
+import model.Client;
 import model.Room;
 import model.Type;
 import repository.IRoomRepository;
@@ -10,30 +11,24 @@ import java.util.List;
 
 public class InMemoryRoomRepo implements IRoomRepository {
     private List<Room> rooms;
-    private int ct;
 
     public InMemoryRoomRepo(List<Room> rooms) {
-        this.ct= 0;
         this.rooms =populate_rooms();
     }
 
     private List<Room> populate_rooms()
     {
         List<Room>rooms = new ArrayList<>();
-        Room room1 = new Room(Type.SINGLE,300,1,generateRoomId(Type.SINGLE));
-        Room room2 = new Room(Type.DOUBLE,400,2,generateRoomId(Type.DOUBLE));
-        Room room3 = new Room(Type.TRIPLE,700,3,generateRoomId(Type.TRIPLE));
-        Room room4 = new Room(Type.APARTMENT,1000,4,generateRoomId(Type.APARTMENT));
+        Room room1 = new Room(Type.SINGLE,300,1);
+        Room room2 = new Room(Type.DOUBLE,400,2);
+        Room room3 = new Room(Type.TRIPLE,700,3);
+        Room room4 = new Room(Type.APARTMENT,1000,4);
         rooms.add(room1);
         rooms.add(room2);
         rooms.add(room3);
         rooms.add(room4);
         return  rooms;
 
-    }
-    public String generateRoomId(Type type){
-        ct++;
-        return ct + type.toString();
     }
     @Override
     public void add(Room room) {
@@ -42,24 +37,23 @@ public class InMemoryRoomRepo implements IRoomRepository {
     }
 
     @Override
-    public void delete(String id) {
-        if(findbyusername(id)!=null){
-            rooms.remove(findbyusername(id));
+    public void delete(Integer id) {
+        if(findById(id)!=null){
+            rooms.remove(findById(id));
         }
 
     }
 
     @Override
-    public void update(String id, Room room) {
-        findbyusername(id).setPrice(room.getPrice());
-        findbyusername(id).setType(room.getType());
-        findbyusername(id).setNrPers(room.getNrPers());
+    public void update(Integer id, Room room) {
+        findById(id).setPrice(room.getPrice());
+        findById(id).setType(room.getType());
+        findById(id).setNrPers(room.getNrPers());
     }
-
     @Override
-    public Room findbyusername(String id) {
-        for(Room r: rooms){
-            if(r.getId().equals(id)){
+    public Room findById(Integer id){
+        for(Room r : rooms){
+            if(r.getId() == id){
                 return r;
             }
         }

@@ -102,13 +102,13 @@ public class ClientView {
 
 
     }
-    public boolean findUserStatus(String username)
+    public boolean findUserStatus(Integer id)
     {
-        return clientcontroller.findUser(username);
+        return clientcontroller.findUser(id);
     }
-    public void changePasswordStatus(String username,String password)
+    public void changePasswordStatus(Integer id,String password)
     {
-        String status = clientcontroller.changePassword(username,password);
+        String status = clientcontroller.changePassword(id,password);
         System.out.println(status);
     }
 }

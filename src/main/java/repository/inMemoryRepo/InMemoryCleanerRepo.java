@@ -40,16 +40,15 @@ public class InMemoryCleanerRepo implements ICleanerRepository {
     }
 
     @Override
-    public void delete(String username) {
+    public void delete(Integer id) {
 
-            cleaners.remove(findbyusername(username));
-
+            cleaners.remove(findById(id));
 
     }
 
     @Override
-    public void update(String username, Cleaner cleaner) {
-        Cleaner oldCleaner = findbyusername(username);
+    public void update(Integer id, Cleaner cleaner) {
+        Cleaner oldCleaner = findById(id);
         oldCleaner.setFirstName(cleaner.getFirstName());
         oldCleaner.setLastName(cleaner.getLastName());
         oldCleaner.setUsername(cleaner.getUsername());
@@ -59,9 +58,17 @@ public class InMemoryCleanerRepo implements ICleanerRepository {
     }
 
     @Override
-    public Cleaner findbyusername(String username) {
+    public Cleaner findByUsername(String username) {
         for(Cleaner c : cleaners){
             if(c.getUsername().equals(username)){
+                return c;
+            }
+        }
+        return null;
+    }
+    public Cleaner findById(Integer id){
+        for(Cleaner c : cleaners){
+            if(c.getId()==id){
                 return c;
             }
         }

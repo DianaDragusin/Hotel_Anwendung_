@@ -8,14 +8,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface IReservationRepository  {
-      List<String> returnAllUnAvailableRooms(LocalDate start, LocalDate end);
-      List<String>  GetAllReservedRoomsForAUser(String username);
-      List<Reservation>  GetAllReservationsForAUser(String username);
+      List<Integer> returnAllUnAvailableRooms(LocalDate start, LocalDate end);
+      List<Integer>  GetAllReservedRoomsForAUser(int id);
+      List<Reservation>  GetAllReservationsForAUser(int id);
       void addReservation(Reservation reservation, List<Room> rooms);
-      boolean deleteReservation (String id);
+      boolean deleteReservation (int id);
      // returntype la getall
      // void getAll();
 
-      Reservation findReservationById(String id);
+      Reservation findReservationById(int id);
 
 }

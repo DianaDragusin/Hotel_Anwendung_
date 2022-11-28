@@ -5,7 +5,6 @@ import model.Type;
 
 import java.util.List;
 
-public interface IRoomRepository extends ICrud<String, Room>{
-      public String generateRoomId(Type type);
+public interface IRoomRepository extends ICrud<Integer, Room>{
       List<Room> returnRoomsOfType(Type t);
 }

@@ -13,17 +13,17 @@ public class FileRoomRepo implements IRoomRepository {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Integer id) {
 
     }
 
     @Override
-    public void update(String id, Room room) {
+    public void update(Integer id, Room room) {
 
     }
 
     @Override
-    public Room findbyusername(String id) {
+    public Room findById(Integer id) {
         return null;
     }
 

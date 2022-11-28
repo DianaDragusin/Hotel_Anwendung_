@@ -1,27 +1,27 @@
 package model;
 
 public class Reservation_Room {
-    private String reservation;
-    private String room;
+    private int reservation;
+    private int room;
 
-    public Reservation_Room(String reservation, String room) {
+    public Reservation_Room(int reservation, int room) {
         this.reservation = reservation;
         this.room = room;
     }
 
-    public String getReservation() {
+    public int getReservation() {
         return reservation;
     }
 
-    public void setReservation(String reservation) {
+    public void setReservation(int reservation) {
         this.reservation = reservation;
     }
 
-    public String getRoom() {
+    public int getRoom() {
         return room;
     }
 
-    public void setRoom(String room) {
+    public void setRoom(int room) {
         this.room = room;
     }
 }

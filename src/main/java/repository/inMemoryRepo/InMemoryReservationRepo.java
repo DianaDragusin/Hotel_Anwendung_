@@ -27,11 +27,11 @@ public class InMemoryReservationRepo implements IReservationRepository {
         return reservations_rooms;
     }
     @Override
-    public boolean deleteReservation(String id) {
+    public boolean deleteReservation(int id) {
         if (findReservationById(id) != null) {
             for (Reservation_Room res_room : reservations_rooms)
             {
-                if (res_room.getReservation().equals(id))
+                if (res_room.getReservation() == id)
                 {
                     reservations_rooms.remove( res_room);
                 }
@@ -44,9 +44,9 @@ public class InMemoryReservationRepo implements IReservationRepository {
     }
 
     @Override
-    public Reservation findReservationById(String id) {
+    public Reservation findReservationById(int id) {
         for( Reservation r : reservations){
-            if(r.getId().equals(id)){
+            if(r.getId() == id){
                 return r;
             }
         }
@@ -60,8 +60,8 @@ public class InMemoryReservationRepo implements IReservationRepository {
   //  }
 
     @Override
-    public List<String> returnAllUnAvailableRooms(LocalDate start, LocalDate end) {
-        List<String> rooms = new ArrayList<>();
+    public List<Integer> returnAllUnAvailableRooms(LocalDate start, LocalDate end) {
+        List<Integer> rooms = new ArrayList<>();
         for (Reservation reservation : reservations)
         {
 
@@ -81,7 +81,7 @@ public class InMemoryReservationRepo implements IReservationRepository {
                 for (Reservation_Room line : reservations_rooms)
                 {
 
-                    if (line.getReservation().equals(reservation.getId()))
+                    if (line.getReservation() == reservation.getId())
                     {
                        // if (!rooms.contains(line.getRoom()) )
                         //{
@@ -98,15 +98,15 @@ public class InMemoryReservationRepo implements IReservationRepository {
     }
 
     @Override
-    public List<String> GetAllReservedRoomsForAUser(String username) {
-        List<String> reservedRooms = new ArrayList<>();
+    public List<Integer> GetAllReservedRoomsForAUser(int id) {
+        List<Integer> reservedRooms = new ArrayList<>();
         for(Reservation res : reservations)
         {
-            if (res.getUsername().equals(username))
+            if (res.getId()==id)
             {
                for (Reservation_Room res_room :reservations_rooms)
                {
-                   if (res_room.getReservation().equals(res.getId()))
+                   if (res_room.getReservation() == res.getId())
                    {
                        reservedRooms.add(res_room.getRoom());
                    }
@@ -117,11 +117,11 @@ public class InMemoryReservationRepo implements IReservationRepository {
     }
 
     @Override
-    public List<Reservation> GetAllReservationsForAUser(String username) {
+    public List<Reservation> GetAllReservationsForAUser(int id) {
         List<Reservation> userReservations = new ArrayList<>();
        for(Reservation res : reservations)
        {
-           if (res.getUsername().equals(username))
+           if (res.getId() == id)
            {
                userReservations.add(res);
            }
