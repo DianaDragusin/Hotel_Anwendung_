@@ -2,7 +2,11 @@ package views;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
 import java.util.Scanner;
+
+import model.Cleaner;
+import model.Room;
 import service.CleanerController;
 
 public class CleanerView {
@@ -60,7 +64,7 @@ public class CleanerView {
 
     }
 */
-    private boolean registerStatus(String firstName, String lastName, String username, String password, int salary)
+   public boolean registerStatus(String firstName, String lastName, String username, String password)
     {
         boolean status = cleanercontroller.register(firstName, lastName,username,password);
         if (status )
@@ -72,7 +76,7 @@ public class CleanerView {
         }
        return status;
     }
-    private boolean loginStatus(String username, String password)
+    public boolean loginStatus(String username, String password)
     {
         boolean status = cleanercontroller.login(username,password);
         if (status )
@@ -84,12 +88,24 @@ public class CleanerView {
        return status;
 
     }
-    private boolean changePasswordStatus(Integer id,String password)
+    public boolean changePasswordStatus(Integer id,String password)
     {
         return cleanercontroller.changePassword(id,password);
     }
-    private  boolean changeDetailsStatus (String newfirstName,String newlastName,Integer id)
+    public  boolean changeDetailsStatus (String newfirstName,String newlastName,Integer id)
     {
         return cleanercontroller.changeDetails(newfirstName, newlastName,id);
     }
+    public  boolean cleanroomStatus (Integer id, Integer room, LocalDate date)
+    {
+        return cleanercontroller.clean_room(id, room,  date);
+    }
+    public void printRooms()
+    {
+        for (Room r : cleanercontroller.roomsToClean())
+        {
+           r.toString();
+        }
+    }
+
 }

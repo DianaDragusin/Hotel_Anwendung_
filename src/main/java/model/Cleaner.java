@@ -18,9 +18,9 @@ public class Cleaner extends Person {
         this.salary = salary;
     }
 
-    public Cleaning cleanRoom(Room room, LocalDate date){
+  /*  public Cleaning cleanRoom(Room room, LocalDate date){
         return new Cleaning(room,this, date);
-    }
+    } */
 
     @Override
     public String toString() {

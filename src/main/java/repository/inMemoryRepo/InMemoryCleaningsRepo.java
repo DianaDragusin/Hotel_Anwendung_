@@ -16,8 +16,8 @@ public class InMemoryCleaningsRepo implements ICleaningsrepository {
         this.cleaningsList = cleaningsList;
     }
 
-    public void cleanRoom(Cleaner cleaner, Room room, LocalDate date){
-        cleaningsList.add(cleaner.cleanRoom(room, date));
+    public void add(Cleaning cleaning){
+        cleaningsList.add(cleaning);
     }
 
     public List<Cleaning> seeAllCleanings(){

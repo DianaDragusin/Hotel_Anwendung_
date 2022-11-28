@@ -5,17 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="added/changed id int everywhere">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a543148b-8152-466a-8c87-3ff5c9238875.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a543148b-8152-466a-8c87-3ff5c9238875/storage_v2/_src_/database/Hotel.lNEqBA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a543148b-8152-466a-8c87-3ff5c9238875/storage_v2/_src_/database/Hotel.lNEqBA/schema/INFORMATION_SCHEMA.NBgcMw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a543148b-8152-466a-8c87-3ff5c9238875/storage_v2/_src_/database/Hotel.lNEqBA/schema/sys.zb4BAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_11_2022_13_41__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_11_2022_13_41__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileRoomRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/ClientView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/ClientView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/ManagerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/ManagerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Cleaner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Cleaner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/ICleaningsrepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/ICleaningsrepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileCleaningsRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileCleaningsRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryCleaningsRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryCleaningsRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/CleanerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/CleanerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/views/CleanerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/CleanerView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -42,7 +42,7 @@ public class Ui {
         // Cleaner Controller
         this.cleaners = new ArrayList<>();
         this.inMemoryCleanerRepo = new InMemoryCleanerRepo(cleaners);
-        this.cleanerController = new CleanerController(inMemoryCleanerRepo);
+        this.cleanerController = new CleanerController(inMemoryCleanerRepo, inMemoryCleaningsRepo, inMemoryRoomRepo);
 
         // Client Controller
         this.clients = new ArrayList<>();
@@ -80,7 +80,7 @@ public class Ui {
             case 3 -> {
                 this.cleanerView = new CleanerView(cleanerController);
                 System.out.println("You are redirected to the Cleaner menu..");
-                //showOptionsCleaner();
+                 showOptionsCleaner();
             }
             default -> System.out.println("Not a valid option!");
         }
@@ -173,6 +173,59 @@ public class Ui {
             }
             else{
                 showOptionsClient();
+            }
+        }
+    }
+    public void showOptionsCleaner(){
+        System.out.println("""
+                You are in Cleaner mode!
+                0. Back
+                1. Login
+                2. Register
+                Enter your option:""");
+        Scanner myObj = new Scanner(System.in);
+        int option = Integer.parseInt(myObj.nextLine());
+        if(option == 0){
+            showMenu();
+        } else if (option == 1) {
+            System.out.println("Please enter your username:");
+            String username = myObj.nextLine();
+            System.out.println("\n");
+            System.out.println("Please enter your password:");
+            String password = myObj.nextLine();
+            System.out.println("\n");
+            if (cleanerView.loginStatus(username,password)) {
+                cleanerMenu(inMemoryCleanerRepo.findByUsername(username));
+            }
+            else{
+                showOptionsCleaner();
+            }
+        }
+        else if (option == 2) {
+            System.out.println("Please enter your first Name:");
+            String firstname = myObj.nextLine();
+            System.out.println("Please enter your last Name:");
+            String lastname = myObj.nextLine();
+            System.out.println("Please enter your username:");
+            String username = myObj.nextLine();
+            if (cleanerController.findUserByUsername(username)!= null)
+            {
+                while(cleanerController.findUserByUsername(username)!=null) {
+                    System.out.println("This username is already Taken.");
+                    System.out.println("Please enter your username:");
+                    username = myObj.nextLine();
+                }
+
+            }
+
+            System.out.println("Please enter your password:");
+            String password = myObj.nextLine();
+
+            if (cleanerView.registerStatus(firstname,lastname,username,password)) {
+                cleanerMenu(inMemoryCleanerRepo.findByUsername(username));
+            }
+            else{
+                showOptionsCleaner();
             }
         }
     }
@@ -300,6 +353,74 @@ public class Ui {
             System.out.println("\n");
             clientView.changePasswordStatus(client.getId(),password);
             clientMenu(client);
+        }
+
+
+    }
+    private void cleanerMenu(Cleaner cleaner){
+        System.out.println("""
+                Hello Cleaner!
+                Choose an option!
+                RESERVATION
+                1.Clean Room
+                2.Show Rooms to clean
+                PERSONAL INFO
+                3.Change FirstName and Last Name
+                4.Change Password  
+                EXIT
+                0.  Logout
+               
+                
+                Enter your option:""");
+        Scanner myObj = new Scanner(System.in);
+        int option = Integer.parseInt(myObj.nextLine());
+        System.out.println("\n");
+        if (option == 0 )
+        {
+            showMenu();
+        }
+        else if (option == 1 )
+        {
+
+
+            System.out.println("What room would you like to clean?\n");
+            int room  =  Integer.parseInt(myObj.nextLine());
+            System.out.println("When ? ");
+            int year = Integer.parseInt(myObj.nextLine());
+            int month = Integer.parseInt(myObj.nextLine());
+            int day = Integer.parseInt(myObj.nextLine());
+            LocalDate date = LocalDate.of(year,month,day);
+            cleanerView.cleanroomStatus(cleaner.getId(),room,date);
+
+            cleanerMenu(cleaner);
+        }
+        else if (option == 2)
+        {
+            System.out.println("These rooms must be cleaned:");
+            cleanerView.printRooms();
+            cleanerMenu(cleaner);
+        }
+
+
+
+        else if (option == 3)
+        {
+            System.out.println("Enter your new First Name:");
+            String firstname = myObj.nextLine();
+            System.out.println("Enter your new Last Name:");
+            String lastname = myObj.nextLine();
+            cleanerView.changeDetailsStatus(firstname,lastname,cleaner.getId());
+
+            cleanerMenu(cleaner);
+        }
+        if (option == 4)
+        {
+
+            System.out.println("Enter your new Password:");
+            String password = myObj.nextLine();
+            cleanerView.changePasswordStatus(cleaner.getId(),password);
+
+            cleanerMenu(cleaner);
         }
 
 

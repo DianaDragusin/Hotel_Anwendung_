@@ -9,10 +9,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class FileCleaningsRepo implements ICleaningsrepository {
-    @Override
-    public void cleanRoom(Cleaner cleaner, Room room, LocalDate date) {
 
-    }
+
 
     @Override
     public List<Cleaning> seeAllCleanings() {
