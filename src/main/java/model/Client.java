@@ -18,7 +18,14 @@ public class Client extends Person {
     public void setCouponList(List<Coupon> couponList) {
         this.couponList = couponList;
     }
-
+    public void addCoupon(Coupon coupon)
+    {
+        this.couponList.add(coupon);
+    }
+    public void removeCoupon(Coupon coupon)
+    {
+        this.couponList.remove(coupon);
+    }
     private String Coupons ()
     {
         String couponString = "";

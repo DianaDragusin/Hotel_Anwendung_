@@ -7,18 +7,18 @@ import java.util.List;
 
 public class FileCleanerRepo implements ICleanerRepository {
     @Override
-    public boolean add(Cleaner cleaner) {
-        return false;
+    public void add(Cleaner cleaner) {
+
     }
 
     @Override
-    public boolean delete(String s) {
-        return false;
+    public void delete(String s) {
+
     }
 
     @Override
-    public boolean update(String s, Cleaner cleaner) {
-        return false;
+    public void update(String s, Cleaner cleaner) {
+
     }
 
     @Override

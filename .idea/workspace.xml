@@ -5,16 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="id to username">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Cleaner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Cleaner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/IRoomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/IRoomRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileReservationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileReservationRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/ICrud.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/ICrud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileCleanerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileCleanerRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileClientRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/fileRepo/FileRoomRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryCleanerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryCleanerRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryClientRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryRoomRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/CleanerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/CleanerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ClientController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/views/ClientView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/ClientView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/views/ManagerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/ManagerView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -103,6 +108,9 @@
       <workItem from="1668963589456" duration="15644000" />
       <workItem from="1669032501846" duration="5665000" />
       <workItem from="1669047924633" duration="14956000" />
+      <workItem from="1669278330606" duration="7000" />
+      <workItem from="1669379802930" duration="9341000" />
+      <workItem from="1669546835221" duration="12381000" />
     </task>
     <task id="LOCAL-00001" summary="commit 4">
       <created>1667139692561</created>

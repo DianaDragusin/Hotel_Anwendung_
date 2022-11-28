@@ -7,11 +7,13 @@ import views.CleanerView;
 import views.ClientView;
 import views.ManagerView;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
+    // nu ar trebui  sa initializam repo cu aceste liste si sa facem constructoarele de la ele goale si pe moment sa le popoulam cu functiile de populate
 
     List<Cleaner> cleaners;
     List<Client> clients;
@@ -68,7 +70,7 @@ public class Ui {
             case 1 -> {
                 this.clientView = new ClientView(clientController);
                 System.out.println("You are redirected to the Client menu..");
-                //showOptionsClient();
+                showOptionsClient();
             }
             case 2 -> {
                 this.managerView = new ManagerView(managerController);
@@ -116,6 +118,193 @@ public class Ui {
                 showOptionsManager();
             }
        }
+    }
+    public void showOptionsClient(){
+        System.out.println("""
+                You are in Client mode!
+                0. Back
+                1. Login
+                2. Register
+                Enter your option:""");
+        Scanner myObj = new Scanner(System.in);
+        int option = Integer.parseInt(myObj.nextLine());
+        if(option == 0){
+            showMenu();
+        } else if (option == 1) {
+            System.out.println("Please enter your username: ");
+            String username = myObj.nextLine();
+            System.out.println("\n");
+            System.out.println("Please enter your password: ");
+            String password = myObj.nextLine();
+            System.out.println("\n");
+            if (clientView.loginStatus(username,password)) {
+                clientMenu(inMemoryClientRepo.findbyusername(username));
+            }
+            else{
+                showOptionsClient();
+            }
+        }
+        else if (option == 2) {
+            System.out.println("Please enter your first Name: ");
+            String firstname = myObj.nextLine();
+            System.out.println("\n");
+            System.out.println("Please enter your last Name: ");
+            String lastname = myObj.nextLine();
+            System.out.println("\n");
+            System.out.println("Please enter your username: ");
+            String username = myObj.nextLine();
+            System.out.println("\n");
+            if (clientView.findUserStatus(username))
+            {
+                while(clientView.findUserStatus(username)) {
+                    System.out.println("\n");
+                    System.out.println("This username is already Taken ");
+                    System.out.println("Please enter your username: ");
+                     username = myObj.nextLine();
+                }
+
+            }
+            System.out.println("\n");
+            System.out.println("Please enter your password: ");
+            String password = myObj.nextLine();
+            System.out.println("\n");
+            if (clientView.registerStatus(firstname,lastname,username,password)) {
+                clientMenu(inMemoryClientRepo.findbyusername(username));
+            }
+            else{
+                showOptionsClient();
+            }
+        }
+    }
+    private void clientMenu(Client client){
+        System.out.println("""
+                Hello Client!
+                Choose an option!
+                RESERVATION
+                1.Make a reservation
+                2.Show all reservations
+                3.Show all reserved rooms
+                4.Delete a reservation
+                5.Show Coupons
+                PERSONAL INFO
+                6.Change FirstName and Last Name 
+                7.Change Password  
+                EXIT
+                0.  Logout
+                16. Exit
+                
+                Enter your option:""");
+        Scanner myObj = new Scanner(System.in);
+        int option = Integer.parseInt(myObj.nextLine());
+        System.out.println("\n");
+        if (option == 0)
+        {
+            showMenu();
+        }
+        else if (option == 1 )
+        {
+
+
+            System.out.println("When will you be staying with us ?\n");
+            System.out.println("From year = ");
+            int year  =  Integer.parseInt(myObj.nextLine());
+            System.out.println("\n");
+            System.out.println("month = ");
+            int month = Integer.parseInt(myObj.nextLine());
+            System.out.println("\n");
+            System.out.println("day = ");
+            int day = Integer.parseInt(myObj.nextLine());
+            System.out.println("\n");
+            LocalDate from = LocalDate.of(year,month,day);
+            System.out.println("To year = ");
+            int year2  =  Integer.parseInt(myObj.nextLine());
+            System.out.println("\n");
+            System.out.println("month = ");
+            int month2 = Integer.parseInt(myObj.nextLine());
+            System.out.println("\n");
+            System.out.println("day = ");
+            int day2 = Integer.parseInt(myObj.nextLine());
+            System.out.println("\n");
+            LocalDate to = LocalDate.of(year2,month2,day2);
+            System.out.println("How many will be staying with us ?\n");
+            System.out.println("people = ");
+            int people  =  Integer.parseInt(myObj.nextLine());
+            System.out.println("\n");
+            System.out.println("These are your coupons: \n");
+            List<Coupon> couplist = clientView.showCoupons(client.getUsername());
+            System.out.println("Which coupon would you like to use? Type -1 if you wont like to use any \n");
+            System.out.println("coupon = ");
+            int couponans = Integer.parseInt(myObj.nextLine());
+            System.out.println("\n");
+            List<Option>optionss = clientView.printOptions(from,to,people);
+            // make something with options plus
+            if (couponans >-1 && couponans < couplist.size())
+            {
+                clientView.makeReservationWithCouponStatus(optionss.get(0),couplist.get(couponans), client.getUsername(),from,to);
+            }
+            else if(couponans == -1)
+            {
+                clientView.makeReservationStatus(optionss.get(0), client.getUsername(),from,to);
+                if (clientController.seeAllReservations(client.getUsername()).size()%3==0)
+                {
+                    // trebe lucrat la identity la coupon
+                    Coupon coupon = new Coupon(1,20);
+                    client.addCoupon(coupon);
+                }
+            }
+            clientMenu(client);
+        }
+        else if (option == 2)
+        {
+            clientView.printAllReservations(client.getUsername());
+            clientMenu(client);
+        }
+        else if (option == 3)
+        {
+            clientView.printAllReservedRooms(client.getUsername());
+            clientMenu(client);
+        }
+        else if (option == 4)
+        {
+            System.out.println("\n");
+            System.out.println("Which reservation would you like to delete. Ans = ");
+            int resnr = Integer.parseInt(myObj.nextLine());
+            System.out.println("\n");
+            clientView.deleteReservationStatus(inMemoryReservationRepo.getReservations().get(resnr));
+            clientMenu(client);
+        }
+        else if (option == 5)
+        {
+            System.out.println("These are your coupons \n:");
+            clientView.showCoupons(client.getUsername());
+            clientMenu(client);
+
+        }
+        else if (option == 6)
+        {
+            System.out.println("\n");
+            System.out.println("Enter your new First Name. First Name = ");
+            String firstname = myObj.nextLine();
+            System.out.println("\n");
+            System.out.println("Enter your new Last Name. Last Name = ");
+            String lastname = myObj.nextLine();
+            System.out.println("\n");
+            clientView.changeDetailsStatus(firstname,lastname,client.getUsername());
+            clientMenu(client);
+
+
+        }
+        if (option == 7)
+        {
+            System.out.println("\n");
+            System.out.println("Enter your new Password. password = ");
+            String password = myObj.nextLine();
+            System.out.println("\n");
+            clientView.changePasswordStatus(password,client.getUsername());
+            clientMenu(client);
+        }
+
+
     }
     private void managerMenu(){
         System.out.println("""

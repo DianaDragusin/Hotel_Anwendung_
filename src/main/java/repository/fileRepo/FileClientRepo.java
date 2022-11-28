@@ -44,18 +44,18 @@ public class FileClientRepo implements IClientRespository {
     }
 
     @Override
-    public boolean add(Client client) {
-        return false;
+    public void add(Client client) {
+
     }
 
     @Override
-    public boolean delete(String username) {
-        return false;
+    public void delete(String username) {
+
     }
 
     @Override
-    public boolean update(String username, Client client) {
-        return false;
+    public void update(String username, Client client) {
+
     }
 
     @Override

@@ -24,13 +24,10 @@ public class InMemoryCleanerRepo implements ICleanerRepository {
         return cleaners;
     }
     @Override
-    public boolean add(Cleaner cleaner) {
+    public void add(Cleaner cleaner) {
         //uberprufe, dass der username unique bleibt
-        if(cleaner_exists(cleaner)){
-            return false;
-        }
         this.cleaners.add(cleaner);
-        return true;
+
     }
 
     private boolean cleaner_exists(Cleaner cleaner){
@@ -43,23 +40,22 @@ public class InMemoryCleanerRepo implements ICleanerRepository {
     }
 
     @Override
-    public boolean delete(String username) {
-        if(findbyusername(username)!=null){
+    public void delete(String username) {
+
             cleaners.remove(findbyusername(username));
-            return true;
-        }
-        return false;
+
+
     }
 
     @Override
-    public boolean update(String username, Cleaner cleaner) {
+    public void update(String username, Cleaner cleaner) {
         Cleaner oldCleaner = findbyusername(username);
         oldCleaner.setFirstName(cleaner.getFirstName());
         oldCleaner.setLastName(cleaner.getLastName());
         oldCleaner.setUsername(cleaner.getUsername());
         oldCleaner.setPassword(cleaner.getPassword());
         //oldCleaner.setSalary(cleaner.getSalary());
-        return true;
+
     }
 
     @Override

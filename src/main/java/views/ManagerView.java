@@ -224,7 +224,7 @@ public class ManagerView {
     }
     public void deleteCleanerStatus(){
         Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter the username of the cleaner you want to change salary:");
+        System.out.println("Enter the username of the cleaner you want to delete");
         String username = myObj.nextLine();
 
         Cleaner cleaner = managercontroller.findCleanerByUsername(username);
