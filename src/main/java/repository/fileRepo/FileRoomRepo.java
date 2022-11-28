@@ -34,11 +34,6 @@ public class FileRoomRepo implements IRoomRepository {
 
 
     @Override
-    public String generateRoomId(Type type) {
-        return null;
-    }
-
-    @Override
     public List<Room> returnRoomsOfType(Type t) {
         return null;
     }

@@ -193,8 +193,8 @@ public class ClientController {
         clientRepo.findById(id).setPassword(newPassword);
         return "Password changed successfully!";
     }
-    public boolean findUser(Integer id){
-        Client c = clientRepo.findById(id);
+    public boolean findUser(String username){
+        Client c = clientRepo.findByUsername(username);
         return c != null;
 
     }

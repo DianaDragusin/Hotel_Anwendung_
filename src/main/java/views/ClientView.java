@@ -17,16 +17,16 @@ public class ClientView {
     public ClientView(ClientController clientcontroller) {
         this.clientcontroller = clientcontroller;
     }
-    public List<Coupon> showCoupons (String username)
+    public List<Coupon> showCoupons (int id)
     {
 
-        for (Coupon c : clientcontroller.showCoupons(username))
+        for (Coupon c : clientcontroller.showCoupons(id))
         {
             c.toString();
         }
-        return  clientcontroller.showCoupons(username);
+        return  clientcontroller.showCoupons(id);
     }
-    public  List<Option> printOptions (LocalDate checkin, LocalDate checkout, Integer nrpers)
+    public  List<Option> printOptions (LocalDate checkin, LocalDate checkout, int nrpers)
     {
         List<Option> options = clientcontroller.generateOptions(checkin,checkout,nrpers);
         for (Option option :options)
@@ -35,32 +35,32 @@ public class ClientView {
         }
         return  options;
     }
-    public void  printAllReservedRooms (String username)
+    public void  printAllReservedRooms (int id)
     {
-        List<Room> rooms =  clientcontroller.seeAllReservedRooms(username);
-        System.out.println(username + "has reserved following rooms:\n");
+        List<Room> rooms =  clientcontroller.seeAllReservedRooms(id);
+        System.out.println(id + "has reserved following rooms:\n");
         for (Room room :rooms)
         {
             System.out.println(room.toString());
         }
     }
-    public void  printAllReservations ( String username)
+    public void  printAllReservations (int id)
     {
-        List<Reservation> reservations =  clientcontroller.seeAllReservations(username);
-        System.out.println(username + "has  following reservations:\n");
+        List<Reservation> reservations =  clientcontroller.seeAllReservations(id);
+        System.out.println("You have following reservations:\n");
         for (Reservation res :reservations)
         {
             System.out.println(res.toString());
         }
     }
-    public void makeReservationStatus(Option option, String username, LocalDate start, LocalDate end)
+    public void makeReservationStatus(Option option, int id, LocalDate start, LocalDate end)
     {
-        String status = clientcontroller.makeReservation(option,username, start,end);
+        String status = clientcontroller.makeReservation(option,id, start,end);
         System.out.println(status);
     }
-    public void makeReservationWithCouponStatus(Option option, Coupon coupon, String username, LocalDate start, LocalDate end)
+    public void makeReservationWithCouponStatus(Option option, Coupon coupon, int id, LocalDate start, LocalDate end)
     {
-        String status = clientcontroller.makeReservationWithCoupon(option,coupon,username, start,end);
+        String status = clientcontroller.makeReservationWithCoupon(option,coupon,id, start,end);
         System.out.println(status);
     }
     public void deleteReservationStatus(Reservation reservation)
@@ -83,9 +83,9 @@ public class ClientView {
 
 
     }
-    public  void changeDetailsStatus (String newfirstName,String newlastName,String username)
+    public  void changeDetailsStatus (String newfirstName,String newlastName,int id)
     {
-        String status = clientcontroller.changeDetails(newfirstName, newlastName,username);
+        String status = clientcontroller.changeDetails(newfirstName, newlastName,id);
         System.out.println(status);
     }
 
@@ -102,11 +102,11 @@ public class ClientView {
 
 
     }
-    public boolean findUserStatus(Integer id)
+    public boolean findUserStatus(String username)
     {
-        return clientcontroller.findUser(id);
+        return clientcontroller.findUser(username);
     }
-    public void changePasswordStatus(Integer id,String password)
+    public void changePasswordStatus(int id,String password)
     {
         String status = clientcontroller.changePassword(id,password);
         System.out.println(status);
