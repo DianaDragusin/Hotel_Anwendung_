@@ -16,7 +16,9 @@ public class CleanerController {
     }
 
     public boolean register(String firstName, String lastName, String username, String password){
-        if(cleanerRepo.add(new Cleaner(firstName,lastName,username,password))){
+        Cleaner c  = cleanerRepo.findbyusername(username);
+        if (c == null){
+            cleanerRepo.add(new Cleaner(firstName,lastName,username,password));
             return true;
         }
         return false;

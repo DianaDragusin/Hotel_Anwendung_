@@ -62,12 +62,22 @@ public class ManagerController {
         roomRepo.add(new Room(type,price,nrPers,roomRepo.generateRoomId(type)));
     }
     public boolean deleteRoom(String id){
-        return roomRepo.delete(id);
+        Room r = roomRepo.findbyusername(id);
+        if(r == null )
+        {
+            roomRepo.delete(id);
+            return true ;
+        }
+        return false;
     }
     public String updateRoom(String id, Room room){
-        if(roomRepo.update(id,room)){
+        Room r = roomRepo.findbyusername(id);
+        if(r == null )
+        {
+            roomRepo.update(id,room);
             return "Room updated successfully";
         }
+
         return "Couldn't update room!";
     }
     public Room findRoomById(String id){

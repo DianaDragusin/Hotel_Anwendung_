@@ -9,6 +9,7 @@ import service.ClientController;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 public class ClientView {
      private  ClientController clientcontroller;
@@ -16,14 +17,23 @@ public class ClientView {
     public ClientView(ClientController clientcontroller) {
         this.clientcontroller = clientcontroller;
     }
+    public List<Coupon> showCoupons (String username)
+    {
 
-    public void  printOptions (LocalDate checkin, LocalDate checkout, Integer nrpers)
+        for (Coupon c : clientcontroller.showCoupons(username))
+        {
+            c.toString();
+        }
+        return  clientcontroller.showCoupons(username);
+    }
+    public  List<Option> printOptions (LocalDate checkin, LocalDate checkout, Integer nrpers)
     {
         List<Option> options = clientcontroller.generateOptions(checkin,checkout,nrpers);
         for (Option option :options)
         {
             System.out.println(option.toString());
         }
+        return  options;
     }
     public void  printAllReservedRooms (String username)
     {
@@ -43,7 +53,7 @@ public class ClientView {
             System.out.println(res.toString());
         }
     }
-    public void makeReservationStatus(Option option, Coupon coupon, String username, LocalDate start, LocalDate end)
+    public void makeReservationStatus(Option option, String username, LocalDate start, LocalDate end)
     {
         String status = clientcontroller.makeReservation(option,username, start,end);
         System.out.println(status);
@@ -58,27 +68,43 @@ public class ClientView {
         String status = clientcontroller.deleteReservation(reservation);
         System.out.println(status);
     }
-    public void registerStatus(String firstName,String lastName,String username,String password)
+    public boolean registerStatus(String firstName,String lastName,String username,String password)
     {
-        String status = clientcontroller.register(firstName, lastName,username,password);
-        System.out.println(status);
+        boolean status = clientcontroller.register(firstName, lastName,username,password);
+        if (status )
+        {
+            System.out.println("Client registered successfully!\n");
+        }
+        else
+        {
+            System.out.println("Something went wrong, client was not registered!\n");
+        }
+        return status;
+
+
     }
     public  void changeDetailsStatus (String newfirstName,String newlastName,String username)
     {
         String status = clientcontroller.changeDetails(newfirstName, newlastName,username);
         System.out.println(status);
     }
-    public void loginStatus(String username, String password)
+
+    public boolean loginStatus(String username, String password)
     {
         boolean status = clientcontroller.login(username,password);
         if (status )
         {
-            System.out.println("User " + username + " is logged in" );
+            System.out.println("User " + username + " is logged in \n" );
         }else {
-            System.out.println("Invalid credentials" );
+            System.out.println("Invalid credentials\n" );
         }
+        return status;
 
 
+    }
+    public boolean findUserStatus(String username)
+    {
+        return clientcontroller.findUser(username);
     }
     public void changePasswordStatus(String username,String password)
     {

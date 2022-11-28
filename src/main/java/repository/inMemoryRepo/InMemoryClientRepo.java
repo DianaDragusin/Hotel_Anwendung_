@@ -26,15 +26,13 @@ public class InMemoryClientRepo implements IClientRespository {
     }
 
     @Override
-    public boolean add(Client client) {
+    public void add(Client client) {
         //uberprufe, dass der username unique bleibt
-        if(client_exists(client)){
-            return false;
-        }
-        this.clients.add(client);
-        return true;
-    }
 
+        this.clients.add(client);
+
+    }
+    /*
     private boolean client_exists(Client client){
         for(Client u:clients){
             if(u.getUsername().equals(client.getUsername())){
@@ -43,24 +41,20 @@ public class InMemoryClientRepo implements IClientRespository {
         }
         return false;
     }
-
+    */
     @Override
-    public boolean delete(String username) {
-        if(findbyusername(username)!=null){
-            clients.remove(findbyusername(username));
-            return true;
-        }
-        return false;
+    public void delete(String username) {
+
+        clients.remove(findbyusername(username));
+
     }
 
     @Override
-    public boolean update(String username, Client client) {
-        if(client_exists(client)){
-            return false;
-        }
+    public void update(String username, Client client) {
+
         findbyusername(username).setFirstName(client.getFirstName());
         findbyusername(username).setLastName(client.getLastName());
-        return true;
+
     }
 
     @Override

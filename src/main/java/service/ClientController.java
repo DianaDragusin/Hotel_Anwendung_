@@ -44,6 +44,11 @@ public class ClientController {
 
         return rooms;
     }
+    public List<Coupon> showCoupons(String username)
+    {
+
+        return  clientRepo.findbyusername(username).getCouponList();
+    }
     public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrPers){
         List<Room> apartmentsR = searchAvailableTypeRoom(checkIn,checkOut,Type.APARTMENT);
         List<Room> tripleR = searchAvailableTypeRoom(checkIn,checkOut,Type.TRIPLE);
@@ -119,14 +124,17 @@ public class ClientController {
 
     }
     public String deleteReservation(Reservation reservation){
-       if(reservationRepo.deleteReservation(reservation.getId()))
-       {
-           return "Reservation deleted succssfully";
-       }
-       else
-       {
-           return "Reservation not found";
-       }
+        for (Reservation r : reservationRepo.getReservations())
+        {
+            if (r == reservation)
+            {
+                reservationRepo.deleteReservation(reservation.getId());
+                return "Reservation deleted succssfully";
+            }
+        }
+
+        return "Reservation not found";
+
 
 
 
@@ -155,11 +163,14 @@ public class ClientController {
         return userRooms;
 
     }
-    public String register(String firstName, String lastName, String username, String password){
-        if(clientRepo.add(new Client(firstName,lastName,username,password))){
-            return "Client registered successfully!";
+    public boolean register(String firstName, String lastName, String username, String password){
+        Client c  = clientRepo.findbyusername(username);
+        if (c== null)
+        {
+            clientRepo.add(new Client(firstName, lastName, username, password));
+            return true;
         }
-        return "Couldn't register client!";
+        else return false;
     }
     public String changeDetails(String newfirstName, String newlastName, String username)
     {   Client client = clientRepo.findbyusername(username);
@@ -186,5 +197,11 @@ public class ClientController {
         clientRepo.findbyusername(username).setPassword(newPassword);
         return "Password changed successfully!";
     }
+    public boolean findUser(String username){
+        Client c = clientRepo.findbyusername(username);
+        return c != null;
+
+    }
+
 
 }

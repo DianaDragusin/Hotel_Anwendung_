@@ -8,18 +8,18 @@ import java.util.List;
 
 public class FileRoomRepo implements IRoomRepository {
     @Override
-    public boolean add(Room room) {
-        return false;
+    public void add(Room room) {
+
     }
 
     @Override
-    public boolean delete(String id) {
-        return false;
+    public void delete(String id) {
+
     }
 
     @Override
-    public boolean update(String id, Room room) {
-        return false;
+    public void update(String id, Room room) {
+
     }
 
     @Override

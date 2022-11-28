@@ -36,26 +36,24 @@ public class InMemoryRoomRepo implements IRoomRepository {
         return ct + type.toString();
     }
     @Override
-    public boolean add(Room room) {
+    public void add(Room room) {
      rooms.add(room);
-     return true;
+
     }
 
     @Override
-    public boolean delete(String id) {
+    public void delete(String id) {
         if(findbyusername(id)!=null){
             rooms.remove(findbyusername(id));
-            return true;
         }
-        return false;
+
     }
 
     @Override
-    public boolean update(String id, Room room) {
+    public void update(String id, Room room) {
         findbyusername(id).setPrice(room.getPrice());
         findbyusername(id).setType(room.getType());
         findbyusername(id).setNrPers(room.getNrPers());
-        return true;
     }
 
     @Override
