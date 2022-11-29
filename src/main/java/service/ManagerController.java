@@ -43,12 +43,14 @@ public class ManagerController {
     public Client findClientById(int id){
         return clientRepo.findById(id);
     }
-    public String deleteClient(Integer id){
-        if(clientRepo.findById(id)!=null){
+    public Client findClientByUsername(String username){return clientRepo.findByUsername(username);}
+    public Client deleteClient(Integer id){
+        Client C = clientRepo.findById(id);
+        if(C!=null){
             clientRepo.delete(id);
-            return "Client deleted successfully!";
+            return C;
         }
-        return "Client deleted successfully!";
+        return null;
     }
 
 
@@ -61,24 +63,24 @@ public class ManagerController {
     public void addRoom(Type type, double price, int nrPers){
         roomRepo.add(new Room(type,price,nrPers));
     }
-    public boolean deleteRoom(Integer id){
+    public Room deleteRoom(Integer id){
         Room r = roomRepo.findById(id);
-        if(r == null )
+        if(r != null )
         {
             roomRepo.delete(id);
-            return true ;
+            return r;
         }
-        return false;
+        return null;
     }
-    public String updateRoom(int id, Room room){
+    public Room updateRoom(int id, Room room){
         Room r = roomRepo.findById(id);
-        if(r == null )
+        if(r != null )
         {
             roomRepo.update(id,room);
-            return "Room updated successfully";
+            return r;
         }
 
-        return "Couldn't update room!";
+        return null;
     }
     public Room findRoomById(int id){
         return roomRepo.findById(id);
@@ -97,25 +99,24 @@ public class ManagerController {
         return cleanerRepo.findById(id);
     }
 
-    public boolean setSalaryCleaner(String username, int salary)
+    public Cleaner setSalaryCleaner(int id, int salary)
     {
-        for (Cleaner c : cleanerRepo.getAll())
+        Cleaner c = cleanerRepo.findById(id);
+        if (c != null)
         {
-            if (Objects.equals(c.getUsername(), username))
-            {
-                c.setSalary(salary);
-                return true;
-            }
+            c.setSalary(salary);
+            return c;
         }
-        return false;
+        return null;
     }
 
-    public boolean deleteCleaner(Integer id){
-        if(cleanerRepo.findById(id)!=null){
+    public Cleaner deleteCleaner(int id){
+        Cleaner c = cleanerRepo.findById(id);
+        if(c != null){
             cleanerRepo.delete(id);
-            return true;
+            return c;
         }
-        return false;
+        return null;
     }
 
     // CLEANING

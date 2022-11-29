@@ -462,8 +462,16 @@ public class Ui {
                 return;
             }
             case 1 -> managerView.printAllClients();
-            case 2 -> managerView.findClientByUsernameStatus();
-            case 3 -> managerView.deleteClientStatus();
+            case 2 -> {
+                System.out.println("Enter the username of the client you want to find:");
+                String username = myObj.nextLine();
+                managerView.findClientByUsernameStatus(username);
+            }
+            case 3 -> {
+                System.out.println("Enter the username of the client you want to find:");
+                int id = Integer.parseInt(myObj.nextLine());
+                managerView.deleteClientStatus(id);
+            }
             case 4 -> managerView.printAllRooms();
             case 5 -> managerView.addRoomStatus();
             case 6 -> managerView.deleteRoomStatus();
