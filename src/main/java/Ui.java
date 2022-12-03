@@ -59,7 +59,7 @@ public class Ui {
         this.inMemoryCleaningsRepo = new InMemoryCleaningsRepo(cleanings);
 
         this.clientController = new ClientController(inMemoryClientRepo, inMemoryRoomRepo, inMemoryReservationRepo, inMemoryCleanerRepo, inMemoryCleaningsRepo);
-
+        this.cleanerController = new CleanerController(inMemoryCleanerRepo,inMemoryCleaningsRepo,inMemoryRoomRepo);
         // Manager Controller
         this.managerController = new ManagerController(inMemoryRoomRepo, inMemoryClientRepo, inMemoryCleanerRepo, inMemoryCleaningsRepo, inMemoryReservationRepo, "parola1");
     }
@@ -169,7 +169,10 @@ public class Ui {
             String password = myObj.nextLine();
             System.out.println("\n");
             if (clientView.registerStatus(firstname,lastname,username,password)) {
+                // adaugam clientul si in lista de clienti actualizata
+                clients.add(inMemoryClientRepo.findByUsername(username));
                 clientMenu(inMemoryClientRepo.findByUsername(username));
+
             }
             else{
                 showOptionsClient();

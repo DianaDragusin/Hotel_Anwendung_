@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import model.Cleaner;
@@ -102,9 +103,10 @@ public class CleanerView {
     }
     public void printRooms()
     {
-        for (Room r : cleanercontroller.roomsToClean())
+        List<Room> rooms = cleanercontroller.roomsToClean();
+        for (Room r : rooms)
         {
-           r.toString();
+            System.out.println(r.toString()) ;
         }
     }
 
