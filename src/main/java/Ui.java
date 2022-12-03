@@ -468,22 +468,97 @@ public class Ui {
                 managerView.findClientByUsernameStatus(username);
             }
             case 3 -> {
-                System.out.println("Enter the username of the client you want to find:");
+                System.out.println("Enter the id of the client you want to delete:");
                 int id = Integer.parseInt(myObj.nextLine());
                 managerView.deleteClientStatus(id);
             }
             case 4 -> managerView.printAllRooms();
-            case 5 -> managerView.addRoomStatus();
-            case 6 -> managerView.deleteRoomStatus();
-            case 7 -> managerView.updateRoomStatus();
-            case 8 -> managerView.findRoomByIdStatus();
+            case 5 -> {
+                System.out.println("Enter the data of the room you want to create:");
+                System.out.println("Enter type (1-SINGLE, 2-DOUBLE, 3-TRIPLE, 4-APARTMENT:");
+                int typeint = Integer.parseInt(myObj.nextLine());
+                Type type;
+                if(typeint == 1){
+                    type = Type.SINGLE;
+                }else if (typeint == 2){
+                    type = Type.DOUBLE;
+                } else if (typeint == 3){
+                    type = Type.TRIPLE;
+                }else {
+                    type = Type.APARTMENT;
+                }
+
+                System.out.println("Enter price:");
+                double price = myObj.nextDouble();
+                System.out.println("Enter capacity (persons):");
+                int nrPers = Integer.parseInt(myObj.nextLine());
+
+                managerView.addRoomStatus(type,price,nrPers);
+            }
+            case 6 -> {
+                System.out.println("Enter the id of the room you want to delete:");
+                int id = Integer.parseInt(myObj.nextLine());
+
+                managerView.deleteRoomStatus(id);
+            }
+            case 7 -> {
+                System.out.println("Enter the id of the room you want to update:");
+                int id = Integer.parseInt(myObj.nextLine());
+
+                System.out.println("Enter new type (1-SINGLE, 2-DOUBLE, 3-TRIPLE, 4-APARTMENT:");
+                int typeint = Integer.parseInt(myObj.nextLine());
+                Type type;
+                if(typeint == 1){
+                    type = Type.SINGLE;
+                }else if (typeint == 2){
+                    type = Type.DOUBLE;
+                } else if (typeint == 3){
+                    type = Type.TRIPLE;
+                }else {
+                    type = Type.APARTMENT;
+                }
+
+                System.out.println("Enter new price:");
+                int price = Integer.parseInt(myObj.nextLine());
+                System.out.println("Enter new capacity (persons):");
+                int nrPers = Integer.parseInt(myObj.nextLine());
+
+                managerView.updateRoomStatus(id, type, price, nrPers);
+            }
+            case 8 -> {
+                System.out.println("Enter the id of the room you want to find:");
+                int id = Integer.parseInt(myObj.nextLine());
+                managerView.findRoomByIdStatus(id);
+            }
             case 9 -> managerView.printAllCleaners();
-            case 10 -> managerView.findCleanerByUsernameStatus();
-            case 11 -> managerView.setSalarySatus();
-            case 12 -> managerView.deleteCleanerStatus();
+            case 10 -> {
+                System.out.println("Enter the username of the cleaner you want to find:");
+                String username = myObj.nextLine();
+                managerView.findCleanerByUsernameStatus(username);
+            }
+            case 11 -> {
+                System.out.println("Enter the username of the cleaner you want to change salary:");
+                int id = Integer.parseInt(myObj.nextLine());
+                System.out.println("Enter the new salary for cleaner "+id);
+                int salary = Integer.parseInt(myObj.nextLine());
+                managerView.setSalarySatus(id, salary);
+            }
+            case 12 -> {
+                System.out.println("Enter the username of the cleaner you want to delete");
+                int id = Integer.parseInt(myObj.nextLine());
+                managerView.deleteCleanerStatus(id);
+            }
             case 13 -> managerView.printAllCleanings();
-            case 14 -> managerView.printAllCleaningsForCleaner();
-            case 15 -> managerView.printAllCleaningsForRoom();
+            case 14 -> {
+                System.out.println("Enter the username of the cleaner you want to print cleanings for:");
+                String username = myObj.nextLine();
+                managerView.printAllCleaningsForCleaner(username);
+            }
+            case 15 -> {
+                System.out.println("Enter the id of the room you want to print cleanings for:");
+                int id = Integer.parseInt(myObj.nextLine());
+                managerView.printAllCleaningsForRoom(id);
+            }
             case 16 -> {
                 System.out.println("Bye!!!");
                 System.exit(1);
