@@ -29,7 +29,7 @@ public class ManagerView {
 
     // CLIENT
 
-    public void  printAllClients ( )
+    public void  printAllClients()
     {
         List<Client> clients =  managercontroller.seeAllClients();
         System.out.println("These clients are in our system\n");
@@ -68,7 +68,7 @@ public class ManagerView {
 
     // ROOM
 
-    public void printAllRooms ( )
+    public void printAllRooms ()
     {
         List<Room> rooms =  managercontroller.seeAllRooms();
         System.out.println("These rooms are in our system\n");
@@ -77,35 +77,12 @@ public class ManagerView {
             System.out.println(r.toString());
         }
     }
-    public void addRoomStatus(){
-        Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter the data of the room you want to create:");
-        System.out.println("Enter type (1-SINGLE, 2-DOUBLE, 3-TRIPLE, 4-APARTMENT:");
-        int typeint = Integer.parseInt(myObj.nextLine());
-        Type type;
-        if(typeint == 1){
-            type = Type.SINGLE;
-        }else if (typeint == 2){
-            type = Type.DOUBLE;
-        } else if (typeint == 3){
-            type = Type.TRIPLE;
-        }else {
-            type = Type.APARTMENT;
-        }
-
-        System.out.println("Enter price:");
-        int price = Integer.parseInt(myObj.nextLine());
-        System.out.println("Enter capacity (persons):");
-        int nrPers = Integer.parseInt(myObj.nextLine());
-
+    public void addRoomStatus(Type type, Double price, int nrPers){
         managercontroller.addRoom(type,price,nrPers);
         System.out.println("Room successfully added!\n");
     }
-    public void deleteRoomStatus()
+    public void deleteRoomStatus(int id)
     {
-        Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter the id of the room you want to delete:");
-        int id = Integer.parseInt(myObj.nextLine());
 
         if(managercontroller.deleteRoom(id)!=null){
             System.out.println("Room deleted successfully!\n");
@@ -114,30 +91,10 @@ public class ManagerView {
             System.out.println("Room not found! Check the id and try again!\n");
         }
     }
-    public void updateRoomStatus()
+    public void updateRoomStatus(int id, Type type, double price, int nrPers)
     {
-        Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter the id of the room you want to update:");
-        int id = Integer.parseInt(myObj.nextLine());
         Room room = managercontroller.findRoomById(id);
         if(room != null) {
-            System.out.println("Enter new type (1-SINGLE, 2-DOUBLE, 3-TRIPLE, 4-APARTMENT:");
-            int typeint = Integer.parseInt(myObj.nextLine());
-            Type type;
-            if(typeint == 1){
-                type = Type.SINGLE;
-            }else if (typeint == 2){
-                type = Type.DOUBLE;
-            } else if (typeint == 3){
-                type = Type.TRIPLE;
-            }else {
-                type = Type.APARTMENT;
-            }
-
-            System.out.println("Enter new price:");
-            int price = Integer.parseInt(myObj.nextLine());
-            System.out.println("Enter new capacity (persons):");
-            int nrPers = Integer.parseInt(myObj.nextLine());
 
             Room status = managercontroller.updateRoom(id, new Room(type, price, nrPers));
             System.out.println(status);
@@ -145,12 +102,8 @@ public class ManagerView {
             System.out.println("Room not found! Check the id and try again!\n");
         }
     }
-    public void findRoomByIdStatus()
+    public void findRoomByIdStatus(int id)
     {
-        Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter the id of the room you want to find:");
-        int id = Integer.parseInt(myObj.nextLine());
-
         Room room = managercontroller.findRoomById(id);
 
         if (room == null)
@@ -174,12 +127,8 @@ public class ManagerView {
             System.out.println(c.toString());
         }
     }
-    public void findCleanerByUsernameStatus()
+    public void findCleanerByUsernameStatus(String username)
     {
-        Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter the username of the cleaner you want to find:");
-        String username = myObj.nextLine();
-
         Cleaner cleaner = managercontroller.findCleanerByUsername(username);
 
         if (cleaner == null)
@@ -191,20 +140,13 @@ public class ManagerView {
             System.out.println("The cleaner is:\n"+cleaner+"\n");
         }
     }
-    public void setSalarySatus()
+    public void setSalarySatus(int id, int salary)
     {
-        Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter the username of the cleaner you want to change salary:");
-        int id = Integer.parseInt(myObj.nextLine());
-
         Cleaner cleaner = managercontroller.findCleanerById(id);
         if(cleaner == null){
             System.out.println("Cleaner was not found. Check the username and try again!\n");
             return;
         }
-
-        System.out.println("Enter the new salary for "+cleaner);
-        int salary = Integer.parseInt(myObj.nextLine());
 
         if(managercontroller.setSalaryCleaner(id,salary)!=null){
             System.out.println("Salary was successfully changed!\n");
@@ -214,11 +156,7 @@ public class ManagerView {
         }
 
     }
-    public void deleteCleanerStatus(){
-        Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter the username of the cleaner you want to delete");
-        int id = Integer.parseInt(myObj.nextLine());
-
+    public void deleteCleanerStatus(int id){
         Cleaner cleaner = managercontroller.findCleanerById(id);
         if(cleaner == null){
             System.out.println("Cleaner was not found. Check the username and try again!\n");
@@ -239,12 +177,8 @@ public class ManagerView {
             System.out.println(c.toString());
         }
     }
-    public void printAllCleaningsForCleaner()
+    public void printAllCleaningsForCleaner(String username)
     {
-        Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter the username of the cleaner you want to print cleanings for:");
-        String username = myObj.nextLine();
-
         Cleaner cleaner = managercontroller.findCleanerByUsername(username);
         if(cleaner == null){
             System.out.println("Cleaner not found! Check the username and try again!\n");
@@ -257,12 +191,8 @@ public class ManagerView {
             System.out.println(c.toString());
         }
     }
-    public void printAllCleaningsForRoom()
+    public void printAllCleaningsForRoom(int id)
     {
-        Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter the id of the room you want to print cleanings for:");
-        int id = Integer.parseInt(myObj.nextLine());
-
         Room room = managercontroller.findRoomById(id);
 
         if(room == null){
