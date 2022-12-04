@@ -30,13 +30,15 @@ public class InMemoryCleanerRepo implements ICleanerRepository {
 
     }
 
-    private boolean cleaner_exists(Cleaner cleaner){
+    private String getCleanerUsername(Cleaner cleaner){
         for(Cleaner u : cleaners){
-            if(u.getUsername().equals(cleaner.getUsername())){
-                return true;
+            if (u.equals(cleaner))
+            {
+                return u.getUsername();
             }
+
         }
-        return false;
+        return null;
     }
 
     @Override

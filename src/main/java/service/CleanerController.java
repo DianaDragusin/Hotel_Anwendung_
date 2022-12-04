@@ -1,25 +1,19 @@
 package service;
 
 import model.Cleaner;
-import model.Cleaning;
-import model.Coupon;
 import model.Room;
 import repository.inMemoryRepo.InMemoryCleanerRepo;
-import repository.inMemoryRepo.InMemoryCleaningsRepo;
 import repository.inMemoryRepo.InMemoryRoomRepo;
-import views.CleanerView;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class CleanerController {
     private InMemoryCleanerRepo cleanerRepo;
-    private InMemoryCleaningsRepo cleaningsRepo;
     private InMemoryRoomRepo roomRepo;
 
-    public CleanerController(InMemoryCleanerRepo cleanerRepo, InMemoryCleaningsRepo cleaningsRepo, InMemoryRoomRepo roomRepo) {
+    public CleanerController(InMemoryCleanerRepo cleanerRepo, InMemoryRoomRepo roomRepo) {
         this.cleanerRepo = cleanerRepo;
-        this.cleaningsRepo = cleaningsRepo;
         this.roomRepo = roomRepo;
     }
 
@@ -59,14 +53,15 @@ public class CleanerController {
         }
         return  false;
     }
-    public boolean clean_room(Integer id,Integer room, LocalDate date)
+    public boolean clean_room(int id,int room, LocalDate date)
     {
         Cleaner c  = cleanerRepo.findById(id);
         Room r  = roomRepo.findById(room);
         // trebuie  implementat o metoda de a verifica camera data spfre curatare
         //camera trebuie sa nu fi fost cuarata si sa fie in lista de rezervari viitoare
         if (c!=null) {
-            cleaningsRepo.add(new Cleaning(r,c,date));
+            if (c.getRooms().contains(r))
+                c.deleteRoomToClean(r);
             return  true;
         }
         return  false;

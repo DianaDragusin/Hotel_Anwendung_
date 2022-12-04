@@ -1,6 +1,13 @@
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+@Entity
 public abstract class Person {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private String firstName;
     private String lastName;
@@ -12,6 +19,10 @@ public abstract class Person {
         this.lastName = lastName;
         this.username = username;
         this.password = password;
+    }
+
+    public Person() {
+
     }
 
     public int getId() {
@@ -33,6 +44,7 @@ public abstract class Person {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
     public String getUsername() {
         return username;
     }

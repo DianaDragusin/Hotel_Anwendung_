@@ -1,19 +1,28 @@
 package model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
 public class Option {
     public static int state;
-    private  int id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int id;
     private double totalPrice;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "option_id")
     private List<Room> rooms;
 
     public Option(double totalPrice, List<Room> rooms) {
-        state ++ ;
+        state++;
         id = state;
         this.totalPrice = totalPrice;
         this.rooms = rooms;
+    }
+
+    public Option() {
+
     }
 
     public int getId() {
@@ -36,17 +45,17 @@ public class Option {
         this.rooms = rooms;
     }
 
-    private List<Room> getRoomsBYType(Type type){
+    private List<Room> getRoomsBYType(Type type) {
         List<Room> typeRooms = new ArrayList<>();
-        for(Room r:rooms){
-            if(r.getType().equals(type)){
+        for (Room r : rooms) {
+            if (r.getType().equals(type)) {
                 typeRooms.add(r);
             }
         }
         return typeRooms;
     }
 
-    private String roomListToString(List<Room> rooms){
+    private String roomListToString(List<Room> rooms) {
         String stringRooms = "";
 
         List<Room> singleR = getRoomsBYType(Type.SINGLE);
@@ -54,24 +63,25 @@ public class Option {
         List<Room> tripleR = getRoomsBYType(Type.TRIPLE);
         List<Room> apartmentR = getRoomsBYType(Type.APARTMENT);
 
-        if(singleR.size()!=0){
+        if (singleR.size() != 0) {
             stringRooms = stringRooms.concat(String.valueOf(singleR.size()));
             stringRooms = stringRooms.concat("SINGLE Room ");
         }
-        if(doubleR.size()!=0){
+        if (doubleR.size() != 0) {
             stringRooms = stringRooms.concat(String.valueOf(doubleR.size()));
             stringRooms = stringRooms.concat(" DOUBLE Room ");
         }
-        if(tripleR.size()!=0){
+        if (tripleR.size() != 0) {
             stringRooms = stringRooms.concat(String.valueOf(tripleR.size()));
             stringRooms = stringRooms.concat(" TRIPLE Room ");
         }
-        if(doubleR.size()!=0){
+        if (doubleR.size() != 0) {
             stringRooms = stringRooms.concat(String.valueOf(apartmentR.size()));
             stringRooms = stringRooms.concat(" APARTMENT ");
         }
         return stringRooms;
     }
+
     @Override
     public String toString() {
         return "Option: " + id + ", Rooms: " + roomListToString(rooms) + " Price: " + totalPrice;

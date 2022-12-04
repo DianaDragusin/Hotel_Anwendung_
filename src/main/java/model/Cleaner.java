@@ -1,13 +1,32 @@
 package model;
 
-import java.time.LocalDate;
-
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+@Entity
 public class Cleaner extends Person {
     private int salary;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "cleaner_room" ,
+            joinColumns = @JoinColumn(name = "cleaner_id"),
+            inverseJoinColumns = @JoinColumn(name = "room_id")
+    )
+    private  List<Room> rooms;
 
     public Cleaner(String firstName, String lastName, String username, String password) {
         super(firstName, lastName, username, password);
         this.salary = 0;
+        rooms = new ArrayList<>();
+    }
+
+
+
+    public Cleaner() {
+
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
     }
 
     public int getSalary() {
@@ -18,9 +37,13 @@ public class Cleaner extends Person {
         this.salary = salary;
     }
 
-  /*  public Cleaning cleanRoom(Room room, LocalDate date){
-        return new Cleaning(room,this, date);
-    } */
+    public void addRoomToClean(Room room){
+        this.rooms.add(room);
+    }
+
+    public void deleteRoomToClean(Room room){
+        this.rooms.remove(room);
+    }
 
     @Override
     public String toString() {

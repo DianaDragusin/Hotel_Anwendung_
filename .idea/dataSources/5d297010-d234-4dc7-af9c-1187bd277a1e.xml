@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="Hotel@localhost">
+<dataSource name="Hotel">
   <database-model serializer="dbm" dbms="MSSQL" family-id="MSSQL" format-version="4.43">
     <root id="1">
       <Grants>2|||2|connect|G
@@ -16568,7 +16568,12 @@
     </database>
     <database id="5511" parent="1" name="Hotel">
       <Current>1</Current>
+      <Fingerprint>8.44885/E9B731B8-FE7A-4800-AA53-E715C24FE06A@LAPTOP-44H8CV40\SQLE</Fingerprint>
+      <Grants>8|database||1|connect|G
+8|database||0|view any column encryption key definition|G
+8|database||0|view any column master key definition|G</Grants>
       <ObjectId>8</ObjectId>
+      <PermissionsCheckSum>3196235284</PermissionsCheckSum>
       <CollationName>Latin1_General_CI_AS</CollationName>
     </database>
     <database id="5512" parent="1" name="Tema3">
@@ -16595,189 +16600,272 @@
       <ObjectId>7</ObjectId>
       <CollationName>Latin1_General_CI_AS</CollationName>
     </database>
-    <linked-server id="5518" parent="1" name="LAPTOP-44H8CV40\SQLEXPRESS01">
+    <database id="5518" parent="1" name="university2">
+      <ObjectId>9</ObjectId>
+      <CollationName>Latin1_General_CI_AS</CollationName>
+    </database>
+    <linked-server id="5519" parent="1" name="LAPTOP-44H8CV40\SQLEXPRESS01">
       <DataSource>LAPTOP-44H8CV40\SQLEXPRESS01</DataSource>
       <Product>SQL Server</Product>
       <ProviderName>SQLNCLI</ProviderName>
     </linked-server>
-    <login id="5519" parent="1" name="sa">
+    <login id="5520" parent="1" name="sa">
       <DefaultDatabase>master</DefaultDatabase>
       <ObjectId>1</ObjectId>
     </login>
-    <login id="5520" parent="1" name="public">
+    <login id="5521" parent="1" name="public">
       <Enabled>1</Enabled>
       <ObjectId>2</ObjectId>
       <Type>server-role</Type>
     </login>
-    <login id="5521" parent="1" name="sysadmin">
+    <login id="5522" parent="1" name="sysadmin">
       <Enabled>1</Enabled>
       <ObjectId>3</ObjectId>
       <Type>server-role</Type>
     </login>
-    <login id="5522" parent="1" name="securityadmin">
+    <login id="5523" parent="1" name="securityadmin">
       <Enabled>1</Enabled>
       <ObjectId>4</ObjectId>
       <Type>server-role</Type>
     </login>
-    <login id="5523" parent="1" name="serveradmin">
+    <login id="5524" parent="1" name="serveradmin">
       <Enabled>1</Enabled>
       <ObjectId>5</ObjectId>
       <Type>server-role</Type>
     </login>
-    <login id="5524" parent="1" name="setupadmin">
+    <login id="5525" parent="1" name="setupadmin">
       <Enabled>1</Enabled>
       <ObjectId>6</ObjectId>
       <Type>server-role</Type>
     </login>
-    <login id="5525" parent="1" name="processadmin">
+    <login id="5526" parent="1" name="processadmin">
       <Enabled>1</Enabled>
       <ObjectId>7</ObjectId>
       <Type>server-role</Type>
     </login>
-    <login id="5526" parent="1" name="diskadmin">
+    <login id="5527" parent="1" name="diskadmin">
       <Enabled>1</Enabled>
       <ObjectId>8</ObjectId>
       <Type>server-role</Type>
     </login>
-    <login id="5527" parent="1" name="dbcreator">
+    <login id="5528" parent="1" name="dbcreator">
       <Enabled>1</Enabled>
       <ObjectId>9</ObjectId>
       <Type>server-role</Type>
     </login>
-    <login id="5528" parent="1" name="bulkadmin">
+    <login id="5529" parent="1" name="bulkadmin">
       <Enabled>1</Enabled>
       <ObjectId>10</ObjectId>
       <Type>server-role</Type>
     </login>
-    <login id="5529" parent="1" name="##MS_SQLResourceSigningCertificate##">
+    <login id="5530" parent="1" name="##MS_SQLResourceSigningCertificate##">
       <DefaultDatabase>master</DefaultDatabase>
       <Enabled>1</Enabled>
       <ObjectId>101</ObjectId>
       <Type>certificate-mapped-login</Type>
     </login>
-    <login id="5530" parent="1" name="##MS_SQLReplicationSigningCertificate##">
+    <login id="5531" parent="1" name="##MS_SQLReplicationSigningCertificate##">
       <DefaultDatabase>master</DefaultDatabase>
       <Enabled>1</Enabled>
       <ObjectId>102</ObjectId>
       <Type>certificate-mapped-login</Type>
     </login>
-    <login id="5531" parent="1" name="##MS_SQLAuthenticatorCertificate##">
+    <login id="5532" parent="1" name="##MS_SQLAuthenticatorCertificate##">
       <DefaultDatabase>master</DefaultDatabase>
       <Enabled>1</Enabled>
       <ObjectId>103</ObjectId>
       <Type>certificate-mapped-login</Type>
     </login>
-    <login id="5532" parent="1" name="##MS_PolicySigningCertificate##">
+    <login id="5533" parent="1" name="##MS_PolicySigningCertificate##">
       <DefaultDatabase>master</DefaultDatabase>
       <Enabled>1</Enabled>
       <ObjectId>105</ObjectId>
       <Type>certificate-mapped-login</Type>
     </login>
-    <login id="5533" parent="1" name="##MS_SmoExtendedSigningCertificate##">
+    <login id="5534" parent="1" name="##MS_SmoExtendedSigningCertificate##">
       <DefaultDatabase>master</DefaultDatabase>
       <Enabled>1</Enabled>
       <ObjectId>106</ObjectId>
       <Type>certificate-mapped-login</Type>
     </login>
-    <login id="5534" parent="1" name="##MS_PolicyEventProcessingLogin##">
+    <login id="5535" parent="1" name="##MS_PolicyEventProcessingLogin##">
       <DefaultDatabase>master</DefaultDatabase>
       <ObjectId>256</ObjectId>
     </login>
-    <login id="5535" parent="1" name="##MS_PolicyTsqlExecutionLogin##">
+    <login id="5536" parent="1" name="##MS_PolicyTsqlExecutionLogin##">
       <DefaultDatabase>master</DefaultDatabase>
       <ObjectId>257</ObjectId>
     </login>
-    <login id="5536" parent="1" name="##MS_AgentSigningCertificate##">
+    <login id="5537" parent="1" name="##MS_AgentSigningCertificate##">
       <DefaultDatabase>master</DefaultDatabase>
       <Enabled>1</Enabled>
       <ObjectId>258</ObjectId>
       <Type>certificate-mapped-login</Type>
     </login>
-    <login id="5537" parent="1" name="LAPTOP-44H8CV40\Angyclon">
+    <login id="5538" parent="1" name="LAPTOP-44H8CV40\Angyclon">
       <DefaultDatabase>master</DefaultDatabase>
       <Enabled>1</Enabled>
       <ObjectId>259</ObjectId>
       <Type>windows-login</Type>
     </login>
-    <login id="5538" parent="1" name="NT SERVICE\SQLWriter">
+    <login id="5539" parent="1" name="NT SERVICE\SQLWriter">
       <DefaultDatabase>master</DefaultDatabase>
       <Enabled>1</Enabled>
       <ObjectId>260</ObjectId>
       <Type>windows-login</Type>
     </login>
-    <login id="5539" parent="1" name="NT SERVICE\Winmgmt">
+    <login id="5540" parent="1" name="NT SERVICE\Winmgmt">
       <DefaultDatabase>master</DefaultDatabase>
       <Enabled>1</Enabled>
       <ObjectId>261</ObjectId>
       <Type>windows-login</Type>
     </login>
-    <login id="5540" parent="1" name="NT Service\MSSQL$SQLEXPRESS01">
+    <login id="5541" parent="1" name="NT Service\MSSQL$SQLEXPRESS01">
       <DefaultDatabase>master</DefaultDatabase>
       <Enabled>1</Enabled>
       <ObjectId>262</ObjectId>
       <Type>windows-login</Type>
     </login>
-    <login id="5541" parent="1" name="BUILTIN\Users">
+    <login id="5542" parent="1" name="BUILTIN\Users">
       <DefaultDatabase>master</DefaultDatabase>
       <Enabled>1</Enabled>
       <ObjectId>263</ObjectId>
       <Type>windows-group</Type>
     </login>
-    <login id="5542" parent="1" name="NT AUTHORITY\SYSTEM">
+    <login id="5543" parent="1" name="NT AUTHORITY\SYSTEM">
       <DefaultDatabase>master</DefaultDatabase>
       <Enabled>1</Enabled>
       <ObjectId>264</ObjectId>
       <Type>windows-login</Type>
     </login>
-    <login id="5543" parent="1" name="NT SERVICE\SQLTELEMETRY$SQLEXPRESS01">
+    <login id="5544" parent="1" name="NT SERVICE\SQLTELEMETRY$SQLEXPRESS01">
       <DefaultDatabase>master</DefaultDatabase>
       <Enabled>1</Enabled>
       <ObjectId>265</ObjectId>
       <Type>windows-login</Type>
     </login>
-    <login id="5544" parent="1" name="Diana">
+    <login id="5545" parent="1" name="Diana">
       <DefaultDatabase>master</DefaultDatabase>
       <Enabled>1</Enabled>
       <ObjectId>266</ObjectId>
     </login>
-    <schema id="5545" parent="5511" name="INFORMATION_SCHEMA">
+    <role id="5546" parent="5511" name="public">
+      <AuthType>none</AuthType>
+      <ObjectId>0</ObjectId>
+      <Type>database-role</Type>
+      <OwnerId>1</OwnerId>
+    </role>
+    <role id="5547" parent="5511" name="dbo">
+      <AuthType>windows</AuthType>
+      <DefaultSchema>dbo</DefaultSchema>
+      <ObjectId>1</ObjectId>
+      <Type>windows-user</Type>
+    </role>
+    <role id="5548" parent="5511" name="guest">
+      <AuthType>none</AuthType>
+      <DefaultSchema>guest</DefaultSchema>
+      <ObjectId>2</ObjectId>
+    </role>
+    <role id="5549" parent="5511" name="INFORMATION_SCHEMA">
+      <AuthType>none</AuthType>
+      <ObjectId>3</ObjectId>
+    </role>
+    <role id="5550" parent="5511" name="sys">
+      <AuthType>none</AuthType>
+      <ObjectId>4</ObjectId>
+    </role>
+    <role id="5551" parent="5511" name="db_owner">
+      <AuthType>none</AuthType>
+      <ObjectId>16384</ObjectId>
+      <Type>database-role</Type>
+      <OwnerId>1</OwnerId>
+    </role>
+    <role id="5552" parent="5511" name="db_accessadmin">
+      <AuthType>none</AuthType>
+      <ObjectId>16385</ObjectId>
+      <Type>database-role</Type>
+      <OwnerId>1</OwnerId>
+    </role>
+    <role id="5553" parent="5511" name="db_securityadmin">
+      <AuthType>none</AuthType>
+      <ObjectId>16386</ObjectId>
+      <Type>database-role</Type>
+      <OwnerId>1</OwnerId>
+    </role>
+    <role id="5554" parent="5511" name="db_ddladmin">
+      <AuthType>none</AuthType>
+      <ObjectId>16387</ObjectId>
+      <Type>database-role</Type>
+      <OwnerId>1</OwnerId>
+    </role>
+    <role id="5555" parent="5511" name="db_backupoperator">
+      <AuthType>none</AuthType>
+      <ObjectId>16389</ObjectId>
+      <Type>database-role</Type>
+      <OwnerId>1</OwnerId>
+    </role>
+    <role id="5556" parent="5511" name="db_datareader">
+      <AuthType>none</AuthType>
+      <ObjectId>16390</ObjectId>
+      <Type>database-role</Type>
+      <OwnerId>1</OwnerId>
+    </role>
+    <role id="5557" parent="5511" name="db_datawriter">
+      <AuthType>none</AuthType>
+      <ObjectId>16391</ObjectId>
+      <Type>database-role</Type>
+      <OwnerId>1</OwnerId>
+    </role>
+    <role id="5558" parent="5511" name="db_denydatareader">
+      <AuthType>none</AuthType>
+      <ObjectId>16392</ObjectId>
+      <Type>database-role</Type>
+      <OwnerId>1</OwnerId>
+    </role>
+    <role id="5559" parent="5511" name="db_denydatawriter">
+      <AuthType>none</AuthType>
+      <ObjectId>16393</ObjectId>
+      <Type>database-role</Type>
+      <OwnerId>1</OwnerId>
+    </role>
+    <schema id="5560" parent="5511" name="INFORMATION_SCHEMA">
       <ObjectId>3</ObjectId>
     </schema>
-    <schema id="5546" parent="5511" name="db_accessadmin">
+    <schema id="5561" parent="5511" name="db_accessadmin">
       <ObjectId>16385</ObjectId>
     </schema>
-    <schema id="5547" parent="5511" name="db_backupoperator">
+    <schema id="5562" parent="5511" name="db_backupoperator">
       <ObjectId>16389</ObjectId>
     </schema>
-    <schema id="5548" parent="5511" name="db_datareader">
+    <schema id="5563" parent="5511" name="db_datareader">
       <ObjectId>16390</ObjectId>
     </schema>
-    <schema id="5549" parent="5511" name="db_datawriter">
+    <schema id="5564" parent="5511" name="db_datawriter">
       <ObjectId>16391</ObjectId>
     </schema>
-    <schema id="5550" parent="5511" name="db_ddladmin">
+    <schema id="5565" parent="5511" name="db_ddladmin">
       <ObjectId>16387</ObjectId>
     </schema>
-    <schema id="5551" parent="5511" name="db_denydatareader">
+    <schema id="5566" parent="5511" name="db_denydatareader">
       <ObjectId>16392</ObjectId>
     </schema>
-    <schema id="5552" parent="5511" name="db_denydatawriter">
+    <schema id="5567" parent="5511" name="db_denydatawriter">
       <ObjectId>16393</ObjectId>
     </schema>
-    <schema id="5553" parent="5511" name="db_owner">
+    <schema id="5568" parent="5511" name="db_owner">
       <ObjectId>16384</ObjectId>
     </schema>
-    <schema id="5554" parent="5511" name="db_securityadmin">
+    <schema id="5569" parent="5511" name="db_securityadmin">
       <ObjectId>16386</ObjectId>
     </schema>
-    <schema id="5555" parent="5511" name="dbo">
+    <schema id="5570" parent="5511" name="dbo">
       <Current>1</Current>
       <ObjectId>1</ObjectId>
     </schema>
-    <schema id="5556" parent="5511" name="guest">
+    <schema id="5571" parent="5511" name="guest">
       <ObjectId>2</ObjectId>
     </schema>
-    <schema id="5557" parent="5511" name="sys">
+    <schema id="5572" parent="5511" name="sys">
       <ObjectId>4</ObjectId>
     </schema>
   </database-model>

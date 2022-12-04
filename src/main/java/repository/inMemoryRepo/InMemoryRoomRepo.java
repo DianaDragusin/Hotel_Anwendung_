@@ -1,7 +1,5 @@
 package repository.inMemoryRepo;
 
-import model.Cleaning;
-import model.Client;
 import model.Room;
 import model.Type;
 import repository.IRoomRepository;

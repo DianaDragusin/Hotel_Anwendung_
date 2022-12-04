@@ -19,15 +19,14 @@ public class Ui {
     List<Client> clients;
     List<Room> rooms;
     List<Reservation> reservations;
-    List<Reservation_Room> reservation_rooms;
-    List<Cleaning> cleanings;
+
 
 
     InMemoryCleanerRepo inMemoryCleanerRepo;
     InMemoryClientRepo inMemoryClientRepo;
     InMemoryRoomRepo inMemoryRoomRepo;
     InMemoryReservationRepo inMemoryReservationRepo;
-    InMemoryCleaningsRepo inMemoryCleaningsRepo;
+
 
     ClientController clientController;
     CleanerController cleanerController;
@@ -42,7 +41,7 @@ public class Ui {
         // Cleaner Controller
         this.cleaners = new ArrayList<>();
         this.inMemoryCleanerRepo = new InMemoryCleanerRepo(cleaners);
-        this.cleanerController = new CleanerController(inMemoryCleanerRepo, inMemoryCleaningsRepo, inMemoryRoomRepo);
+        this.cleanerController = new CleanerController(inMemoryCleanerRepo, inMemoryRoomRepo);
 
         // Client Controller
         this.clients = new ArrayList<>();
@@ -52,16 +51,15 @@ public class Ui {
         this.inMemoryRoomRepo = new InMemoryRoomRepo(rooms);
 
         this.reservations = new ArrayList<>();
-        this.reservation_rooms = new ArrayList<>();
-        this.inMemoryReservationRepo = new InMemoryReservationRepo(reservations, reservation_rooms);
 
-        this.cleanings = new ArrayList<>();
-        this.inMemoryCleaningsRepo = new InMemoryCleaningsRepo(cleanings);
+        this.inMemoryReservationRepo = new InMemoryReservationRepo(reservations);
 
-        this.clientController = new ClientController(inMemoryClientRepo, inMemoryRoomRepo, inMemoryReservationRepo, inMemoryCleanerRepo, inMemoryCleaningsRepo);
-        this.cleanerController = new CleanerController(inMemoryCleanerRepo,inMemoryCleaningsRepo,inMemoryRoomRepo);
+
+
+        this.clientController = new ClientController(inMemoryClientRepo, inMemoryRoomRepo, inMemoryReservationRepo, inMemoryCleanerRepo);
+        this.cleanerController = new CleanerController(inMemoryCleanerRepo,inMemoryRoomRepo);
         // Manager Controller
-        this.managerController = new ManagerController(inMemoryRoomRepo, inMemoryClientRepo, inMemoryCleanerRepo, inMemoryCleaningsRepo, inMemoryReservationRepo, "parola1");
+        this.managerController = new ManagerController(inMemoryRoomRepo, inMemoryClientRepo, inMemoryCleanerRepo, inMemoryReservationRepo, "parola1");
     }
 
 
@@ -167,10 +165,10 @@ public class Ui {
             System.out.println("\n");
             System.out.println("Please enter your password:");
             String password = myObj.nextLine();
-            System.out.println("\n");
             if (clientView.registerStatus(firstname,lastname,username,password)) {
                 // adaugam clientul si in lista de clienti actualizata
                 clients.add(inMemoryClientRepo.findByUsername(username));
+
                 clientMenu(inMemoryClientRepo.findByUsername(username));
 
             }
@@ -297,6 +295,7 @@ public class Ui {
             if (couponans >-1 && couponans < couplist.size())
             {
                 clientView.makeReservationWithCouponStatus(optionss.get(0),couplist.get(couponans), client.getId(),from,to);
+
             }
             else if(couponans == -1)
             {
@@ -304,7 +303,7 @@ public class Ui {
                 if (clientController.seeAllReservations(client.getId()).size()%3==0)
                 {
                     // trebe lucrat la identity la coupon
-                    Coupon coupon = new Coupon(1,20);
+                    Coupon coupon = new Coupon(20);
                     client.addCoupon(coupon);
                 }
             }
@@ -448,9 +447,9 @@ public class Ui {
                 11. Modify salary for cleaner
                 12. Delete cleaner
                 CLEANINGS
-                13. See all cleanings
-                14. See all cleanings for cleaner
-                15. See all cleanings for room
+                13. Add a room to be cleaned by a cleaner
+                14. See all rooms that a cleaner has not cleaned yet
+                15. See all cleaneaners that have to clean a certain room
                 EXIT
                 0.  Logout
                 16. Exit
@@ -551,16 +550,22 @@ public class Ui {
                 int id = Integer.parseInt(myObj.nextLine());
                 managerView.deleteCleanerStatus(id);
             }
-            case 13 -> managerView.printAllCleanings();
-            case 14 -> {
-                System.out.println("Enter the username of the cleaner you want to print cleanings for:");
+            case 13 -> {
+                System.out.println("Enter the username of the cleaner and the room you want him to tidy. Cleaner username = ");
                 String username = myObj.nextLine();
-                managerView.printAllCleaningsForCleaner(username);
+                System.out.println("The room id:");
+                int id = Integer.parseInt(myObj.nextLine());
+                managerView.addRoomtoCleanerStatus(id,username);
+            }
+            case 14 -> {
+                System.out.println("For what cleaner do you want to see wich rooms he has to clean? Cleaner username :");
+                String username = myObj.nextLine();
+                managerView.printUncleanedRooms(username);
             }
             case 15 -> {
-                System.out.println("Enter the id of the room you want to print cleanings for:");
+                System.out.println("For what rooms do you want to see the cleaners? Room id :");
                 int id = Integer.parseInt(myObj.nextLine());
-                managerView.printAllCleaningsForRoom(id);
+                managerView.printCleanersForRoom(id);
             }
             case 16 -> {
                 System.out.println("Bye!!!");

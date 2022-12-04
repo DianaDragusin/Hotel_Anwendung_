@@ -1,14 +1,24 @@
 package model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
 public class Client extends Person {
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
     private List<Coupon> couponList;
 
     public Client(String firstName, String lastName, String username, String password) {
         super(firstName, lastName, username, password);
         this.couponList = new ArrayList<>();
+    }
+
+    public Client() {
+
     }
 
 
@@ -19,24 +29,23 @@ public class Client extends Person {
     public void setCouponList(List<Coupon> couponList) {
         this.couponList = couponList;
     }
-    public void addCoupon(Coupon coupon)
-    {
+
+    public void addCoupon(Coupon coupon) {
         this.couponList.add(coupon);
     }
-    public void removeCoupon(Coupon coupon)
-    {
+
+    public void removeCoupon(Coupon coupon) {
         this.couponList.remove(coupon);
     }
-    private String Coupons ()
-    {
+
+    private String Coupons() {
         String couponString = "";
-        for (Coupon c : this.getCouponList() )
-        {
+        for (Coupon c : this.getCouponList()) {
             couponString = couponString.concat("\n");
             couponString = couponString.concat(c.toString());
         }
 
-        return  couponString;
+        return couponString;
     }
 
     @Override

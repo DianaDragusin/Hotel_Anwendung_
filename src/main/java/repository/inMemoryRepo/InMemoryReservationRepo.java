@@ -1,7 +1,6 @@
 package repository.inMemoryRepo;
 
 import model.Reservation;
-import model.Reservation_Room;
 import model.Room;
 import repository.IReservationRepository;
 
@@ -12,40 +11,29 @@ import java.util.List;
 public class InMemoryReservationRepo implements IReservationRepository {
     List<Reservation> reservations;
 
-    List<Reservation_Room> reservations_rooms ;
-
-    public InMemoryReservationRepo(List<Reservation> reservations, List<Reservation_Room> reservations_rooms) {
+    public InMemoryReservationRepo(List<Reservation> reservations) {
         this.reservations = reservations;
-        this.reservations_rooms = reservations_rooms;
     }
     public List<Reservation>getReservations()
     {
         return reservations;
     }
-    public List<Reservation_Room>getReservation_Rooms()
-    {
-        return reservations_rooms;
-    }
+
     @Override
     public boolean deleteReservation(int id) {
-        if (findReservationById(id) != null) {
-            for (Reservation_Room res_room : reservations_rooms)
-            {
-                if (res_room.getReservation() == id)
-                {
-                    reservations_rooms.remove( res_room);
-                }
-            }
-            reservations.remove(findReservationById(id));
+        Reservation reservation = this.findReservationById(id);
+        if(reservation != null) {
+            reservations.remove(reservation);
             return true;
         }
-        else {return false;}
-
+        else{
+            return false;
+        }
     }
 
     @Override
     public Reservation findReservationById(int id) {
-        for( Reservation r : reservations){
+        for(Reservation r : reservations){
             if(r.getId() == id){
                 return r;
             }
@@ -53,15 +41,9 @@ public class InMemoryReservationRepo implements IReservationRepository {
         return null;
     }
 
-
-    // @Override
-   // public List<Reservation> getAll() {
-   //     return reservations;
-  //  }
-
     @Override
-    public List<Integer> returnAllUnAvailableRooms(LocalDate start, LocalDate end) {
-        List<Integer> rooms = new ArrayList<>();
+    public List<Room> returnAllUnAvailableRooms(LocalDate start, LocalDate end) {
+        List<Room> rooms = new ArrayList<>();
         for (Reservation reservation : reservations)
         {
 
@@ -78,18 +60,8 @@ public class InMemoryReservationRepo implements IReservationRepository {
                     (reservation.getEnd() == end) ||
                     (reservation.getStart().isBefore(start) && reservation.getEnd().isAfter(end)))
             {
-                for (Reservation_Room line : reservations_rooms)
-                {
+                rooms.addAll(reservation.getRooms());
 
-                    if (line.getReservation() == reservation.getId())
-                    {
-                       // if (!rooms.contains(line.getRoom()) )
-                        //{
-
-                            rooms.add(line.getRoom());
-                        //}
-                    }
-                }
             }
 
         }
@@ -98,19 +70,14 @@ public class InMemoryReservationRepo implements IReservationRepository {
     }
 
     @Override
-    public List<Integer> GetAllReservedRoomsForAUser(int id) {
-        List<Integer> reservedRooms = new ArrayList<>();
+    public List<Room> GetAllReservedRoomsForAUser(int id) {
+        List<Room> reservedRooms = new ArrayList<>();
+
         for(Reservation res : reservations)
         {
-            if (res.getId()==id)
+            if (res.getClientId()==id)
             {
-               for (Reservation_Room res_room :reservations_rooms)
-               {
-                   if (res_room.getReservation() == res.getId())
-                   {
-                       reservedRooms.add(res_room.getRoom());
-                   }
-               }
+                reservedRooms.addAll(res.getRooms());
             }
         }
         return reservedRooms;
@@ -121,7 +88,7 @@ public class InMemoryReservationRepo implements IReservationRepository {
         List<Reservation> userReservations = new ArrayList<>();
        for(Reservation res : reservations)
        {
-           if (res.getId() == id)
+           if (res.getClientId() == id)
            {
                userReservations.add(res);
            }
@@ -129,21 +96,9 @@ public class InMemoryReservationRepo implements IReservationRepository {
        return userReservations;
     }
 
-
-    //  @Override
-  //  public List<Reservation_Room> GetAllReservedRooms() {
-   //     return reservations_rooms;
-  //  }
-
-
     @Override
-    public void addReservation(Reservation reservation, List<Room> rooms) {
+    public void addReservation(Reservation reservation) {
         reservations.add(reservation);
-        for (Room room : rooms)
-        {
-            Reservation_Room res_room = new Reservation_Room(reservation.getId(),room.getId());
-            reservations_rooms.add(res_room);
-        }
 
     }
 }
