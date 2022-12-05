@@ -19,10 +19,13 @@ public class ClientView {
     }
     public List<Coupon> showCoupons (int id)
     {
-
+        if(clientcontroller.showCoupons(id).size() == 0){
+            System.out.println("You don't have any coupon yet. Make more reservations and you'll get some!");
+            return null;
+        }
         for (Coupon c : clientcontroller.showCoupons(id))
         {
-            c.toString();
+            System.out.println(c.toString());
         }
         return  clientcontroller.showCoupons(id);
     }
