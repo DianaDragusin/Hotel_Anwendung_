@@ -9,22 +9,27 @@ import java.util.List;
 
 public class InMemoryCleanerRepo implements ICleanerRepository {
     private List<Cleaner> cleaners;
+    private int id_cleaner;
 
     public InMemoryCleanerRepo(List<Cleaner> cleanerList) {
-        this.cleaners = populate_cleaners();
+        this.cleaners =  new ArrayList<>();
+        populate_cleaners();
+        id_cleaner = 0;
     }
-    private List<Cleaner> populate_cleaners(){
-        List<Cleaner> cleaners = new ArrayList<>();
+    private void populate_cleaners(){
+
         Cleaner cleaner1 = new Cleaner("Andu", "Andreescu","anduandre","1234");
         Cleaner cleaner2 = new Cleaner("Laura", "Halmaciu","lauramaciu","2222");
         Cleaner cleaner3 = new Cleaner("Catalina", "Vasiu","catasiu","24siu");
-        cleaners.add(cleaner1);
-        cleaners.add(cleaner2);
-        cleaners.add(cleaner3);
-        return cleaners;
+        this.add(cleaner1);
+        this.add(cleaner2);
+        this.add(cleaner3);
+
     }
     @Override
     public void add(Cleaner cleaner) {
+        id_cleaner++;
+        cleaner.setId(id_cleaner);
         //uberprufe, dass der username unique bleibt
         this.cleaners.add(cleaner);
 

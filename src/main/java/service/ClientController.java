@@ -174,5 +174,9 @@ public class ClientController {
 
     }
 
-
+    public boolean addCoupon(Coupon c, int client_id)
+    {
+        clientRepo.addCoupon(c,client_id);
+        return true;
+    }
 }

@@ -12,6 +12,7 @@ public class Client extends Person {
     @JoinColumn(name = "client_id")
     private List<Coupon> couponList;
 
+
     public Client(String firstName, String lastName, String username, String password) {
         super(firstName, lastName, username, password);
         this.couponList = new ArrayList<>();

@@ -17,23 +17,23 @@ public class ClientView {
     public ClientView(ClientController clientcontroller) {
         this.clientcontroller = clientcontroller;
     }
-    public List<Coupon> showCoupons (int id)
+    public void showCoupons (int id)
     {
-
+        List <Coupon> coupons = clientcontroller.showCoupons(id);
         for (Coupon c : clientcontroller.showCoupons(id))
         {
-            c.toString();
+            System.out.println(c.toString());
         }
-        return  clientcontroller.showCoupons(id);
+
     }
-    public  List<Option> printOptions (LocalDate checkin, LocalDate checkout, int nrpers)
+    public  void printOptions (LocalDate checkin, LocalDate checkout, int nrpers)
     {
         List<Option> options = clientcontroller.generateOptions(checkin,checkout,nrpers);
         for (Option option :options)
         {
             System.out.println(option.toString());
         }
-        return  options;
+
     }
     public void  printAllReservedRooms (int id)
     {

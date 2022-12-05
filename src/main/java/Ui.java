@@ -45,14 +45,14 @@ public class Ui {
 
         // Client Controller
         this.clients = new ArrayList<>();
-        this.inMemoryClientRepo = new InMemoryClientRepo(clients);
+        this.inMemoryClientRepo = new InMemoryClientRepo();
 
         this.rooms = new ArrayList<>();
-        this.inMemoryRoomRepo = new InMemoryRoomRepo(rooms);
+        this.inMemoryRoomRepo = new InMemoryRoomRepo();
 
         this.reservations = new ArrayList<>();
 
-        this.inMemoryReservationRepo = new InMemoryReservationRepo(reservations);
+        this.inMemoryReservationRepo = new InMemoryReservationRepo();
 
 
 
@@ -259,38 +259,70 @@ public class Ui {
         {
 
 
-            System.out.println("When will you be staying with us ?\n");
+            System.out.println("When will you be staying with us ?");
             System.out.println("From year = ");
             int year  =  Integer.parseInt(myObj.nextLine());
-            System.out.println("\n");
+
             System.out.println("month = ");
             int month = Integer.parseInt(myObj.nextLine());
-            System.out.println("\n");
+
             System.out.println("day = ");
             int day = Integer.parseInt(myObj.nextLine());
-            System.out.println("\n");
+
             LocalDate from = LocalDate.of(year,month,day);
             System.out.println("To year = ");
             int year2  =  Integer.parseInt(myObj.nextLine());
-            System.out.println("\n");
+
             System.out.println("month = ");
             int month2 = Integer.parseInt(myObj.nextLine());
-            System.out.println("\n");
+
             System.out.println("day = ");
             int day2 = Integer.parseInt(myObj.nextLine());
-            System.out.println("\n");
+
             LocalDate to = LocalDate.of(year2,month2,day2);
-            System.out.println("How many will be staying with us ?\n");
+
+            System.out.println("How many will be staying with us ?");
             System.out.println("people = ");
             int people  =  Integer.parseInt(myObj.nextLine());
-            System.out.println("\n");
-            System.out.println("These are your coupons: \n");
-            List<Coupon> couplist = clientView.showCoupons(client.getId());
+            while (clientController.generateOptions(from,to,people).size() == 0)
+            {
+                System.out.println("No rooms are available at this time please try with other dates or number of people");
+                System.out.println("When will you be staying with us ?");
+                System.out.println("From year = ");
+                 year  =  Integer.parseInt(myObj.nextLine());
+
+                System.out.println("month = ");
+                 month = Integer.parseInt(myObj.nextLine());
+
+                System.out.println("day = ");
+                 day = Integer.parseInt(myObj.nextLine());
+
+                from = LocalDate.of(year,month,day);
+                System.out.println("To year = ");
+                 year2  =  Integer.parseInt(myObj.nextLine());
+
+                System.out.println("month = ");
+                 month2 = Integer.parseInt(myObj.nextLine());
+
+                System.out.println("day = ");
+                 day2 = Integer.parseInt(myObj.nextLine());
+
+                 to = LocalDate.of(year2,month2,day2);
+
+                System.out.println("How many will be staying with us ?");
+                System.out.println("people = ");
+                 people  =  Integer.parseInt(myObj.nextLine());
+            }
+            System.out.println("These are your coupons: ");
+            List<Coupon> couplist = clientController.showCoupons(client.getId());
+            clientView.showCoupons(client.getId());
             System.out.println("Which coupon would you like to use? Type -1 if you wont like to use any \n");
             System.out.println("coupon = ");
             int couponans = Integer.parseInt(myObj.nextLine());
             System.out.println("\n");
-            List<Option>optionss = clientView.printOptions(from,to,people);
+            List<Option>optionss = clientController.generateOptions(from,to,people);
+            System.out.println("Options:");
+            clientView.printOptions(from,to,people);
             // make something with options plus
             if (couponans >-1 && couponans < couplist.size())
             {
@@ -300,11 +332,12 @@ public class Ui {
             else if(couponans == -1)
             {
                 clientView.makeReservationStatus(optionss.get(0), client.getId(),from,to);
-                if (clientController.seeAllReservations(client.getId()).size()%3==0)
+                if (clientController.seeAllReservations(client.getId()).size()%2== 0)
                 {
                     // trebe lucrat la identity la coupon
                     Coupon coupon = new Coupon(20);
-                    client.addCoupon(coupon);
+                    clientController.addCoupon(coupon,client.getId());
+
                 }
             }
             clientMenu(client);

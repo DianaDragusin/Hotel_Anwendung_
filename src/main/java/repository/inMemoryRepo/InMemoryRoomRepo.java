@@ -9,30 +9,34 @@ import java.util.List;
 
 public class InMemoryRoomRepo implements IRoomRepository {
     private List<Room> rooms;
+    private int room_id;
 
 
-
-    public InMemoryRoomRepo(List<Room> rooms) {
-        this.rooms =populate_rooms();
+    public InMemoryRoomRepo() {
+        this.rooms = new ArrayList<>();
+        populate_rooms();
+        room_id = 0;
     }
 
-    private List<Room> populate_rooms()
+    private void populate_rooms()
     {
-        List<Room>rooms = new ArrayList<>();
+
         Room room1 = new Room(Type.SINGLE,300,1);
         Room room2 = new Room(Type.DOUBLE,400,2);
         Room room3 = new Room(Type.TRIPLE,700,3);
         Room room4 = new Room(Type.APARTMENT,1000,4);
-        rooms.add(room1);
-        rooms.add(room2);
-        rooms.add(room3);
-        rooms.add(room4);
-        return  rooms;
+        this.add(room1);
+        this.add(room2);
+        this.add(room3);
+        this.add(room4);
+
 
     }
     @Override
     public void add(Room room) {
-     rooms.add(room);
+        room_id++;
+        room.setId(room_id);
+        rooms.add(room);
 
     }
 
