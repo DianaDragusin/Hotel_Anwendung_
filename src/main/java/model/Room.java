@@ -19,6 +19,10 @@ public class Room {
         this.nrPers = nrPers;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Room() {
 
     }

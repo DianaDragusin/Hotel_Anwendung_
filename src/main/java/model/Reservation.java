@@ -29,6 +29,10 @@ public class Reservation {
 
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }

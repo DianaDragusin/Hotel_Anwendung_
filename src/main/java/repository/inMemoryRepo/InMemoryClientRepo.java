@@ -1,6 +1,7 @@
 package repository.inMemoryRepo;
 
 import model.Client;
+import model.Coupon;
 import repository.IClientRespository;
 
 import java.util.ArrayList;
@@ -9,27 +10,33 @@ import java.util.List;
 public class InMemoryClientRepo implements IClientRespository {
 
     private List<Client> clients;
+    private int client_id;
+    private int coupon_id;
 
-    public InMemoryClientRepo(  List<Client> clients) {
-        this.clients = populate_clients();
+    public InMemoryClientRepo( ) {
+        this.clients = new ArrayList<>();
+        populate_clients();
+        client_id = 0;
+        coupon_id = 0;
     }
 
-    private List<Client> populate_clients(){
-        List<Client> clients = new ArrayList<>();
+    private void populate_clients(){
+
         Client client1 = new Client("Bob", "Pop","bobpop","00bob");
         Client client2 = new Client("Laura", "Georgescu","laurgeor","22laura");
         Client client3 = new Client("Catalin", "Olariu","cataola","24catalin");
-        clients.add(client1);
-        clients.add(client2);
-        clients.add(client3);
-        return clients;
+        this.add(client1);
+        this.add(client2);
+        this.add(client3);
+
     }
 
     @Override
     public void add(Client client) {
         //uberprufe, dass der username unique bleibt
-
-        this.clients.add(client);
+        client_id++;
+        client.setId(client_id);
+        clients.add(client);
 
     }
     /*
@@ -79,6 +86,12 @@ public class InMemoryClientRepo implements IClientRespository {
     @Override
     public List<Client> getAll() {
         return clients;
+    }
+    public void addCoupon(Coupon c, int client_id)
+    {
+        coupon_id++;
+        c.setCode(coupon_id);
+        clients.get(client_id).addCoupon(c);
     }
 
 }

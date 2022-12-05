@@ -10,9 +10,11 @@ import java.util.List;
 
 public class InMemoryReservationRepo implements IReservationRepository {
     List<Reservation> reservations;
+    private int reservation_id;
 
-    public InMemoryReservationRepo(List<Reservation> reservations) {
-        this.reservations = reservations;
+    public InMemoryReservationRepo() {
+        this.reservations = new ArrayList<>();
+        reservation_id = 0;
     }
     public List<Reservation>getReservations()
     {
@@ -98,6 +100,8 @@ public class InMemoryReservationRepo implements IReservationRepository {
 
     @Override
     public void addReservation(Reservation reservation) {
+        reservation_id ++;
+        reservation.setId(reservation_id);
         reservations.add(reservation);
 
     }
