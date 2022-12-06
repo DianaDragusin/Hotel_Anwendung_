@@ -28,11 +28,7 @@ public class ClientController {
         List<Room> unavailableRooms = reservationRepo.returnAllUnAvailableRooms(checkIn, checkOut);
 
         for (Room room : unavailableRooms) {
-            if (rooms.contains(room) && room.getType() == t)
-            {
-                rooms.remove(room);
-            }
-
+            rooms.remove(room);
         }
 
         return rooms;

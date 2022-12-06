@@ -1,4 +1,4 @@
-package repository.inMemoryRepo;
+package repository.databaseRepo;
 
 import model.Room;
 import model.Type;
@@ -7,12 +7,12 @@ import repository.IRoomRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryRoomRepo implements IRoomRepository {
+public class databaseRoomRepo implements IRoomRepository {
     private List<Room> rooms;
     private int room_id;
 
 
-    public InMemoryRoomRepo() {
+    public databaseRoomRepo() {
         this.rooms = new ArrayList<>();
         populate_rooms();
         room_id = 0;
