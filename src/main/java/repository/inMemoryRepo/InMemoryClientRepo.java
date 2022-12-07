@@ -10,13 +10,13 @@ import java.util.List;
 public class InMemoryClientRepo implements IClientRespository {
 
     private List<Client> clients;
-    private int client_id;
+    private int clientId;
     private int coupon_id;
 
     public InMemoryClientRepo( ) {
         this.clients = new ArrayList<>();
         populate_clients();
-        client_id = 0;
+        clientId = 0;
         coupon_id = 0;
     }
 
@@ -34,8 +34,8 @@ public class InMemoryClientRepo implements IClientRespository {
     @Override
     public void add(Client client) {
         //uberprufe, dass der username unique bleibt
-        client_id++;
-        client.setId(client_id);
+        clientId++;
+        client.setId(clientId);
         clients.add(client);
 
     }
@@ -87,11 +87,11 @@ public class InMemoryClientRepo implements IClientRespository {
     public List<Client> getAll() {
         return clients;
     }
-    public void addCoupon(Coupon c, int client_id)
+    public void addCoupon(Coupon c, int clientId)
     {
         coupon_id++;
         c.setCode(coupon_id);
-        clients.get(client_id).addCoupon(c);
+        clients.get(clientId).addCoupon(c);
     }
 
 }

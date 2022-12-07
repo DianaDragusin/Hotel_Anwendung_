@@ -55,7 +55,7 @@ public class Option {
         return typeRooms;
     }
 
-    private String roomListToString(List<Room> rooms) {
+    private String roomListToString() {
         String stringRooms = "";
 
         List<Room> singleR = getRoomsBYType(Type.SINGLE);
@@ -65,25 +65,25 @@ public class Option {
 
         if (singleR.size() != 0) {
             stringRooms = stringRooms.concat(String.valueOf(singleR.size()));
-            stringRooms = stringRooms.concat("SINGLE Room ");
+            stringRooms = stringRooms.concat(" SINGLE Room, ");
         }
         if (doubleR.size() != 0) {
             stringRooms = stringRooms.concat(String.valueOf(doubleR.size()));
-            stringRooms = stringRooms.concat(" DOUBLE Room ");
+            stringRooms = stringRooms.concat(" DOUBLE Room, ");
         }
         if (tripleR.size() != 0) {
             stringRooms = stringRooms.concat(String.valueOf(tripleR.size()));
-            stringRooms = stringRooms.concat(" TRIPLE Room ");
+            stringRooms = stringRooms.concat(" TRIPLE Room, ");
         }
         if (doubleR.size() != 0) {
             stringRooms = stringRooms.concat(String.valueOf(apartmentR.size()));
-            stringRooms = stringRooms.concat(" APARTMENT ");
+            stringRooms = stringRooms.concat(" APARTMENT, ");
         }
         return stringRooms;
     }
 
     @Override
     public String toString() {
-        return "Option: " + id + ", Rooms: " + roomListToString(rooms) + " Price: " + totalPrice;
+        return "Option: " + id + ", Rooms: " + roomListToString() + " Price: " + totalPrice;
     }
 }

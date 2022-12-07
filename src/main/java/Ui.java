@@ -284,35 +284,35 @@ public class Ui {
             System.out.println("How many will be staying with us ?");
             System.out.println("people = ");
             int people  =  Integer.parseInt(myObj.nextLine());
-            while (clientController.generateOptions(from,to,people).size() == 0)
-            {
-                System.out.println("No rooms are available at this time please try with other dates or number of people");
-                System.out.println("When will you be staying with us ?");
-                System.out.println("From year = ");
-                 year  =  Integer.parseInt(myObj.nextLine());
-
-                System.out.println("month = ");
-                 month = Integer.parseInt(myObj.nextLine());
-
-                System.out.println("day = ");
-                 day = Integer.parseInt(myObj.nextLine());
-
-                from = LocalDate.of(year,month,day);
-                System.out.println("To year = ");
-                 year2  =  Integer.parseInt(myObj.nextLine());
-
-                System.out.println("month = ");
-                 month2 = Integer.parseInt(myObj.nextLine());
-
-                System.out.println("day = ");
-                 day2 = Integer.parseInt(myObj.nextLine());
-
-                 to = LocalDate.of(year2,month2,day2);
-
-                System.out.println("How many will be staying with us ?");
-                System.out.println("people = ");
-                 people  =  Integer.parseInt(myObj.nextLine());
-            }
+//            while (clientController.generateOptions(from,to,people).size() == 0)
+//            {
+//                System.out.println("No rooms are available at this time please try with other dates or number of people");
+//                System.out.println("When will you be staying with us ?");
+//                System.out.println("From year = ");
+//                 year  =  Integer.parseInt(myObj.nextLine());
+//
+//                System.out.println("month = ");
+//                 month = Integer.parseInt(myObj.nextLine());
+//
+//                System.out.println("day = ");
+//                 day = Integer.parseInt(myObj.nextLine());
+//
+//                from = LocalDate.of(year,month,day);
+//                System.out.println("To year = ");
+//                 year2  =  Integer.parseInt(myObj.nextLine());
+//
+//                System.out.println("month = ");
+//                 month2 = Integer.parseInt(myObj.nextLine());
+//
+//                System.out.println("day = ");
+//                 day2 = Integer.parseInt(myObj.nextLine());
+//
+//                 to = LocalDate.of(year2,month2,day2);
+//
+//                System.out.println("How many will be staying with us ?");
+//                System.out.println("people = ");
+//                 people  =  Integer.parseInt(myObj.nextLine());
+//            }
             System.out.println("These are your coupons: ");
             List<Coupon> couplist = clientController.showCoupons(client.getId());
             clientView.showCoupons(client.getId());
@@ -322,7 +322,7 @@ public class Ui {
             System.out.println("\n");
             List<Option>optionss = clientController.generateOptions(from,to,people);
             System.out.println("Options:");
-            clientView.printOptions(from,to,people);
+            clientView.printOptions(optionss);
             // make something with options plus
             if (couponans >-1 && couponans < couplist.size())
             {

@@ -29,9 +29,8 @@ public class ClientView {
         }
         return  clientcontroller.showCoupons(id);
     }
-    public  List<Option> printOptions (LocalDate checkin, LocalDate checkout, int nrpers)
+    public  List<Option> printOptions (List<Option> options)
     {
-        List<Option> options = clientcontroller.generateOptions(checkin,checkout,nrpers);
         for (Option option :options)
         {
             System.out.println(option.toString());
