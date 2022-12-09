@@ -29,13 +29,22 @@ public class ClientView {
         }
         return  clientcontroller.showCoupons(id);
     }
-    public  List<Option> printOptions (List<Option> options)
+    public  void printOptions (LocalDate checkin, LocalDate checkout ,int nrperson )
+    {
+        List<Option>options = clientcontroller.generateOptions(checkin,checkout,nrperson);
+        for (Option option :options)
+        {
+            System.out.println(option.toString());
+        }
+
+    }
+    public  void printOptions (List<Option> options )
     {
         for (Option option :options)
         {
             System.out.println(option.toString());
         }
-        return  options;
+
     }
     public void  printAllReservedRooms (int id)
     {

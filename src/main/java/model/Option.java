@@ -3,11 +3,10 @@ package model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-@Entity
+
 public class Option {
-    public static int state;
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+
+
     private int id;
     private double totalPrice;
     @OneToMany(cascade = CascadeType.ALL)
@@ -15,14 +14,16 @@ public class Option {
     private List<Room> rooms;
 
     public Option(double totalPrice, List<Room> rooms) {
-        state++;
-        id = state;
         this.totalPrice = totalPrice;
         this.rooms = rooms;
     }
 
     public Option() {
 
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {
@@ -75,7 +76,7 @@ public class Option {
             stringRooms = stringRooms.concat(String.valueOf(tripleR.size()));
             stringRooms = stringRooms.concat(" TRIPLE Room, ");
         }
-        if (doubleR.size() != 0) {
+        if (apartmentR.size() != 0) {
             stringRooms = stringRooms.concat(String.valueOf(apartmentR.size()));
             stringRooms = stringRooms.concat(" APARTMENT, ");
         }

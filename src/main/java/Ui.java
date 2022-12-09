@@ -323,19 +323,23 @@ public class Ui {
             List<Option>optionss = clientController.generateOptions(from,to,people);
             System.out.println("Options:");
             clientView.printOptions(optionss);
+            System.out.println("What option do you prefer:");
+            int optionnr = Integer.parseInt(myObj.nextLine());
             // make something with options plus
-            if (couponans >-1 && couponans < couplist.size())
+            if (couponans >-1 && couponans < couplist.size() && optionss.size() > 0)
             {
-                clientView.makeReservationWithCouponStatus(optionss.get(0),couplist.get(couponans), client.getId(),from,to);
+                clientView.makeReservationWithCouponStatus(optionss.get(optionnr - 1),couplist.get(couponans), client.getId(),from,to);
 
             }
-            else if(couponans == -1)
+            else if(couponans == -1 && optionss.size() > 0)
             {
-                clientView.makeReservationStatus(optionss.get(0), client.getId(),from,to);
-                if (clientController.seeAllReservations(client.getId()).size()%2== 0)
+                clientView.makeReservationStatus(optionss.get(optionnr - 1), client.getId(),from,to);
+                if (clientController.seeAllReservations(client.getId()).size() %3 == 0)
                 {
-                    // trebe lucrat la identity la coupon
-                    Coupon coupon = new Coupon(20);
+                    int random_int = (int)Math.floor(Math.random()*(90-10+1)+10)/10;
+                    random_int = random_int * 10;
+
+                    Coupon coupon = new Coupon(random_int);
                     clientController.addCoupon(coupon,client.getId());
 
                 }
@@ -484,6 +488,7 @@ public class Ui {
                 14. See all rooms that a cleaner has not cleaned yet
                 15. See all cleaneaners that have to clean a certain room
                 EXIT
+                17. See all available rooms
                 0.  Logout
                 16. Exit
                 
@@ -603,6 +608,37 @@ public class Ui {
             case 16 -> {
                 System.out.println("Bye!!!");
                 System.exit(1);
+            }
+            case 17 -> {
+
+                System.out.println("When will you be staying with us ?");
+                System.out.println("From year = ");
+                int year  =  Integer.parseInt(myObj.nextLine());
+
+                System.out.println("month = ");
+                int month = Integer.parseInt(myObj.nextLine());
+
+                System.out.println("day = ");
+                int day = Integer.parseInt(myObj.nextLine());
+
+                LocalDate from = LocalDate.of(year,month,day);
+                System.out.println("To year = ");
+                int year2  =  Integer.parseInt(myObj.nextLine());
+
+                System.out.println("month = ");
+                int month2 = Integer.parseInt(myObj.nextLine());
+
+                System.out.println("day = ");
+                int day2 = Integer.parseInt(myObj.nextLine());
+
+                LocalDate to = LocalDate.of(year2,month2,day2);
+                List<Room> rooms =   clientController.searchAvailableRoom(from,to);
+                for (Room r : rooms)
+                {
+                    System.out.println(r.toString());
+                }
+
+
             }
             default -> System.out.println("Not a valid option!");
         }

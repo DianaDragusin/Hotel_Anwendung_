@@ -26,16 +26,8 @@ public class InMemoryRoomRepo implements IRoomRepository {
         Room room3 = new Room(Type.TRIPLE,700,3);
         Room room4 = new Room(Type.APARTMENT,1000,4);
         this.add(room1);
-        this.add(room1);
-        this.add(room1);
-        this.add(room1);
-        this.add(room2);
         this.add(room2);
         this.add(room3);
-        this.add(room3);
-        this.add(room3);
-        this.add(room4);
-        this.add(room4);
         this.add(room4);
 
 

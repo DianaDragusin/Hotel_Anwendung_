@@ -25,15 +25,16 @@ public class ClientController {
         this.cleanerRepo = cleanerRepo;
 
     }
-
-    private List<Room> searchAvailableRoom(LocalDate checkIn, LocalDate checkOut) {
+    // make private
+    public List<Room> searchAvailableRoom(LocalDate checkIn, LocalDate checkOut) {
         List<Room> rooms = roomRepo.getAll();
         List<Room> unavailableRooms = reservationRepo.returnAllUnAvailableRooms(checkIn, checkOut);
 
-        for (Room room : unavailableRooms) {
-            rooms.remove(room);
-        }
 
+        for (Room r : unavailableRooms )
+        {
+            rooms.remove(r);
+        }
         return rooms;
     }
 
@@ -140,6 +141,7 @@ public class ClientController {
         List<Room> option_rooms = new ArrayList<>();
         List<int[]> options = new ArrayList<>();
         List<Option> final_options = new ArrayList<>();
+        int optionId = 1;
 
         for(int[] i : combinations){
             option_rooms.clear();
@@ -154,7 +156,9 @@ public class ClientController {
                         totalPrice += r.getPrice();
                     }
                     Option option = new Option(totalPrice,option_rooms.stream().toList());
+                    option.setId(optionId);
                     final_options.add(option);
+                    optionId++;
                 }
             }
         }
@@ -165,13 +169,13 @@ public class ClientController {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public String makeReservationWithCoupon(Option option, Coupon coupon, Integer clientId, LocalDate start, LocalDate end) {
+    public String makeReservationWithCoupon(Option option, Coupon coupon, int clientId, LocalDate start, LocalDate end) {
         // work to do
         Reservation reservation = new Reservation(clientId, start, end, option.getTotalPrice());
         reservation.setPrice(applyCoupon(coupon, option.getTotalPrice()));
         reservation.setRooms(option.getRooms());
         reservationRepo.addReservation(reservation);
-
+        clientRepo.findById(clientId).removeCoupon(coupon);
         return "Reservation created successfully";
     }
 

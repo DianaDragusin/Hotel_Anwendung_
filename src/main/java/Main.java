@@ -25,7 +25,7 @@ public class Main {
         cl.setSalary(300);
 
         manager.getTransaction().begin();
-
+       // manager.persist(c);
 //        manager.persist(cl);
 //        manager.persist(c);
         manager.getTransaction().commit();
