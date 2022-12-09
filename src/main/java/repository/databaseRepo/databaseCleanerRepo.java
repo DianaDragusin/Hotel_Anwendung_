@@ -3,35 +3,38 @@ package repository.databaseRepo;
 import model.Cleaner;
 import repository.ICleanerRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 
 public class databaseCleanerRepo implements ICleanerRepository {
     private List<Cleaner> cleaners;
     private int id_cleaner;
+    EntityManagerFactory factory;
+    EntityManager manager;
 
     public databaseCleanerRepo(List<Cleaner> cleanerList) {
         this.cleaners =  new ArrayList<>();
         populate_cleaners();
-        id_cleaner = 0;
+        factory = Persistence.createEntityManagerFactory("default");
+        manager = factory.createEntityManager();
+        manager.getTransaction().begin();
     }
     private void populate_cleaners(){
 
         Cleaner cleaner1 = new Cleaner("Andu", "Andreescu","anduandre","1234");
         Cleaner cleaner2 = new Cleaner("Laura", "Halmaciu","lauramaciu","2222");
         Cleaner cleaner3 = new Cleaner("Catalina", "Vasiu","catasiu","24siu");
-        this.add(cleaner1);
-        this.add(cleaner2);
-        this.add(cleaner3);
-
+        manager.persist(cleaner1);
+        manager.persist(cleaner2);
+        manager.persist(cleaner3);
     }
     @Override
     public void add(Cleaner cleaner) {
-        id_cleaner++;
-        cleaner.setId(id_cleaner);
-        //uberprufe, dass der username unique bleibt
-        this.cleaners.add(cleaner);
-
+        manager.persist(cleaner);
+        manager.getTransaction().commit();
     }
 
     private String getCleanerUsername(Cleaner cleaner){

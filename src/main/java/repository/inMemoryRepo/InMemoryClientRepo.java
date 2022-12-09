@@ -33,7 +33,6 @@ public class InMemoryClientRepo implements IClientRespository {
 
     @Override
     public void add(Client client) {
-        //uberprufe, dass der username unique bleibt
         clientId++;
         client.setId(clientId);
         clients.add(client);
