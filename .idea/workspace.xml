@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="Options and coupon bugs fixed">
+    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="coupon print activated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseCleanerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseCleanerRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryClientRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/views/CleanerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/CleanerView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,8 +129,7 @@
       <workItem from="1670311436230" duration="3584000" />
       <workItem from="1670360558897" duration="635000" />
       <workItem from="1670366742938" duration="5121000" />
-      <workItem from="1670573140234" duration="6481000" />
-      <workItem from="1670591587261" duration="3517000" />
+      <workItem from="1670573140234" duration="6232000" />
     </task>
     <task id="LOCAL-00001" summary="commit 4">
       <created>1667139692561</created>
@@ -334,14 +334,7 @@
       <option name="project" value="LOCAL" />
       <updated>1670311622606</updated>
     </task>
-    <task id="LOCAL-00030" summary="Options and coupon bugs fixed">
-      <created>1670579586970</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1670579586970</updated>
-    </task>
-    <option name="localTasksCounter" value="31" />
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,7 +376,6 @@
     <MESSAGE value="few changes" />
     <MESSAGE value="coupon print activated" />
     <MESSAGE value="database repos added not final" />
-    <MESSAGE value="Options and coupon bugs fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Options and coupon bugs fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="database repos added not final" />
   </component>
 </project>

@@ -62,4 +62,9 @@ public class CleanerView {
         }
     }
 
+    public void showUserDetails(Cleaner cleaner) {
+        System.out.println("These are your personal details:");
+        System.out.println("Username: " + cleaner.getUsername());
+        System.out.println("Name: " + cleaner.getLastName() + " " + cleaner.getFirstName()+cleaner);
+    }
 }

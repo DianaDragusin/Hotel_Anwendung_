@@ -235,22 +235,21 @@ public class Ui {
                 Hello Client!
                 Choose an option!
                 RESERVATION
-                1.Make a reservation
-                2.Show all reservations
-                3.Show all reserved rooms
-                4.Delete a reservation
-                5.Show Coupons
+                1. Make a reservation
+                2. Show all reservations
+                3. Show all reserved rooms
+                4. Delete a reservation
+                5. Show Coupons
                 PERSONAL INFO
-                6.Change FirstName and Last Name
-                7.Change Password  
+                6. Change FirstName and Last Name
+                7. Change Password
+                8. See your details
                 EXIT
                 0.  Logout
-                16. Exit
                 
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
         int option = Integer.parseInt(myObj.nextLine());
-        System.out.println("\n");
         if (option == 0)
         {
             showMenu();
@@ -406,7 +405,8 @@ public class Ui {
                 2.Show Rooms to clean
                 PERSONAL INFO
                 3.Change FirstName and Last Name
-                4.Change Password  
+                4.Change Password
+                5.See your details
                 EXIT
                 0.  Logout
                
@@ -414,15 +414,12 @@ public class Ui {
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
         int option = Integer.parseInt(myObj.nextLine());
-        System.out.println("\n");
         if (option == 0 )
         {
             showMenu();
         }
         else if (option == 1 )
         {
-
-
             System.out.println("What room would you like to clean?\n");
             int room  =  Integer.parseInt(myObj.nextLine());
             System.out.println("When ? ");
@@ -440,9 +437,6 @@ public class Ui {
             cleanerView.printRooms();
             cleanerMenu(cleaner);
         }
-
-
-
         else if (option == 3)
         {
             System.out.println("Enter your new First Name:");
@@ -453,17 +447,18 @@ public class Ui {
 
             cleanerMenu(cleaner);
         }
-        if (option == 4)
+        else if (option == 4)
         {
-
             System.out.println("Enter your new Password:");
             String password = myObj.nextLine();
             cleanerView.changePasswordStatus(cleaner.getId(),password);
 
             cleanerMenu(cleaner);
         }
-
-
+        else if (option == 5){
+            cleanerView.showUserDetails(cleaner);
+            cleanerMenu(cleaner);
+        }
     }
     private void managerMenu(){
         System.out.println("""
