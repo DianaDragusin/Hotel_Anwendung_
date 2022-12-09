@@ -329,13 +329,14 @@ public class Ui {
             if (couponans >-1 && couponans < couplist.size() && optionss.size() > 0)
             {
                 clientView.makeReservationWithCouponStatus(optionss.get(optionnr - 1),couplist.get(couponans), client.getId(),from,to);
-
+                clientController.removeCoupon(clientController.findCouponById(couponans,client.getId()),client.getId());
             }
             else if(couponans == -1 && optionss.size() > 0)
             {
                 clientView.makeReservationStatus(optionss.get(optionnr - 1), client.getId(),from,to);
-                if (clientController.seeAllReservations(client.getId()).size() %3 == 0)
+                if (clientController.seeAllReservations(client.getId()).size() %2 == 0)
                 {
+
                     int random_int = (int)Math.floor(Math.random()*(90-10+1)+10)/10;
                     random_int = random_int * 10;
 

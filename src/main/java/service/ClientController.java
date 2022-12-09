@@ -264,4 +264,13 @@ public class ClientController {
         clientRepo.addCoupon(c,client_id);
         return true;
     }
+    public boolean removeCoupon(Coupon c, int client_id)
+    {
+        clientRepo.removeCoupon(c,client_id);
+        return true;
+    }
+    public Coupon findCouponById(int couponId, int clientid)
+    {
+        return clientRepo.findCouponById(couponId,clientid);
+    }
 }
