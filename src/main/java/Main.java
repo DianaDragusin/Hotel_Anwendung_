@@ -17,20 +17,16 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        /*
+
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         EntityManager manager = factory.createEntityManager();
-        Client c = new Client("a","a","a","a");
-        Cleaner cl = new Cleaner("a","a","b","a");
-        cl.setSalary(300);
+
 
         manager.getTransaction().begin();
-       // manager.persist(c);
-//        manager.persist(cl);
-//        manager.persist(c);
+
         manager.getTransaction().commit();
 
-*/
+
         Ui ui = new Ui();
         ui.showMenu();
     }

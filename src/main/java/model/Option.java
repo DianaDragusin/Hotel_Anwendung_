@@ -6,11 +6,9 @@ import java.util.List;
 
 public class Option {
 
-
     private int id;
     private double totalPrice;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "option_id")
+
     private List<Room> rooms;
 
     public Option(double totalPrice, List<Room> rooms) {

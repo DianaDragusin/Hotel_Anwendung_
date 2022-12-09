@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlserver://localhost\SQLEXPRESS;database=Hotel2</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="Hotel_Anwendung" uuid="ecd5fdd5-24ef-4040-b2cd-dfcdc97a556e">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://localhost\SQLEXPRESS01;database=Hotel_Anwendung</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
