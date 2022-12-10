@@ -46,15 +46,6 @@ public class ClientView {
         }
 
     }
-    public void  printAllReservedRooms (int id)
-    {
-        List<Room> rooms =  clientcontroller.seeAllReservedRooms(id);
-        System.out.println(id + "has reserved following rooms:\n");
-        for (Room room :rooms)
-        {
-            System.out.println(room.toString());
-        }
-    }
     public void  printAllReservations (int id)
     {
         List<Reservation> reservations =  clientcontroller.seeAllReservations(id);
@@ -63,21 +54,30 @@ public class ClientView {
         {
             System.out.println(res.toString());
         }
+        System.out.println('\n');
     }
     public void makeReservationStatus(Option option, int id, LocalDate start, LocalDate end)
     {
-        String status = clientcontroller.makeReservation(option,id, start,end);
-        System.out.println(status);
+        if(clientcontroller.makeReservation(option,id, start,end)!= null){
+            System.out.println("Reservation created successfully!");
+            return;
+        }
+        System.out.println("Reservation not created!");
     }
     public void makeReservationWithCouponStatus(Option option, Coupon coupon, int id, LocalDate start, LocalDate end)
     {
-        String status = clientcontroller.makeReservationWithCoupon(option,coupon,id, start,end);
-        System.out.println(status);
+        if(clientcontroller.makeReservationWithCoupon(option,coupon,id, start,end)!= null){
+            System.out.println("Reservation created successfully!");
+            return;
+        }
+        System.out.println("Reservation not created!");
     }
-    public void deleteReservationStatus(Reservation reservation)
-    {
-        String status = clientcontroller.deleteReservation(reservation);
-        System.out.println(status);
+    public void deleteReservationStatus(int resId, int clientId) {
+        if (clientcontroller.deleteReservation(resId,clientId) != null) {
+            System.out.println("Reservation deleted successfully!");
+            return;
+        }
+        System.out.println("Reservation not found!");
     }
     public boolean registerStatus(String firstName,String lastName,String username,String password)
     {

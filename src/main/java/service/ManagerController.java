@@ -12,15 +12,15 @@ public class ManagerController {
     private InMemoryRoomRepo roomRepo;
     private InMemoryClientRepo clientRepo;
     private InMemoryCleanerRepo cleanerRepo;
-    private InMemoryReservationRepo reservationRepo;
+    private InMemoryCleaningRepo cleaningRepo;
 
 
-    public ManagerController(InMemoryRoomRepo roomRepo, InMemoryClientRepo clientRepo, InMemoryCleanerRepo cleanerRepo, InMemoryReservationRepo reservationRepo, String password) {
+    public ManagerController(InMemoryRoomRepo roomRepo, InMemoryClientRepo clientRepo, InMemoryCleanerRepo cleanerRepo,InMemoryCleaningRepo cleaningRepo, String password) {
         this.password = password;
         this.roomRepo = roomRepo;
         this.clientRepo = clientRepo;
         this.cleanerRepo = cleanerRepo;
-        this.reservationRepo = reservationRepo;
+        this.cleaningRepo = cleaningRepo;
     }
 
     // PASSWORD
@@ -119,55 +119,20 @@ public class ManagerController {
 
     // CLEANING
 
-     public  boolean addRoomToBeCleaned(int roomid,String usernameCleaner)
-     {
-         Room room = roomRepo.findById(roomid);
-         List<Cleaner>cleaners = cleanerRepo.getAll();
-         for(Cleaner cleaner : cleaners) {
-             if (cleaner.equals(this.findCleanerByUsername(usernameCleaner)))
-             {
-                 cleaner.addRoomToClean(room);
-                 room.addCleaner(cleaner);
-                 return true;
-
-             }
-
-         }
-         return false;
-     }
-    public  List<Room> uncleanedRoomsCleaner(String usernameCleaner)
-    {
-
-        List<Cleaner>cleaners = cleanerRepo.getAll();
-        for(Cleaner cleaner : cleaners) {
-            if (cleaner.equals(this.findCleanerByUsername(usernameCleaner)))
-            {
-                return cleaner.getRooms();
-
-            }
-
-        }
-        return null;
+    public List<Cleaning> getRoomCleanings(int roomId){
+        return cleaningRepo.getCleaningsForRoom(roomId);
     }
-    public  List<Cleaner> CleanersforaRoom(int roomid)
-    {
-        List<Room>rooms = roomRepo.getAll();
-
-        for(Room room : rooms) {
-            if (room.equals(this.findRoomById(roomid)))
-            {
-                return room.getCleaners();
-
-            }
-
-        }
-        return null;
+    public List<Cleaning> getCleanerCleanings(int cleanerId){
+        return cleaningRepo.getCleaningsForCleaner(cleanerId);
+    }
+    public List<Cleaning> getCleanings(){
+        return cleaningRepo.getCleanings();
     }
 
     // RESERVATION
 
-//    public List<Reservation> seeAllReservations(){
-//        return reservationRepo.getAll();
-//    }
+    public List<Reservation> seeAllReservations(){
+        return clientRepo.getAllReservations();
+    }
 
 }

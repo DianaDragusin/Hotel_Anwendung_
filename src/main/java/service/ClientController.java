@@ -7,45 +7,29 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ClientController {
 
     private final InMemoryClientRepo clientRepo;
     private final InMemoryRoomRepo roomRepo;
-    private final InMemoryReservationRepo reservationRepo;
     private InMemoryCleanerRepo cleanerRepo;
 
 
-    public ClientController(InMemoryClientRepo clientRepo, InMemoryRoomRepo roomRepo, InMemoryReservationRepo reservationRepo, InMemoryCleanerRepo cleanerRepo) {
+    public ClientController(InMemoryClientRepo clientRepo, InMemoryRoomRepo roomRepo, InMemoryCleanerRepo cleanerRepo) {
         this.clientRepo = clientRepo;
         this.roomRepo = roomRepo;
-        this.reservationRepo = reservationRepo;
         this.cleanerRepo = cleanerRepo;
 
     }
     // make private
     public List<Room> searchAvailableRoom(LocalDate checkIn, LocalDate checkOut) {
         List<Room> rooms = roomRepo.getAll();
-        List<Room> unavailableRooms = reservationRepo.returnAllUnAvailableRooms(checkIn, checkOut);
-
-
+        List<Room> unavailableRooms = clientRepo.returnAllUnAvailableRooms(checkIn, checkOut);
         for (Room r : unavailableRooms )
         {
             rooms.remove(r);
         }
-        return rooms;
-    }
-
-    private List<Room> searchAvailableTypeRoom(LocalDate checkIn, LocalDate checkOut, Type t) {
-        List<Room> rooms = roomRepo.returnRoomsOfType(t);
-        List<Room> unavailableRooms = reservationRepo.returnAllUnAvailableRooms(checkIn, checkOut);
-
-        for (Room room : unavailableRooms) {
-            rooms.remove(room);
-        }
-
         return rooms;
     }
 
@@ -58,7 +42,7 @@ public class ClientController {
 
     // functie generare combinatii de n cate r
     // returneaza o lista de array-uri = combinatii
-    public List<int[]> generateCombinations(int n, int r) {
+    private List<int[]> generateCombinations(int n, int r) {
         List<int[]> combinations = new ArrayList<>();
         int[] combination = new int[r];
         for (int i = 0; i < r; i++) {
@@ -79,7 +63,7 @@ public class ClientController {
     }
 
     // scrie combinatiile de numere ca si combinatii ale unor elemente dintr-o lista de nrPersons
-    public List<int[]> transform_combinations(int n, int k, List<Integer> nrPersons){
+    private List<int[]> transform_combinations(int n, int k, List<Integer> nrPersons){
         List<int[]> list = generateCombinations(n,k);
         int[] room_comb = new int[k];
         List<int[]> room_combs = new ArrayList<>();
@@ -169,23 +153,24 @@ public class ClientController {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public String makeReservationWithCoupon(Option option, Coupon coupon, int clientId, LocalDate start, LocalDate end) {
+    public Reservation makeReservationWithCoupon(Option option, Coupon coupon, int clientId, LocalDate start, LocalDate end) {
         // work to do
-        Reservation reservation = new Reservation(clientId, start, end, option.getTotalPrice());
+        System.out.println("Se creaza rezervarea cu cupon.");
+        Reservation reservation = new Reservation(start, end, option.getTotalPrice());
         reservation.setPrice(applyCoupon(coupon, option.getTotalPrice()));
+        System.out.println("Am steat pretul rezervarii actualizat.");
         reservation.setRooms(option.getRooms());
-        reservationRepo.addReservation(reservation);
+        clientRepo.addReservation(reservation,clientId);
         clientRepo.findById(clientId).removeCoupon(coupon);
-        return "Reservation created successfully";
+        return reservation;
     }
 
-    public String makeReservation(Option option, Integer clientId, LocalDate start, LocalDate end) {
+    public Reservation makeReservation(Option option, Integer clientId, LocalDate start, LocalDate end) {
         // work to do
-        Reservation reservation = new Reservation(clientId, start, end, option.getTotalPrice());
+        Reservation reservation = new Reservation(start, end, option.getTotalPrice());
         reservation.setRooms(option.getRooms());
-        reservationRepo.addReservation(reservation);
-
-        return "Reservation created successfully";
+        clientRepo.addReservation(reservation,clientId);
+        return reservation;
     }
 
     private int applyCoupon(Coupon coupon, int price) {
@@ -196,27 +181,12 @@ public class ClientController {
 
     }
 
-    public String deleteReservation(Reservation reservation) {
-        for (Reservation r : reservationRepo.getReservations()) {
-            if (r == reservation) {
-                reservationRepo.deleteReservation(reservation.getId());
-                return "Reservation deleted successfully";
-            }
-        }
-
-        return "Reservation not found";
-
-
+    public Reservation deleteReservation(int resId, int clientId) {
+        return clientRepo.removeReservation(resId,clientId);
     }
 
     public List<Reservation> seeAllReservations(int id) {
-
-        return reservationRepo.GetAllReservationsForAUser(id);
-
-    }
-
-    public List<Room> seeAllReservedRooms(int id) {
-        return reservationRepo.GetAllReservedRoomsForAUser(id);
+        return clientRepo.getReservationsForClient(id);
     }
 
     public boolean register(String firstName, String lastName, String username, String password) {
@@ -259,15 +229,13 @@ public class ClientController {
 
     }
 
-    public boolean addCoupon(Coupon c, int client_id)
+    public void addCoupon(Coupon c, int client_id)
     {
         clientRepo.addCoupon(c,client_id);
-        return true;
     }
-    public boolean removeCoupon(Coupon c, int client_id)
+    public void removeCoupon(Coupon c, int client_id)
     {
         clientRepo.removeCoupon(c,client_id);
-        return true;
     }
     public Coupon findCouponById(int couponId, int clientid)
     {

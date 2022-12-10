@@ -11,7 +11,7 @@ public class InMemoryCleanerRepo implements ICleanerRepository {
     private List<Cleaner> cleaners;
     private int id_cleaner;
 
-    public InMemoryCleanerRepo(List<Cleaner> cleanerList) {
+    public InMemoryCleanerRepo() {
         this.cleaners =  new ArrayList<>();
         populate_cleaners();
         id_cleaner = 0;
@@ -30,27 +30,12 @@ public class InMemoryCleanerRepo implements ICleanerRepository {
     public void add(Cleaner cleaner) {
         id_cleaner++;
         cleaner.setId(id_cleaner);
-        //uberprufe, dass der username unique bleibt
         this.cleaners.add(cleaner);
-
-    }
-
-    private String getCleanerUsername(Cleaner cleaner){
-        for(Cleaner u : cleaners){
-            if (u.equals(cleaner))
-            {
-                return u.getUsername();
-            }
-
-        }
-        return null;
     }
 
     @Override
     public void delete(Integer id) {
-
-            cleaners.remove(findById(id));
-
+        cleaners.remove(findById(id));
     }
 
     @Override

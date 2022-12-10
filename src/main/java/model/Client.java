@@ -63,6 +63,14 @@ public class Client extends Person {
         return couponString;
     }
 
+    public List<Reservation> getReservationList() {
+        return reservationList;
+    }
+
+    public void setReservationList(List<Reservation> reservationList) {
+        this.reservationList = reservationList;
+    }
+
     @Override
     public String toString() {
         return "Client (" + super.toString() + ", \nCoupons: " + Coupons() + " )";

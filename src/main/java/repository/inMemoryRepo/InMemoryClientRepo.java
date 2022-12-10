@@ -3,8 +3,10 @@ package repository.inMemoryRepo;
 import model.Client;
 import model.Coupon;
 import model.Reservation;
+import model.Room;
 import repository.IClientRespository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +25,12 @@ public class InMemoryClientRepo implements IClientRespository {
     }
 
     private void populate_clients(){
-
         Client client1 = new Client("Bob", "Pop","bobpop","00bob");
         Client client2 = new Client("Laura", "Georgescu","laurgeor","22laura");
         Client client3 = new Client("Catalin", "Olariu","cataola","24catalin");
         this.add(client1);
         this.add(client2);
         this.add(client3);
-
     }
 
     @Override
@@ -38,31 +38,17 @@ public class InMemoryClientRepo implements IClientRespository {
         clientId++;
         client.setId(clientId);
         clients.add(client);
+    }
 
-    }
-    /*
-    private boolean client_exists(Client client){
-        for(Client u:clients){
-            if(u.getUsername().equals(client.getUsername())){
-                return true;
-            }
-        }
-        return false;
-    }
-    */
     @Override
     public void delete(Integer id) {
-
         clients.remove(findById(id));
-
     }
 
     @Override
     public void update(Integer id, Client client) {
-
         findById(id).setFirstName(client.getFirstName());
         findById(id).setLastName(client.getLastName());
-
     }
 
     @Override
@@ -90,32 +76,69 @@ public class InMemoryClientRepo implements IClientRespository {
     }
     public void addCoupon(Coupon c, int clientId)
     {
-
         coupon_id++;
         c.setCode(coupon_id);
         findById(clientId).addCoupon(c);
-       // clients.get(clientId).addCoupon(c);
     }
+
+    // RESERVATION
+
     public void addReservation(Reservation r, int clientId)
     {
-
         reservation_id++;
         r.setId(reservation_id);
-
-        findById(clientId).addReservation(r);
-
+        Client c = findById(clientId);
+        c.addReservation(r);
     }
-    public void removeReservation(Reservation res, int clientId)
+    public Reservation findReservationById(int id){
+        Reservation res = null;
+        for(Reservation r : getAllReservations()){
+            if(r.getId() == id){
+                res=r;
+            }
+        }
+        return res;
+    }
+    public Reservation removeReservation(int resIid, int clientId)
     {
-
-        findById(clientId).removeReservation(res);
-
+        Reservation res = findReservationById(resIid);
+        Client c = findById(clientId);
+        c.removeReservation(res);
+        return res;
     }
+    public List<Reservation> getReservationsForClient(int clientId){
+        Client c = findById(clientId);
+        return c.getReservationList();
+    }
+    public List<Reservation> getAllReservations(){
+        List<Reservation> reservations = new ArrayList<>();
+        for(Client c : clients){
+            reservations.addAll(c.getReservationList());
+        }
+        return reservations;
+    }
+
+    public List<Room> returnAllUnAvailableRooms(LocalDate start, LocalDate end) {
+        List<Room> rooms = new ArrayList<>();
+        for (Reservation reservation : getAllReservations())
+        {
+            if ((reservation.getStart().isAfter(start) && reservation.getStart().isBefore(end)) ||
+                    (reservation.getStart() == start) ||
+                    (reservation.getEnd().isAfter(start) && reservation.getEnd().isBefore(end)) ||
+                    (reservation.getEnd() == end) ||
+                    (reservation.getStart().isBefore(start) && reservation.getEnd().isAfter(end)))
+            {
+                rooms.addAll(reservation.getRooms());
+
+            }
+        }
+        return rooms;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     public void removeCoupon(Coupon coupon, int clientId)
     {
-
         findById(clientId).removeCoupon(coupon);
-
     }
     public Coupon findCouponById(int couponId, int clientId)
     {
@@ -132,10 +155,7 @@ public class InMemoryClientRepo implements IClientRespository {
                     }
                 }
             }
-
         }
       return null;
-
     }
-
 }

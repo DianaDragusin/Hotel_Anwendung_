@@ -1,8 +1,10 @@
 package service;
 
 import model.Cleaner;
+import model.Cleaning;
 import model.Room;
 import repository.inMemoryRepo.InMemoryCleanerRepo;
+import repository.inMemoryRepo.InMemoryCleaningRepo;
 import repository.inMemoryRepo.InMemoryRoomRepo;
 
 import java.time.LocalDate;
@@ -11,10 +13,12 @@ import java.util.List;
 public class CleanerController {
     private InMemoryCleanerRepo cleanerRepo;
     private InMemoryRoomRepo roomRepo;
+    private InMemoryCleaningRepo cleaningRepo;
 
-    public CleanerController(InMemoryCleanerRepo cleanerRepo, InMemoryRoomRepo roomRepo) {
+    public CleanerController(InMemoryCleanerRepo cleanerRepo, InMemoryRoomRepo roomRepo,InMemoryCleaningRepo cleaningRepo) {
         this.cleanerRepo = cleanerRepo;
         this.roomRepo = roomRepo;
+        this.cleaningRepo = cleaningRepo;
     }
 
     public boolean register(String firstName, String lastName, String username, String password){
@@ -53,24 +57,13 @@ public class CleanerController {
         }
         return  false;
     }
-    public boolean clean_room(int id,int room, LocalDate date)
+    public Cleaning cleanRoom(int cleanerId, int roomId, LocalDate date)
     {
-        Cleaner c  = cleanerRepo.findById(id);
-        Room r  = roomRepo.findById(room);
-        // trebuie  implementat o metoda de a verifica camera data spfre curatare
-        //camera trebuie sa nu fi fost cuarata si sa fie in lista de rezervari viitoare
-        if (c!=null) {
-            if (c.getRooms().contains(r))
-                c.deleteRoomToClean(r);
-            return  true;
-        }
-        return  false;
-
-
-    }
-    public List<Room> roomsToClean()
-    {
-        return roomRepo.getAll();
+        Cleaner c  = cleanerRepo.findById(cleanerId);
+        Room r  = roomRepo.findById(roomId);
+        Cleaning cleaning = new Cleaning(c,r,date);
+        cleaningRepo.addCleaning(cleaning);
+        return cleaning;
     }
     public Cleaner findUserByUsername(String username)
     {
@@ -82,5 +75,11 @@ public class CleanerController {
             }
         }
         return null;
+    }
+    public List<Cleaning> getPersonalCleanings(int cleanerId){
+        return cleaningRepo.getCleaningsForCleaner(cleanerId);
+    }
+    public List<Room> getRooms(){
+        return roomRepo.getAll();
     }
 }

@@ -71,7 +71,7 @@ public class ManagerView {
     public void printAllRooms ()
     {
         List<Room> rooms =  managercontroller.seeAllRooms();
-        System.out.println("These rooms are in our system\n");
+        System.out.println("These rooms are in our system:\n");
         for (Room r: rooms)
         {
             System.out.println(r.toString());
@@ -168,36 +168,42 @@ public class ManagerView {
 
     // CLEANING
 
-    public void addRoomtoCleanerStatus(int roomid, String usernamecleaner)
+    public void printCleaningsForCleaner(int cleanerId)
     {
-        boolean Status  = managercontroller.addRoomToBeCleaned(roomid,usernamecleaner);
-        if (Status )
+        List <Cleaning> cleanings = managercontroller.getCleanerCleanings(cleanerId);
+        for (Cleaning cleaning : cleanings)
         {
-            System.out.println("Room succesfully added to cleaner");
+            System.out.println(cleaning.toString());
         }
-        else
-        {
-            System.out.println("Cleaner not found in our database");
+        if(cleanings.size()==0){
+            System.out.println("There is no cleaned rooms by this cleaner.");
         }
     }
-    public void printUncleanedRooms(String usernamecleaner)
+    public void printCleaningsForRoom(int roomid)
     {
-        List <Room> rooms = managercontroller.uncleanedRoomsCleaner(usernamecleaner);
-        for (Room room : rooms)
+        List <Cleaning> cleanings = managercontroller.getRoomCleanings(roomid);
+        for (Cleaning cleaning : cleanings)
         {
-            System.out.println(room.toString());
+            System.out.println(cleaning.toString());
         }
-
-    }
-    public void printCleanersForRoom(int roomid)
-    {
-        List <Cleaner> cleaners = managercontroller.CleanersforaRoom(roomid);
-        for (Cleaner cleaner : cleaners)
-        {
-            System.out.println(cleaner.toString());
+        if(cleanings.size()==0){
+            System.out.println("There is no cleaning for this room.");
         }
-
+    }
+    public void printAllCleanings(){
+        System.out.println("These are the cleanings:");
+        for(Cleaning c : managercontroller.getCleanings()){
+            System.out.println(c);
+        }
+        System.out.println('\n');
     }
 
+    public void seeAllReservations(){
+        List<Reservation> reservations = managercontroller.seeAllReservations();
+        for(Reservation r : reservations){
+            System.out.println(r);
+        }
+        System.out.println('\n');
+    }
 
 }

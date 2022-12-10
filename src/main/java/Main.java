@@ -21,7 +21,13 @@ public class Main {
 
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         EntityManager manager = factory.createEntityManager();
-        Cleaner c = new Cleaner("a", "a", "a" ,"a");
+
+        manager.getTransaction().begin();
+
+        manager.getTransaction().commit();
+
+
+        /*Cleaner c = new Cleaner("a", "a", "a" ,"a");
         c.setSalary(200);
         Client client = new Client("a", "a", "b" ,"b");
         Reservation res = new Reservation(1,LocalDate.of(2002,2,1), LocalDate.of(2002,2,3),2000);
@@ -54,6 +60,8 @@ public class Main {
        Reservation foundCourse = (Reservation) query.getSingleResult();
         System.out.println(foundCourse.getClientid());
         manager.getTransaction().commit();
+        */
+
 
 
         Reservation r = new Reservation() ;

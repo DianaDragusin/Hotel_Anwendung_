@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import model.Cleaner;
+import model.Cleaning;
 import model.Room;
 import service.CleanerController;
 
@@ -49,22 +50,32 @@ public class CleanerView {
     {
         return cleanercontroller.changeDetails(newfirstName, newlastName,id);
     }
-    public  boolean cleanroomStatus (Integer id, Integer room, LocalDate date)
+    public void cleanroomStatus (int cleanerid, int roomId, LocalDate date)
     {
-        return cleanercontroller.clean_room(id, room,  date);
+        cleanercontroller.cleanRoom(cleanerid, roomId,  date);
+        System.out.println("Room cleaned successfully!");
     }
-    public void printRooms()
+    public void printCleanedRooms(int cleanerId)
     {
-        List<Room> rooms = cleanercontroller.roomsToClean();
-        for (Room r : rooms)
+        List<Cleaning> cleanings = cleanercontroller.getPersonalCleanings(cleanerId);
+        for (Cleaning c : cleanings)
         {
-            System.out.println(r.toString()) ;
+            System.out.println(c.toString()) ;
         }
+        System.out.println('\n');
     }
 
     public void showUserDetails(Cleaner cleaner) {
         System.out.println("These are your personal details:");
         System.out.println("Username: " + cleaner.getUsername());
         System.out.println("Name: " + cleaner.getLastName() + " " + cleaner.getFirstName()+cleaner);
+    }
+
+    public void printAllRooms() {
+        System.out.println("These rooms are in our system:\n");
+        for(Room r : cleanercontroller.getRooms()){
+            System.out.println(r);
+        }
+        System.out.println('\n');
     }
 }

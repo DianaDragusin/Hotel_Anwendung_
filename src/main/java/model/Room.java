@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 public class Room {
@@ -11,7 +12,7 @@ public class Room {
     private double price;
     private int nrPers;
     @ManyToMany(mappedBy = "rooms")
-    private List<Cleaner> cleaners;
+    private List<Reservation> reservations;
 
     public Room( Type type, double price, int nrPers) {
         this.type = type;
@@ -25,18 +26,6 @@ public class Room {
 
     public Room() {
 
-    }
-
-    public List<Cleaner> getCleaners() {
-        return cleaners;
-    }
-
-    public void addCleaner(Cleaner cleaner){
-        this.cleaners.add(cleaner);
-    }
-
-    public void deleteCleaner(Cleaner cleaner){
-        this.cleaners.remove(cleaner);
     }
 
     public int getId() {

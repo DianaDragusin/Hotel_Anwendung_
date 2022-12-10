@@ -15,18 +15,11 @@ import java.util.Scanner;
 public class Ui {
     // nu ar trebui  sa initializam repo cu aceste liste si sa facem constructoarele de la ele goale si pe moment sa le popoulam cu functiile de populate
 
-    List<Cleaner> cleaners;
-    List<Client> clients;
-    List<Room> rooms;
-    List<Reservation> reservations;
-
-
 
     InMemoryCleanerRepo inMemoryCleanerRepo;
     InMemoryClientRepo inMemoryClientRepo;
     InMemoryRoomRepo inMemoryRoomRepo;
-    InMemoryReservationRepo inMemoryReservationRepo;
-
+    InMemoryCleaningRepo inMemoryCleaningRepo;
 
     ClientController clientController;
     CleanerController cleanerController;
@@ -39,27 +32,20 @@ public class Ui {
     public Ui() {
 
         // Cleaner Controller
-        this.cleaners = new ArrayList<>();
-        this.inMemoryCleanerRepo = new InMemoryCleanerRepo(cleaners);
-        this.cleanerController = new CleanerController(inMemoryCleanerRepo, inMemoryRoomRepo);
+        this.inMemoryCleanerRepo = new InMemoryCleanerRepo();
+        this.inMemoryCleaningRepo = new InMemoryCleaningRepo();
+        this.cleanerController = new CleanerController(inMemoryCleanerRepo, inMemoryRoomRepo,inMemoryCleaningRepo);
 
         // Client Controller
-        this.clients = new ArrayList<>();
         this.inMemoryClientRepo = new InMemoryClientRepo();
 
-        this.rooms = new ArrayList<>();
         this.inMemoryRoomRepo = new InMemoryRoomRepo();
 
-        this.reservations = new ArrayList<>();
 
-        this.inMemoryReservationRepo = new InMemoryReservationRepo();
-
-
-
-        this.clientController = new ClientController(inMemoryClientRepo, inMemoryRoomRepo, inMemoryReservationRepo, inMemoryCleanerRepo);
-        this.cleanerController = new CleanerController(inMemoryCleanerRepo,inMemoryRoomRepo);
+        this.clientController = new ClientController(inMemoryClientRepo, inMemoryRoomRepo, inMemoryCleanerRepo);
+        this.cleanerController = new CleanerController(inMemoryCleanerRepo,inMemoryRoomRepo,inMemoryCleaningRepo);
         // Manager Controller
-        this.managerController = new ManagerController(inMemoryRoomRepo, inMemoryClientRepo, inMemoryCleanerRepo, inMemoryReservationRepo, "parola1");
+        this.managerController = new ManagerController(inMemoryRoomRepo, inMemoryClientRepo, inMemoryCleanerRepo, inMemoryCleaningRepo,"parola1");
     }
 
 
@@ -167,7 +153,7 @@ public class Ui {
             String password = myObj.nextLine();
             if (clientView.registerStatus(firstname,lastname,username,password)) {
                 // adaugam clientul si in lista de clienti actualizata
-                clients.add(inMemoryClientRepo.findByUsername(username));
+                inMemoryClientRepo.add(inMemoryClientRepo.findByUsername(username));
 
                 clientMenu(inMemoryClientRepo.findByUsername(username));
 
@@ -237,27 +223,25 @@ public class Ui {
                 RESERVATION
                 1. Make a reservation
                 2. Show all reservations
-                3. Show all reserved rooms
-                4. Delete a reservation
-                5. Show Coupons
+                3. Delete a reservation
+                4. Show Coupons
                 PERSONAL INFO
-                6. Change FirstName and Last Name
-                7. Change Password
-                8. See your details
+                5. Change FirstName and Last Name
+                6. Change Password
+                7. See your details
                 EXIT
                 0.  Logout
-                -1. Close App
                 
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
         int option = Integer.parseInt(myObj.nextLine());
-        if (option == 0)
-        {
-            showMenu();
-        }
         if (option == -1)
         {
             System.exit(0);
+        }
+        else if (option == 0)
+        {
+            showMenu();
         }
         else if (option == 1 )
         {
@@ -288,35 +272,7 @@ public class Ui {
             System.out.println("How many will be staying with us ?");
             System.out.println("people = ");
             int people  =  Integer.parseInt(myObj.nextLine());
-//            while (clientController.generateOptions(from,to,people).size() == 0)
-//            {
-//                System.out.println("No rooms are available at this time please try with other dates or number of people");
-//                System.out.println("When will you be staying with us ?");
-//                System.out.println("From year = ");
-//                 year  =  Integer.parseInt(myObj.nextLine());
-//
-//                System.out.println("month = ");
-//                 month = Integer.parseInt(myObj.nextLine());
-//
-//                System.out.println("day = ");
-//                 day = Integer.parseInt(myObj.nextLine());
-//
-//                from = LocalDate.of(year,month,day);
-//                System.out.println("To year = ");
-//                 year2  =  Integer.parseInt(myObj.nextLine());
-//
-//                System.out.println("month = ");
-//                 month2 = Integer.parseInt(myObj.nextLine());
-//
-//                System.out.println("day = ");
-//                 day2 = Integer.parseInt(myObj.nextLine());
-//
-//                 to = LocalDate.of(year2,month2,day2);
-//
-//                System.out.println("How many will be staying with us ?");
-//                System.out.println("people = ");
-//                 people  =  Integer.parseInt(myObj.nextLine());
-//            }
+
             System.out.println("These are your coupons: ");
             List<Coupon> couplist = clientController.showCoupons(client.getId());
             clientView.showCoupons(client.getId());
@@ -330,9 +286,9 @@ public class Ui {
             System.out.println("What option do you prefer:");
             int optionnr = Integer.parseInt(myObj.nextLine());
             // make something with options plus
-            if (couponans >-1 && couponans < couplist.size() && optionss.size() > 0)
+            if (couponans >-1 && optionss.size() > 0)
             {
-                clientView.makeReservationWithCouponStatus(optionss.get(optionnr - 1),couplist.get(couponans), client.getId(),from,to);
+                clientView.makeReservationWithCouponStatus(optionss.get(optionnr - 1),clientController.findCouponById(couponans, client.getId()), client.getId(),from,to);
                 clientController.removeCoupon(clientController.findCouponById(couponans,client.getId()),client.getId());
             }
             else if(couponans == -1 && optionss.size() > 0)
@@ -358,26 +314,21 @@ public class Ui {
         }
         else if (option == 3)
         {
-            clientView.printAllReservedRooms(client.getId());
-            clientMenu(client);
-        }
-        else if (option == 4)
-        {
             System.out.println("\n");
             System.out.println("Which reservation would you like to delete? Ans = ");
             int resnr = Integer.parseInt(myObj.nextLine());
             System.out.println("\n");
-            clientView.deleteReservationStatus(inMemoryReservationRepo.getReservations().get(resnr));
+            clientView.deleteReservationStatus(resnr,client.getId());
             clientMenu(client);
         }
-        else if (option == 5)
+        else if (option == 4)
         {
-            System.out.println("These are your coupons \n:");
+            System.out.println("These are your coupons:");
             clientView.showCoupons(client.getId());
             clientMenu(client);
 
         }
-        else if (option == 6)
+        else if (option == 5)
         {
             System.out.println("\n");
             System.out.println("Enter your new First Name:");
@@ -389,7 +340,7 @@ public class Ui {
             clientView.changeDetailsStatus(firstname,lastname,client.getId());
             clientMenu(client);
         }
-        if (option == 7)
+        if (option == 6)
         {
             System.out.println("\n");
             System.out.println("Enter your new Password:");
@@ -406,17 +357,17 @@ public class Ui {
                 Hello Cleaner!
                 Choose an option!
                 RESERVATION
-                1.Clean Room
-                2.Show Rooms to clean
+                1. Clean Room
+                2. Show cleaned rooms
+                3. Show all rooms
                 PERSONAL INFO
-                3.Change FirstName and Last Name
-                4.Change Password
-                5.See your details
+                4. Change FirstName and Last Name
+                5. Change Password
+                6. See your details
                 EXIT
                 0.  Logout
-                -1. close app
+                -1. Close app
                
-                
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
         int option = Integer.parseInt(myObj.nextLine());
@@ -429,8 +380,11 @@ public class Ui {
             System.out.println("What room would you like to clean?\n");
             int room  =  Integer.parseInt(myObj.nextLine());
             System.out.println("When ? ");
-            int year = Integer.parseInt(myObj.nextLine());
+            System.out.print("year = ");
+            int year  =  Integer.parseInt(myObj.nextLine());
+            System.out.print("month = ");
             int month = Integer.parseInt(myObj.nextLine());
+            System.out.print("day = ");
             int day = Integer.parseInt(myObj.nextLine());
             LocalDate date = LocalDate.of(year,month,day);
             cleanerView.cleanroomStatus(cleaner.getId(),room,date);
@@ -439,11 +393,15 @@ public class Ui {
         }
         else if (option == 2)
         {
-            System.out.println("These rooms must be cleaned:");
-            cleanerView.printRooms();
+            System.out.println("These rooms have been cleaned by you:");
+            cleanerView.printCleanedRooms(cleaner.getId());
             cleanerMenu(cleaner);
         }
-        else if (option == 3)
+        else if(option == 3){
+            cleanerView.printAllRooms();
+            cleanerMenu(cleaner);
+        }
+        else if (option == 4)
         {
             System.out.println("Enter your new First Name:");
             String firstname = myObj.nextLine();
@@ -453,7 +411,7 @@ public class Ui {
 
             cleanerMenu(cleaner);
         }
-        else if (option == 4)
+        else if (option == 5)
         {
             System.out.println("Enter your new Password:");
             String password = myObj.nextLine();
@@ -461,7 +419,7 @@ public class Ui {
 
             cleanerMenu(cleaner);
         }
-        else if (option == 5){
+        else if (option == 6){
             cleanerView.showUserDetails(cleaner);
             cleanerMenu(cleaner);
         }
@@ -490,11 +448,12 @@ public class Ui {
                 11. Modify salary for cleaner
                 12. Delete cleaner
                 CLEANINGS
-                13. Add a room to be cleaned by a cleaner
-                14. See all rooms that a cleaner has not cleaned yet
-                15. See all cleaneaners that have to clean a certain room
-                EXIT
+                13. See all cleanings
+                14. See all cleanings for cleaner
+                15. See all cleanings for room
+                RESERVATIONS
                 17. See all available rooms
+                18. See all reservations
                 0.  Logout
                 16. Exit
                 
@@ -583,7 +542,7 @@ public class Ui {
                 managerView.findCleanerByUsernameStatus(username);
             }
             case 11 -> {
-                System.out.println("Enter the username of the cleaner you want to change salary:");
+                System.out.println("Enter the id of the cleaner you want to change salary:");
                 int id = Integer.parseInt(myObj.nextLine());
                 System.out.println("Enter the new salary for cleaner "+id);
                 int salary = Integer.parseInt(myObj.nextLine());
@@ -595,21 +554,17 @@ public class Ui {
                 managerView.deleteCleanerStatus(id);
             }
             case 13 -> {
-                System.out.println("Enter the username of the cleaner and the room you want him to tidy. Cleaner username = ");
-                String username = myObj.nextLine();
-                System.out.println("The room id:");
-                int id = Integer.parseInt(myObj.nextLine());
-                managerView.addRoomtoCleanerStatus(id,username);
+                managerView.printAllCleanings();
             }
             case 14 -> {
-                System.out.println("For what cleaner do you want to see wich rooms he has to clean? Cleaner username :");
-                String username = myObj.nextLine();
-                managerView.printUncleanedRooms(username);
+                System.out.println("The cleaner id to show cleanings for:");
+                int id = Integer.parseInt(myObj.nextLine());
+                managerView.printCleaningsForCleaner(id);
             }
             case 15 -> {
-                System.out.println("For what rooms do you want to see the cleaners? Room id :");
+                System.out.println("The room id to show cleanings for:");
                 int id = Integer.parseInt(myObj.nextLine());
-                managerView.printCleanersForRoom(id);
+                managerView.printCleaningsForRoom(id);
             }
             case 16 -> {
                 System.out.println("Bye!!!");
@@ -618,23 +573,23 @@ public class Ui {
             case 17 -> {
 
                 System.out.println("When will you be staying with us ?");
-                System.out.println("From year = ");
+                System.out.print("From year = ");
                 int year  =  Integer.parseInt(myObj.nextLine());
 
-                System.out.println("month = ");
+                System.out.print("month = ");
                 int month = Integer.parseInt(myObj.nextLine());
 
-                System.out.println("day = ");
+                System.out.print("day = ");
                 int day = Integer.parseInt(myObj.nextLine());
 
                 LocalDate from = LocalDate.of(year,month,day);
-                System.out.println("To year = ");
+                System.out.print("To year = ");
                 int year2  =  Integer.parseInt(myObj.nextLine());
 
-                System.out.println("month = ");
+                System.out.print("month = ");
                 int month2 = Integer.parseInt(myObj.nextLine());
 
-                System.out.println("day = ");
+                System.out.print("day = ");
                 int day2 = Integer.parseInt(myObj.nextLine());
 
                 LocalDate to = LocalDate.of(year2,month2,day2);
@@ -643,8 +598,9 @@ public class Ui {
                 {
                     System.out.println(r.toString());
                 }
-
-
+            }
+            case 18 -> {
+                managerView.seeAllReservations();
             }
             default -> System.out.println("Not a valid option!");
         }

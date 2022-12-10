@@ -9,17 +9,16 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
-
     private LocalDate startDate;
     private LocalDate endDate;
-    private int clientid;
     private int price;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "reservation_id")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "reservation_room",
+    joinColumns = @JoinColumn(name = "reservation_id",referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "room_id",referencedColumnName = "id"))
     private List<Room> rooms;
 
-    public Reservation(int clientId, LocalDate start, LocalDate end, int price) {
-        this.clientid = clientId;
+    public Reservation( LocalDate start, LocalDate end, int price) {
         this.startDate = start;
         this.endDate = end;
         this.price = price;
@@ -28,14 +27,6 @@ public class Reservation {
 
     public Reservation() {
 
-    }
-
-    public Integer getClientid() {
-        return clientid;
-    }
-
-    public void setClientid(int clientid) {
-        this.clientid = clientid;
     }
 
     public void setId(int id) {
