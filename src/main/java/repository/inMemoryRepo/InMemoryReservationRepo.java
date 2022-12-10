@@ -69,7 +69,7 @@ public class InMemoryReservationRepo implements IReservationRepository {
 
         for(Reservation res : reservations)
         {
-            if (res.getClientId()==id)
+            if (res.getClientid()==id)
             {
                 reservedRooms.addAll(res.getRooms());
             }
@@ -82,7 +82,7 @@ public class InMemoryReservationRepo implements IReservationRepository {
         List<Reservation> userReservations = new ArrayList<>();
        for(Reservation res : reservations)
        {
-           if (res.getClientId() == id)
+           if (res.getClientid() == id)
            {
                userReservations.add(res);
            }

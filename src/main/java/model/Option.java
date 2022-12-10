@@ -7,11 +7,11 @@ import java.util.List;
 public class Option {
 
     private int id;
-    private double totalPrice;
+    private int totalPrice;
 
     private List<Room> rooms;
 
-    public Option(double totalPrice, List<Room> rooms) {
+    public Option(int totalPrice, List<Room> rooms) {
         this.totalPrice = totalPrice;
         this.rooms = rooms;
     }
@@ -28,11 +28,11 @@ public class Option {
         return id;
     }
 
-    public double getTotalPrice() {
+    public int getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
     }
 

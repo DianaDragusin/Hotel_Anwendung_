@@ -10,6 +10,7 @@ import views.ManagerView;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +21,42 @@ public class Main {
 
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         EntityManager manager = factory.createEntityManager();
+        Cleaner c = new Cleaner("a", "a", "a" ,"a");
+        c.setSalary(200);
+        Client client = new Client("a", "a", "b" ,"b");
+        Reservation res = new Reservation(1,LocalDate.of(2002,2,1), LocalDate.of(2002,2,3),2000);
+        Reservation res2 = new Reservation(1,LocalDate.of(2003,2,1), LocalDate.of(2003,2,3),2000);
 
+        client.addReservation(res);
+        Room  room = new Room(Type.DOUBLE,1000,2);
+        Room  room1 = new Room(Type.DOUBLE,1000,2);
+        Room  room2 = new Room(Type.SINGLE,1000,1);
+
+        Client client2 = new Client("a", "a", "c" ,"b");
+        Reservation res3 = new Reservation(client2.getId(),LocalDate.of(2003,2,1), LocalDate.of(2003,2,3),2000);
+        client2.addReservation(res3);
+        Reservation res4 = new Reservation(client2.getId(),LocalDate.of(2003,2,1), LocalDate.of(2009,2,3),2000);
 
         manager.getTransaction().begin();
 
+        Query query2 =  manager.createNativeQuery("select * from Client where username=:reservationNr ",Client.class);
+        query2.setParameter("reservationNr","c");
+         Client client22 = (Client) query2.getSingleResult();
+        Reservation res5 = new Reservation(client22.getId(),LocalDate.of(2006,2,1), LocalDate.of(2006,2,3),2000);
+        client22.addReservation(res5);
+
+        //  manager.persist(client2);
+       // manager.persist(room1);
+        // manager.persist(res5);
+      //  manager.persist(res4);
+        Query query =  manager.createNativeQuery("select * from Reservation where id=:reservationNr ",Reservation.class);
+        query.setParameter("reservationNr","6");
+       Reservation foundCourse = (Reservation) query.getSingleResult();
+        System.out.println(foundCourse.getClientid());
         manager.getTransaction().commit();
 
+
+        Reservation r = new Reservation() ;
 
         Ui ui = new Ui();
         ui.showMenu();

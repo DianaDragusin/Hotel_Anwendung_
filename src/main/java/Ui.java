@@ -246,6 +246,7 @@ public class Ui {
                 8. See your details
                 EXIT
                 0.  Logout
+                -1. Close App
                 
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
@@ -253,6 +254,10 @@ public class Ui {
         if (option == 0)
         {
             showMenu();
+        }
+        if (option == -1)
+        {
+            System.exit(0);
         }
         else if (option == 1 )
         {
@@ -409,6 +414,7 @@ public class Ui {
                 5.See your details
                 EXIT
                 0.  Logout
+                -1. close app
                
                 
                 Enter your option:""");
@@ -458,6 +464,10 @@ public class Ui {
         else if (option == 5){
             cleanerView.showUserDetails(cleaner);
             cleanerMenu(cleaner);
+        }
+        if (option == -1)
+        {
+            System.exit(0);
         }
     }
     private void managerMenu(){
@@ -603,7 +613,7 @@ public class Ui {
             }
             case 16 -> {
                 System.out.println("Bye!!!");
-                System.exit(1);
+                System.exit(0);
             }
             case 17 -> {
 

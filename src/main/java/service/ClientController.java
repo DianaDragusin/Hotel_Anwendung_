@@ -137,7 +137,7 @@ public class ClientController {
             combinations = Stream.concat(combinations.stream(), transform_combinations(nrPersList.size(),i, nrPersList).stream()).toList();
         }
 
-        double totalPrice = 0;
+        int totalPrice = 0;
         List<Room> option_rooms = new ArrayList<>();
         List<int[]> options = new ArrayList<>();
         List<Option> final_options = new ArrayList<>();
@@ -188,7 +188,7 @@ public class ClientController {
         return "Reservation created successfully";
     }
 
-    private double applyCoupon(Coupon coupon, double price) {
+    private int applyCoupon(Coupon coupon, int price) {
 
         int per = (100 - coupon.getPercentage()) / 100;
         price = price * per;

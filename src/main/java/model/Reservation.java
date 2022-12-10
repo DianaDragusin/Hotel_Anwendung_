@@ -9,24 +9,33 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
-    private Integer clientId;
-    private LocalDate start;
-    private LocalDate end;
-    private double price;
+
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private int clientid;
+    private int price;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "reservation_id")
     private List<Room> rooms;
 
-    public Reservation(Integer clientId, LocalDate start, LocalDate end, double price) {
-        this.clientId = clientId;
-        this.start = start;
-        this.end = end;
+    public Reservation(int clientId, LocalDate start, LocalDate end, int price) {
+        this.clientid = clientId;
+        this.startDate = start;
+        this.endDate = end;
         this.price = price;
         this.rooms = new ArrayList<>();
     }
 
     public Reservation() {
 
+    }
+
+    public Integer getClientid() {
+        return clientid;
+    }
+
+    public void setClientid(int clientid) {
+        this.clientid = clientid;
     }
 
     public void setId(int id) {
@@ -41,48 +50,40 @@ public class Reservation {
         return rooms;
     }
 
-    public Integer getClientId() {
-        return clientId;
-    }
+
 
     public double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public Integer getUsername() {
-        return clientId;
-    }
 
-    public void setUsername(Integer idUser) {
-        this.clientId = idUser;
-    }
 
     public int getId() {
         return id;
     }
 
     public LocalDate getStart() {
-        return start;
+        return startDate;
     }
 
     public void setStart(LocalDate start) {
-        this.start = start;
+        this.startDate = start;
     }
 
     public LocalDate getEnd() {
-        return end;
+        return endDate;
     }
 
     public void setEnd(LocalDate end) {
-        this.end = end;
+        this.endDate = end;
     }
 
     @Override
     public String toString() {
-        return "Reservation: " + id + " Client " + clientId + " checkIn " + start + " checkOut " + end;
+        return "Reservation: " + id + " checkIn " + startDate + " checkOut " + endDate;
     }
 }

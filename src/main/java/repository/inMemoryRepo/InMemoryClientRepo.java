@@ -2,6 +2,7 @@ package repository.inMemoryRepo;
 
 import model.Client;
 import model.Coupon;
+import model.Reservation;
 import repository.IClientRespository;
 
 import java.util.ArrayList;
@@ -12,12 +13,13 @@ public class InMemoryClientRepo implements IClientRespository {
     private List<Client> clients;
     private int clientId;
     private int coupon_id;
-
+    private int reservation_id;
     public InMemoryClientRepo( ) {
         this.clients = new ArrayList<>();
         populate_clients();
         clientId = 0;
         coupon_id = 0;
+        reservation_id = 0;
     }
 
     private void populate_clients(){
@@ -93,6 +95,21 @@ public class InMemoryClientRepo implements IClientRespository {
         c.setCode(coupon_id);
         findById(clientId).addCoupon(c);
        // clients.get(clientId).addCoupon(c);
+    }
+    public void addReservation(Reservation r, int clientId)
+    {
+
+        reservation_id++;
+        r.setId(reservation_id);
+
+        findById(clientId).addReservation(r);
+
+    }
+    public void removeReservation(Reservation res, int clientId)
+    {
+
+        findById(clientId).removeReservation(res);
+
     }
     public void removeCoupon(Coupon coupon, int clientId)
     {

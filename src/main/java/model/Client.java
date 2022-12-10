@@ -10,12 +10,19 @@ import java.util.List;
 public class Client extends Person {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
+    private List<Reservation> reservationList;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
     private List<Coupon> couponList;
 
 
     public Client(String firstName, String lastName, String username, String password) {
         super(firstName, lastName, username, password);
         this.couponList = new ArrayList<>();
+
+        this.reservationList = new ArrayList<>();
+
     }
 
     public Client() {
@@ -37,6 +44,13 @@ public class Client extends Person {
 
     public void removeCoupon(Coupon coupon) {
         this.couponList.remove(coupon);
+    }
+    public void addReservation(Reservation reservation) {
+        this.reservationList.add(reservation);
+    }
+
+    public void removeReservation(Reservation reservation) {
+        this.reservationList.remove(reservation);
     }
 
     private String Coupons() {
