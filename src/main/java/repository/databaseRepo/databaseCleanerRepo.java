@@ -6,17 +6,16 @@ import repository.ICleanerRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 public class databaseCleanerRepo implements ICleanerRepository {
-    private List<Cleaner> cleaners;
-    private int id_cleaner;
     EntityManagerFactory factory;
     EntityManager manager;
 
     public databaseCleanerRepo(List<Cleaner> cleanerList) {
-        this.cleaners =  new ArrayList<>();
         populate_cleaners();
         factory = Persistence.createEntityManagerFactory("default");
         manager = factory.createEntityManager();
@@ -36,58 +35,40 @@ public class databaseCleanerRepo implements ICleanerRepository {
         manager.persist(cleaner);
         manager.getTransaction().commit();
     }
-
-    private String getCleanerUsername(Cleaner cleaner){
-        for(Cleaner u : cleaners){
-            if (u.equals(cleaner))
-            {
-                return u.getUsername();
-            }
-
-        }
-        return null;
-    }
-
     @Override
-    public void delete(Integer id) {
-
-            cleaners.remove(findById(id));
-
+    public void delete(Integer cleanerId) {
+        Query query = manager.createNativeQuery("DELETE FROM Cleaner WHERE id=:idCleaner",Cleaner.class);
+        query.setParameter("idCleaner", Integer.toString(cleanerId));
+        query.executeUpdate();
     }
 
     @Override
     public void update(Integer id, Cleaner cleaner) {
-        Cleaner oldCleaner = findById(id);
-        oldCleaner.setFirstName(cleaner.getFirstName());
-        oldCleaner.setLastName(cleaner.getLastName());
-        oldCleaner.setUsername(cleaner.getUsername());
-        oldCleaner.setPassword(cleaner.getPassword());
-        //oldCleaner.setSalary(cleaner.getSalary());
-
+        Query query = manager.createNativeQuery("UPDATE Cleaner SET firstname=:clFN, lastname=:clLN, username=:clU, password=:clP WHERE id=:clId",Cleaner.class);
+        query.setParameter("clFN", cleaner.getFirstName());
+        query.setParameter("clLN", cleaner.getLastName());
+        query.setParameter("clU", cleaner.getUsername());
+        query.setParameter("clP", cleaner.getPassword());
+        query.setParameter("clId", Integer.toString(id));
+        query.executeUpdate();
     }
 
     @Override
     public Cleaner findByUsername(String username) {
-        for(Cleaner c : cleaners){
-            if(c.getUsername().equals(username)){
-                return c;
-            }
-        }
-        return null;
+        Query query = manager.createNativeQuery("SELECT * FROM Cleaner WHERE username=:clU",Cleaner.class);
+        query.setParameter("clU", username);
+        return (Cleaner) query.getSingleResult();
     }
     public Cleaner findById(Integer id){
-        for(Cleaner c : cleaners){
-            if(c.getId()==id){
-                return c;
-            }
-        }
-        return null;
+        Query query = manager.createNativeQuery("SELECT * FROM Cleaner WHERE id=:clId",Cleaner.class);
+        query.setParameter("clId", Integer.toString(id));
+        return (Cleaner) query.getSingleResult();
     }
 
     @Override
     public List<Cleaner> getAll() {
-        return cleaners;
+        Query query = manager.createNativeQuery("SELECT * FROM Cleaner",Cleaner.class);
+        return (List<Cleaner>) query.getResultList();
     }
-
 
 }

@@ -80,6 +80,11 @@ public class InMemoryClientRepo implements IClientRespository {
         c.setCode(coupon_id);
         findById(clientId).addCoupon(c);
     }
+    public void removeCoupon(Coupon coupon, int clientId)
+    {
+        findById(clientId).removeCoupon(coupon);
+    }
+
 
     // RESERVATION
 
@@ -136,10 +141,6 @@ public class InMemoryClientRepo implements IClientRespository {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    public void removeCoupon(Coupon coupon, int clientId)
-    {
-        findById(clientId).removeCoupon(coupon);
-    }
     public Coupon findCouponById(int couponId, int clientId)
     {
         for (Client client : clients)
