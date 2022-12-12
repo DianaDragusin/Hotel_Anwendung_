@@ -2,6 +2,7 @@ package service;
 
 import model.*;
 import repository.inMemoryRepo.*;
+import utils.CustomIllegalArgument;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class ClientController {
 
     }
     // make private
-    public List<Room> searchAvailableRoom(LocalDate checkIn, LocalDate checkOut) {
+    public List<Room> searchAvailableRoom(LocalDate checkIn, LocalDate checkOut)  {
         List<Room> rooms = roomRepo.getAll();
         List<Room> unavailableRooms = clientRepo.returnAllUnAvailableRooms(checkIn, checkOut);
         for (Room r : unavailableRooms )
@@ -31,6 +32,7 @@ public class ClientController {
             rooms.remove(r);
         }
         return rooms;
+
     }
 
     public List<Coupon> showCoupons(Integer id) {
@@ -88,7 +90,7 @@ public class ClientController {
         return false;
     }
 
-    private Room findARoomByType(List<Room> rooms,Type type){
+    private Room findARoomByType(List<Room> rooms,Type type) {
         for(Room r : rooms){
             if(r.getType().equals(type)){
                 return r;
@@ -108,8 +110,12 @@ public class ClientController {
         return Type.APARTMENT;
     }
 
-    public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrTotalPers) {
+    public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrTotalPers) throws CustomIllegalArgument{
         List<Room> availableRooms = searchAvailableRoom(checkIn,checkOut);
+        if (availableRooms.size()<1)
+        {
+            throw new CustomIllegalArgument("There are no available rooms in this period");
+        }
 
         //nrPersList va fi lista de nrPersoane din fiecare camera
         List<Integer> nrPersList = availableRooms.stream()

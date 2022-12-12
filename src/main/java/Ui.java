@@ -77,9 +77,18 @@ public class Ui {
                 3. Cleaner
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
-        int option = Integer.parseInt(myObj.nextLine());
-        System.out.println("Ok let's go!");
-        createView(option);
+        try
+        {
+            int option = Integer.parseInt(myObj.nextLine());
+            System.out.println("Ok let's go!");
+            createView(option);
+        }catch(Exception exception)
+        {
+            System.out.println("You must enter a number in interval [1,3] ");
+            showMenu();
+        }
+
+
     }
 
     public void showOptionsManager(){
@@ -89,19 +98,27 @@ public class Ui {
                 1. Login
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
-        int option = Integer.parseInt(myObj.nextLine());
-        if(option == 0){
-            showMenu();
-        } else if (option == 1) {
-            System.out.println("Please enter your password:");
-            String password = myObj.nextLine();
-            if (managerView.loginStatus(password)) {
-                managerMenu();
+        try {
+            int option = Integer.parseInt(myObj.nextLine());
+            if(option == 0){
+                showMenu();
+            } else if (option == 1) {
+                System.out.println("Please enter your password:");
+                String password = myObj.nextLine();
+                if (managerView.loginStatus(password)) {
+                    managerMenu();
+                }
+                else{
+                    showOptionsManager();
+                }
             }
-            else{
-                showOptionsManager();
-            }
-       }
+
+        }catch (Exception exception)
+        {
+            System.out.println("You must enter a number in interval [0,1] ");
+        }
+
+
     }
     public void showOptionsClient(){
         System.out.println("""
@@ -278,33 +295,17 @@ public class Ui {
             clientView.showCoupons(client.getId());
             System.out.println("Which coupon would you like to use? Type -1 if you wont like to use any \n");
             System.out.println("coupon = ");
-            int couponans = Integer.parseInt(myObj.nextLine());
-            System.out.println("\n");
-            List<Option>optionss = clientController.generateOptions(from,to,people);
-            System.out.println("Options:");
-            clientView.printOptions(optionss);
-            System.out.println("What option do you prefer:");
-            int optionnr = Integer.parseInt(myObj.nextLine());
-            // make something with options plus
-            if (couponans >-1 && optionss.size() > 0)
+            int couponans = -1;
+            try {
+                 couponans = Integer.parseInt(myObj.nextLine());
+
+            } catch(Exception exception)
             {
-                clientView.makeReservationWithCouponStatus(optionss.get(optionnr - 1),clientController.findCouponById(couponans, client.getId()), client.getId(),from,to);
-                clientController.removeCoupon(clientController.findCouponById(couponans,client.getId()),client.getId());
+                System.out.println("The input for coupon number must be int");
             }
-            else if(couponans == -1 && optionss.size() > 0)
-            {
-                clientView.makeReservationStatus(optionss.get(optionnr - 1), client.getId(),from,to);
-                if (clientController.seeAllReservations(client.getId()).size() %2 == 0)
-                {
+            clientView.optionPart(couponans,from, to, people,client);
 
-                    int random_int = (int)Math.floor(Math.random()*(90-10+1)+10)/10;
-                    random_int = random_int * 10;
 
-                    Coupon coupon = new Coupon(random_int);
-                    clientController.addCoupon(coupon,client.getId());
-
-                }
-            }
             clientMenu(client);
         }
         else if (option == 2)

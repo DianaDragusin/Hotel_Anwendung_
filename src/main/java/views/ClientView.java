@@ -1,14 +1,13 @@
 package views;
 
-import model.Coupon;
-import model.Option;
-import model.Reservation;
-import model.Room;
+import model.*;
 import service.ClientController;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 
 public class ClientView {
@@ -29,23 +28,13 @@ public class ClientView {
         }
         return  clientcontroller.showCoupons(id);
     }
-    public  void printOptions (LocalDate checkin, LocalDate checkout ,int nrperson )
-    {
-        List<Option>options = clientcontroller.generateOptions(checkin,checkout,nrperson);
-        for (Option option :options)
-        {
-            System.out.println(option.toString());
-        }
+   /// public  void printOptions (LocalDate checkin, LocalDate checkout ,int nrperson )
+   // {
+     //   List<Option>options = clientcontroller.generateOptions(checkin,checkout,nrperson);
 
-    }
-    public  void printOptions (List<Option> options )
-    {
-        for (Option option :options)
-        {
-            System.out.println(option.toString());
-        }
 
-    }
+   // }
+
     public void  printAllReservations (int id)
     {
         List<Reservation> reservations =  clientcontroller.seeAllReservations(id);
@@ -122,4 +111,61 @@ public class ClientView {
         String status = clientcontroller.changePassword(id,password);
         System.out.println(status);
     }
+    private void printOptions(List<Option> options)
+    {
+        for (Option option :options)
+        {
+            System.out.println(option.toString());
+        }
+    }
+    public void optionPart (int couponans, LocalDate from, LocalDate to, int people, Client client)
+    {
+        List<Option> options = new ArrayList<>();
+        Scanner myObj = new Scanner(System.in);
+        try
+        {
+            options = clientcontroller.generateOptions(from,to,people);
+            System.out.println("Options:");
+            printOptions(options);
+            System.out.println("What option do you prefer:");
+            try {
+                int optionnr = Integer.parseInt(myObj.nextLine());
+
+                if (couponans >-1 && options.size() > 0)
+                {
+                    // nest another level
+                    makeReservationWithCouponStatus(options.get(optionnr - 1),clientcontroller.findCouponById(couponans, client.getId()), client.getId(),from,to);
+                    clientcontroller.removeCoupon(clientcontroller.findCouponById(couponans,client.getId()),client.getId());
+                }
+                else if(couponans == -1 && options.size() > 0)
+                {
+                    // nest another level
+                    makeReservationStatus(options.get(optionnr - 1), client.getId(),from,to);
+                    if (clientcontroller.seeAllReservations(client.getId()).size() %2 == 0)
+                    {
+
+                        int random_int = (int)Math.floor(Math.random()*(90-10+1)+10)/10;
+                        random_int = random_int * 10;
+
+                        Coupon coupon = new Coupon(random_int);
+                        clientcontroller.addCoupon(coupon,client.getId());
+
+                    }
+                }
+
+            }catch (Exception exception)
+            {
+                System.out.println("You must enter a number");
+            }
+
+
+        }catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
+
+
+    }
+
+
 }

@@ -34,24 +34,31 @@ public class Main {
         Room  room2 = new Room(Type.SINGLE,1000,1);
 
         Client client2 = new Client("a", "a", "c" ,"b");
+        Client client3 = new Client("b", "b", "b" ,"b");
+
         Reservation res3 = new Reservation(LocalDate.of(2003,2,1), LocalDate.of(2003,2,3),2000);
         client2.addReservation(res3);
         Reservation res4 = new Reservation(LocalDate.of(2003,2,1), LocalDate.of(2009,2,3),2000);
 
         manager.getTransaction().begin();
-
-        manager.persist(client2);
-        manager.persist(room1);
-        manager.persist(res4);
-        manager.getTransaction().commit();
-
+      //  manager.persist(client2);
+      //  manager.persist(client3);
         Query query2 =  manager.createNativeQuery("select * from Client where username=:reservationNr ",Client.class);
         query2.setParameter("reservationNr","c");
+        Client foundCourse = (Client) query2.getSingleResult();
+        System.out.println(foundCourse);
         Query query = manager.createNativeQuery("SELECT * FROM Client",Client.class);
         List<Client> clients = query.getResultList();
         for(Client cl : clients){
             System.out.println(cl);
         }
+
+      //  manager.persist(client2);
+       // manager.persist(room1);
+      //  manager.persist(res4);
+        manager.getTransaction().commit();
+
+
         /* Client client22 = (Client) query2.getSingleResult();
         Reservation res5 = new Reservation(LocalDate.of(2006,2,1), LocalDate.of(2006,2,3),2000);
         client22.addReservation(res5);
