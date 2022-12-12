@@ -15,11 +15,11 @@ public class databaseCleanerRepo implements ICleanerRepository {
     EntityManagerFactory factory;
     EntityManager manager;
 
-    public databaseCleanerRepo(List<Cleaner> cleanerList) {
-        populate_cleaners();
+    public databaseCleanerRepo() {
         factory = Persistence.createEntityManagerFactory("default");
         manager = factory.createEntityManager();
         manager.getTransaction().begin();
+        populate_cleaners();
     }
     private void populate_cleaners(){
 

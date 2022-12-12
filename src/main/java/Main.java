@@ -18,7 +18,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
+/*
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         EntityManager manager = factory.createEntityManager();
 
