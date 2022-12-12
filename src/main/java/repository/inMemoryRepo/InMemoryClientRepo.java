@@ -18,10 +18,10 @@ public class InMemoryClientRepo implements IClientRespository {
     private int reservation_id;
     public InMemoryClientRepo( ) {
         this.clients = new ArrayList<>();
-        populate_clients();
         clientId = 0;
         coupon_id = 0;
         reservation_id = 0;
+        populate_clients();
     }
 
     private void populate_clients(){
@@ -104,12 +104,12 @@ public class InMemoryClientRepo implements IClientRespository {
         }
         return res;
     }
-    public Reservation removeReservation(int resIid, int clientId)
+    public void removeReservation(int resIid, int clientId)
     {
         Reservation res = findReservationById(resIid);
         Client c = findById(clientId);
         c.removeReservation(res);
-        return res;
+
     }
     public List<Reservation> getReservationsForClient(int clientId){
         Client c = findById(clientId);
@@ -131,7 +131,8 @@ public class InMemoryClientRepo implements IClientRespository {
                     (reservation.getStart() == start) ||
                     (reservation.getEnd().isAfter(start) && reservation.getEnd().isBefore(end)) ||
                     (reservation.getEnd() == end) ||
-                    (reservation.getStart().isBefore(start) && reservation.getEnd().isAfter(end)))
+                    (reservation.getStart().isBefore(start) && reservation.getEnd().isAfter(end))
+                    || (reservation.getStart().isEqual(start) && reservation.getEnd().isEqual(end)))
             {
                 rooms.addAll(reservation.getRooms());
 

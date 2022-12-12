@@ -2,6 +2,7 @@ package service;
 
 import model.*;
 import repository.inMemoryRepo.*;
+import utils.CustomIllegalArgument;
 import views.ManagerView;
 
 import java.util.List;
@@ -25,8 +26,12 @@ public class ManagerController {
 
     // PASSWORD
 
-    public boolean login(String password){
-        return password.equals(this.password);
+    public void login(String password) throws CustomIllegalArgument {
+        if (!password.equals(this.password))
+        {
+            throw  new CustomIllegalArgument("Invalid password");
+        }
+
     }
     public String changePassword(String password){
         this.password=password;
@@ -42,13 +47,15 @@ public class ManagerController {
         return clientRepo.findById(id);
     }
     public Client findClientByUsername(String username){return clientRepo.findByUsername(username);}
-    public Client deleteClient(Integer id){
+    public void deleteClient(Integer id) throws  CustomIllegalArgument{
         Client C = clientRepo.findById(id);
         if(C!=null){
             clientRepo.delete(id);
-            return C;
+
         }
-        return null;
+        else{
+            throw  new CustomIllegalArgument("There is no client with this id in our database!");
+        }
     }
 
 
@@ -58,8 +65,35 @@ public class ManagerController {
     public List<Room> seeAllRooms(){
         return roomRepo.getAll();
     }
-    public void addRoom(Type type, double price, int nrPers){
-        roomRepo.add(new Room(type,price,nrPers));
+    private boolean checkTypeRoom (Type type, int nrPers)
+    {
+
+        if (type.equals(Type.SINGLE) && nrPers == 1)
+        {
+            return  true;
+        }
+        else if (type.equals(Type.DOUBLE) && nrPers == 2)
+        {
+            return  true;
+        }
+        else if (type.equals(Type.TRIPLE) && nrPers == 3)
+        {
+            return  true;
+        }
+        else if (type.equals(Type.APARTMENT) && nrPers == 4)
+        {
+            return  true;
+        }
+        return false;
+    }
+    public void addRoom(Type type, double price, int nrPers) throws  CustomIllegalArgument{
+
+        if (checkTypeRoom(type,nrPers))
+        {
+            roomRepo.add(new Room(type,price,nrPers));
+        }
+        else throw  new CustomIllegalArgument("Type must be equal to the number of persons in meaning");
+
     }
     public Room deleteRoom(Integer id){
         Room r = roomRepo.findById(id);

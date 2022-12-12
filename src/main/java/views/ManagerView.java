@@ -16,15 +16,19 @@ public class ManagerView {
 
     public boolean loginStatus( String password)
     {
-        boolean status = managercontroller.login(password);
-        if (status)
-        {
+        try {
+            managercontroller.login(password);
             System.out.println("Welcome to your designated space\n" );
             return true;
-        }else {
-            System.out.println("Invalid password\n" );
+
+        }catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
             return false;
         }
+
+
+
     }
 
     // CLIENT
@@ -53,16 +57,12 @@ public class ManagerView {
     }
     public void deleteClientStatus(int id)
     {
-        Client client = managercontroller.findClientById(id);
-
-        if (client == null)
-        {
-            System.out.println("Client not found! Check the username and try again!\n");
-        }
-        else
-        {
+        try{
             managercontroller.deleteClient(id);
             System.out.println("Client successfully deleted!\n");
+        }catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
         }
     }
 
@@ -78,8 +78,15 @@ public class ManagerView {
         }
     }
     public void addRoomStatus(Type type, Double price, int nrPers){
-        managercontroller.addRoom(type,price,nrPers);
-        System.out.println("Room successfully added!\n");
+        try{
+            managercontroller.addRoom(type,price,nrPers);
+            System.out.println("Room successfully added!\n");
+
+        }catch (Exception exception){
+            System.out.println(exception.getMessage());
+        }
+
+
     }
     public void deleteRoomStatus(int id)
     {

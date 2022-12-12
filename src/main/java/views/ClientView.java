@@ -2,6 +2,7 @@ package views;
 
 import model.*;
 import service.ClientController;
+import utils.CustomIllegalArgument;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -61,44 +62,65 @@ public class ClientView {
         }
         System.out.println("Reservation not created!");
     }
-    public void deleteReservationStatus(int resId, int clientId) {
-        if (clientcontroller.deleteReservation(resId,clientId) != null) {
+    public void deleteReservationStatus(int resId, int clientId)  {
+        try
+        {
+            clientcontroller.deleteReservation(resId,clientId);
             System.out.println("Reservation deleted successfully!");
-            return;
+        }catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
         }
-        System.out.println("Reservation not found!");
+
+
     }
     public boolean registerStatus(String firstName,String lastName,String username,String password)
     {
-        boolean status = clientcontroller.register(firstName, lastName,username,password);
-        if (status )
+        try
         {
-            System.out.println("Client registered successfully!\n");
-        }
-        else
+            clientcontroller.register(firstName, lastName,username,password);
+            System.out.println("Client registered successfully!" );
+            return true;
+
+        }catch (Exception exception)
         {
-            System.out.println("Something went wrong, client was not registered!\n");
+            System.out.println(exception.getMessage());
+            return  false;
         }
-        return status;
+
 
 
     }
-    public  void changeDetailsStatus (String newfirstName,String newlastName,int id)
+    public  boolean changeDetailsStatus (String newfirstName,String newlastName,int id)
     {
-        String status = clientcontroller.changeDetails(newfirstName, newlastName,id);
-        System.out.println(status);
+
+        try
+        {
+            clientcontroller.changeDetails(newfirstName, newlastName,id);
+            System.out.println("User has changed its first and last name succsesfully \n" );
+            return true;
+
+        }catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+            return  false;
+        }
     }
 
     public boolean loginStatus(String username, String password)
     {
-        boolean status = clientcontroller.login(username,password);
-        if (status )
+        try
         {
+            clientcontroller.login(username,password);
             System.out.println("User " + username + " is logged in \n" );
-        }else {
-            System.out.println("Invalid credentials\n" );
+            return true;
+
+        }catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+            return  false;
         }
-        return status;
+
 
 
     }

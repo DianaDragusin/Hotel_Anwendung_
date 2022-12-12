@@ -15,8 +15,9 @@ public class InMemoryRoomRepo implements IRoomRepository {
 
     public InMemoryRoomRepo() {
         this.rooms = new ArrayList<>();
-        populate_rooms();
         room_id = 0;
+        populate_rooms();
+
     }
 
     private void populate_rooms()

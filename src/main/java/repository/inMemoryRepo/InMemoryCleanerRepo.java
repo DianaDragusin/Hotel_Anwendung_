@@ -13,8 +13,8 @@ public class InMemoryCleanerRepo implements ICleanerRepository {
 
     public InMemoryCleanerRepo() {
         this.cleaners =  new ArrayList<>();
-        populate_cleaners();
         id_cleaner = 0;
+        populate_cleaners();
     }
     private void populate_cleaners(){
 

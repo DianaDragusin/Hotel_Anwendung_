@@ -110,6 +110,17 @@ public class ClientController {
         return Type.APARTMENT;
     }
 
+    public Option cheapestOption(List<Option> options) {
+        Option optionMinPreis = options.get(0);
+        for (Option option : options) {
+            if (option.getTotalPrice() < optionMinPreis.getTotalPrice()) {
+                optionMinPreis.setId(option.getId());
+                optionMinPreis.setRooms(option.getRooms());
+                optionMinPreis.setTotalPrice(option.getTotalPrice());
+            }
+        }
+        return optionMinPreis;
+    }
     public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrTotalPers) throws CustomIllegalArgument{
         List<Room> availableRooms = searchAvailableRoom(checkIn,checkOut);
         if (availableRooms.size()<1)
@@ -161,10 +172,10 @@ public class ClientController {
 
     public Reservation makeReservationWithCoupon(Option option, Coupon coupon, int clientId, LocalDate start, LocalDate end) {
         // work to do
-        System.out.println("Se creaza rezervarea cu cupon.");
+       // System.out.println("Se creeaza rezervarea cu cupon.");
         Reservation reservation = new Reservation(start, end, option.getTotalPrice());
         reservation.setPrice(applyCoupon(coupon, option.getTotalPrice()));
-        System.out.println("Am steat pretul rezervarii actualizat.");
+       // System.out.println("Am stetat pretul rezervarii actualizat.");
         reservation.setRooms(option.getRooms());
         clientRepo.addReservation(reservation,clientId);
         clientRepo.findById(clientId).removeCoupon(coupon);
@@ -181,47 +192,89 @@ public class ClientController {
 
     private int applyCoupon(Coupon coupon, int price) {
 
-        int per = (100 - coupon.getPercentage()) / 100;
-        price = price * per;
+        float per = (float)(100 - coupon.getPercentage()) / 100;
+        float price2 =  price * per;
+        price = (int) price2;
         return price;
 
     }
+    public Client findUserById (int id)
+    {
+        List<Client>clients = clientRepo.getAll();
+        for (Client c : clients)
+        {
+            if (c.getId() == id)
+                return  c;
+        }
+        return null;
+    }
+    public Reservation findReservationById (int clientId, int reservationId)
+    {
+        List<Client>clients = clientRepo.getAll();
+        Reservation reservation = null;
+        for (Client c : clients)
+        {
+            if (c.getId() == clientId)
+            {
+                List<Reservation>reservations = c.getReservationList();
+                for (Reservation res : reservations)
+                {
+                    if (res.getId() == reservationId)
+                        return res;
+                }
+            }
 
-    public Reservation deleteReservation(int resId, int clientId) {
-        return clientRepo.removeReservation(resId,clientId);
+
+        }
+        return null;
+    }
+    public void deleteReservation(int resId, int clientId) throws  CustomIllegalArgument {
+        if (findReservationById(clientId,resId) != null) {
+            clientRepo.removeReservation(resId, clientId);
+
+
+        }
+        throw new CustomIllegalArgument("Reservation not found!");
+
+
+
     }
 
     public List<Reservation> seeAllReservations(int id) {
         return clientRepo.getReservationsForClient(id);
     }
 
-    public boolean register(String firstName, String lastName, String username, String password) {
+    public void register(String firstName, String lastName, String username, String password) throws CustomIllegalArgument{
         Client c = clientRepo.findByUsername(username);
         if (c == null) {
             clientRepo.add(new Client(firstName, lastName, username, password));
-            return true;
-        } else return false;
+
+        } else throw new CustomIllegalArgument("There is already a user with this username in our system");
     }
 
-    public String changeDetails(String newfirstName, String newlastName, int id) {
+    public void changeDetails(String newfirstName, String newlastName, int id) throws  CustomIllegalArgument {
         Client client = clientRepo.findById(id);
         if (client != null) {
             Client c = new Client(newfirstName, newlastName, client.getUsername(), client.getPassword());
             c.setCouponList(client.getCouponList());
             clientRepo.update(id, c);
-            return "Details changed successfully";
 
-        } else return "Invalid user, the details were not changed";
+
+        } else throw new CustomIllegalArgument("You are not in our database");
 
     }
 
-    public boolean login(String username, String password) {
+    public void login(String username, String password)throws CustomIllegalArgument {
+        int ok = 0;
         for (Client c : clientRepo.getAll()) {
             if (c.getUsername().equals(username) && c.getPassword().equals(password)) {
-                return true;
+                ok = 1;
+                break;
             }
         }
-        return false;
+        if (ok == 0 )
+            throw  new CustomIllegalArgument("Invalid credentials!");
+
     }
 
     public String changePassword(int id, String newPassword) {
