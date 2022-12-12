@@ -1,70 +1,75 @@
 package repository.databaseRepo;
 
-import model.Room;
-import model.Type;
+import model.*;
 import repository.IRoomRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
 public class databaseRoomRepo implements IRoomRepository {
-    private List<Room> rooms;
-    private int room_id;
-
+    EntityManagerFactory factory;
+    EntityManager manager;
 
     public databaseRoomRepo() {
-        this.rooms = new ArrayList<>();
+        factory = Persistence.createEntityManagerFactory("default");
+        manager = factory.createEntityManager();
+        manager.getTransaction().begin();
         populate_rooms();
-        room_id = 0;
     }
 
     private void populate_rooms()
     {
 
-        Room room1 = new Room(Type.SINGLE,300,1);
-        Room room2 = new Room(Type.DOUBLE,400,2);
-        Room room3 = new Room(Type.TRIPLE,700,3);
-        Room room4 = new Room(Type.APARTMENT,1000,4);
-        this.add(room1);
-        this.add(room1);
-        this.add(room1);
-        this.add(room1);
-        this.add(room2);
-        this.add(room2);
-        this.add(room3);
-        this.add(room3);
-        this.add(room3);
-        this.add(room4);
-        this.add(room4);
-        this.add(room4);
+        Room rooms1 = new Room(Type.SINGLE,300,1);
+        Room rooms2 = new Room(Type.SINGLE,300,1);
+        Room rooms3 = new Room(Type.SINGLE,300,1);
+        Room roomd1 = new Room(Type.DOUBLE,400,2);
+        Room roomd2 = new Room(Type.DOUBLE,400,2);
+        Room roomt1 = new Room(Type.TRIPLE,700,3);
+        Room roomt2 = new Room(Type.TRIPLE,700,3);
+        Room roomt3 = new Room(Type.TRIPLE,700,3);
+        Room rooma1 = new Room(Type.APARTMENT,1000,4);
+        Room rooma2 = new Room(Type.APARTMENT,1000,4);
+        manager.persist(rooms1);
+        manager.persist(rooms2);
+        manager.persist(rooms3);
+        manager.persist(roomd1);
+        manager.persist(roomd2);
+        manager.persist(roomt1);
+        manager.persist(roomt2);
+        manager.persist(roomt3);
+        manager.persist(rooma1);
+        manager.persist(rooma2);
 
 
     }
     @Override
     public void add(Room room) {
-        room_id++;
-        room.setId(room_id);
-        rooms.add(room);
-
+        manager.persist(room);
     }
 
     @Override
-    public void delete(Integer id) {
-        if(findById(id)!=null){
-            rooms.remove(findById(id));
-        }
-
+    public void delete(Integer roomId) {
+        Query query = manager.createNativeQuery("DELETE FROM Room WHERE id=:idRoom",Room.class);
+        query.setParameter("idRoom", Integer.toString(roomId));
+        query.executeUpdate();
     }
 
     @Override
     public void update(Integer id, Room room) {
-        findById(id).setPrice(room.getPrice());
-        findById(id).setType(room.getType());
-        findById(id).setNrPers(room.getNrPers());
+        Query query = manager.createNativeQuery("UPDATE Room SET nrPers=:roomNrP, price=:roomPr, type=:roomT", Room.class);
+        query.setParameter("roomNrP", room.getNrPers());
+        query.setParameter("roomPr", room.getPrice());
+        query.setParameter("roomT", room.getType());
+        query.executeUpdate();
     }
     @Override
     public Room findById(Integer id){
-        for(Room r : rooms){
+        for(Room r : getAll()){
             if(r.getId() == id){
                 return r;
             }
@@ -74,14 +79,15 @@ public class databaseRoomRepo implements IRoomRepository {
 
     @Override
     public List<Room> getAll() {
-        return rooms;
+        Query query = manager.createNativeQuery("SELECT * FROM Room", Room.class);
+        return (List<Room>) query.getResultList();
     }
 
 
     @Override
     public List<Room> returnRoomsOfType(Type t) {
         List<Room>typeRooms = new ArrayList<>();
-        for (Room room : rooms)
+        for (Room room : getAll())
         {
             if (room.getType() == t)
             {

@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class databaseClientRepo implements IClientRespository {
 
@@ -17,10 +18,10 @@ public class databaseClientRepo implements IClientRespository {
     EntityManager manager;
 
     public databaseClientRepo( ) {
-        populate_clients();
         factory = Persistence.createEntityManagerFactory("default");
         manager = factory.createEntityManager();
         manager.getTransaction().begin();
+        populate_clients();
     }
 
     private void populate_clients(){
@@ -79,10 +80,11 @@ public class databaseClientRepo implements IClientRespository {
     {
         manager.persist(c);
     }
-    public void removeCoupon(Coupon coupon, int couponId)
+    public void removeCoupon(Coupon coupon, int clientId)
     {
-        Query query = manager.createNativeQuery("DELETE FROM Coupon WHERE id=:idCoupon", Coupon.class);
-        query.setParameter("idCoupon", Integer.toString(couponId));
+        Query query = manager.createNativeQuery("DELETE FROM Coupon WHERE id=:idCoupon AND client_id=:idCl", Coupon.class);
+        query.setParameter("idCoupon", Integer.toString(coupon.getCode()));
+        query.setParameter("idCl", Integer.toString(clientId));
         query.executeUpdate();
     }
 
@@ -121,13 +123,15 @@ public class databaseClientRepo implements IClientRespository {
     public Reservation removeReservation(int resIid, int clientId)
     {
         Reservation reservation = findReservationById(resIid);
-        Query query = manager.createNativeQuery("DELETE FROM Reservation WHERE id=:idRes", Reservation.class);
+        Query query = manager.createNativeQuery("DELETE FROM Reservation WHERE id=:idRes AND client_id=:idCl", Reservation.class);
         query.setParameter("idRes", Integer.toString(resIid));
+        query.setParameter("idCl", Integer.toString(clientId));
         query.executeUpdate();
         return reservation;
     }
     public List<Reservation> getReservationsForClient(int clientId){
-        Query query = manager.createNativeQuery("SELECT reservation_id FROM Reservation WHERE client_id=:idRes", Reservation.class);
+        Query query = manager.createNativeQuery("SELECT reservation_id FROM Reservation WHERE client_id=:idCl", Reservation.class);
+        query.setParameter("idCl", Integer.toString(clientId));
         List<Integer> resIds = (List<Integer>) query.getResultList();
         List<Reservation> reservationsForClient = new ArrayList<>();
         for(int resId : resIds) {
@@ -137,25 +141,24 @@ public class databaseClientRepo implements IClientRespository {
     }
 
     public List<Reservation> getAllReservations(){
-//        List<Reservation> reservations = new ArrayList<>();
-//        for(Client c : clients){
-//            reservations.addAll(c.getReservationList());
-//        }
-        return new ArrayList<>();
+        List<Integer> clientIds = getAll().stream().map(Client::getId).toList();
+        List<Reservation> reservations = new ArrayList<>();
+        for(int clientId : clientIds){
+            reservations.addAll(getReservationsForClient(clientId));
+        }
+        return reservations;
     }
 
     public List<Room> returnAllUnAvailableRooms(LocalDate start, LocalDate end) {
         List<Room> rooms = new ArrayList<>();
         for (Reservation reservation : getAllReservations())
         {
-            if ((reservation.getStart().isAfter(start) && reservation.getStart().isBefore(end)) ||
-                    (reservation.getStart() == start) ||
-                    (reservation.getEnd().isAfter(start) && reservation.getEnd().isBefore(end)) ||
-                    (reservation.getEnd() == end) ||
-                    (reservation.getStart().isBefore(start) && reservation.getEnd().isAfter(end)))
+            if (reservation.getStart().isBefore(end) && reservation.getEnd().isAfter(start) ||
+                reservation.getStart().isBefore(end) && reservation.getEnd().isEqual(start) ||
+                reservation.getStart().isEqual(end) && reservation.getEnd().isAfter(start) ||
+                reservation.getStart().isEqual(end) && reservation.getEnd().isEqual(start))
             {
                 rooms.addAll(reservation.getRooms());
-
             }
         }
         return rooms;
@@ -164,21 +167,10 @@ public class databaseClientRepo implements IClientRespository {
     ///////////////////////////////////////////////////////////////////////////////////////////////
     public Coupon findCouponById(int couponId, int clientId)
     {
-//        for (Client client : clients)
-//        {
-//            if (client.getId() == clientId)
-//            {
-//                List<Coupon> coupons = client.getCouponList();
-//                for (Coupon coupon : coupons)
-//                {
-//                    if (coupon.getCode() == couponId)
-//                    {
-//                        return coupon;
-//                    }
-//                }
-//            }
-//        }
-        return null;
+        Query query = manager.createNativeQuery("SELECT * FROM Coupon WHERE id=:coId AND client_id=:clId",Coupon.class);
+        query.setParameter("coId", Integer.toString(couponId));
+        query.setParameter("clId", Integer.toString(clientId));
+        return (Coupon) query.getSingleResult();
     }
 }
 
