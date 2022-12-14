@@ -3,19 +3,22 @@ package service;
 import model.Cleaner;
 import model.Cleaning;
 import model.Room;
-import repository.inMemoryRepo.InMemoryCleanerRepo;
-import repository.inMemoryRepo.InMemoryCleaningRepo;
-import repository.inMemoryRepo.InMemoryRoomRepo;
+import repository.ICleanerRepository;
+import repository.ICleaningRepository;
+import repository.IRoomRepository;
+import repository.databaseRepo.databaseCleanerRepo;
+import repository.databaseRepo.databaseCleaningRepo;
+import repository.databaseRepo.databaseRoomRepo;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class CleanerController {
-    private InMemoryCleanerRepo cleanerRepo;
-    private InMemoryRoomRepo roomRepo;
-    private InMemoryCleaningRepo cleaningRepo;
+    private ICleanerRepository cleanerRepo;
+    private IRoomRepository roomRepo;
+    private ICleaningRepository cleaningRepo;
 
-    public CleanerController(InMemoryCleanerRepo cleanerRepo, InMemoryRoomRepo roomRepo,InMemoryCleaningRepo cleaningRepo) {
+    public CleanerController(ICleanerRepository cleanerRepo, IRoomRepository roomRepo, ICleaningRepository cleaningRepo) {
         this.cleanerRepo = cleanerRepo;
         this.roomRepo = roomRepo;
         this.cleaningRepo = cleaningRepo;

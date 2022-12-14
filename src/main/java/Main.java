@@ -77,7 +77,8 @@ public class Main {
  */
 
 
-        Ui ui = new Ui();
+        boolean memory = true;
+        Ui ui = new Ui(memory);
         ui.showMenu();
     }
 

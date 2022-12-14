@@ -11,14 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class databaseRoomRepo implements IRoomRepository {
-    EntityManagerFactory factory;
     EntityManager manager;
 
-    public databaseRoomRepo() {
-        factory = Persistence.createEntityManagerFactory("default");
-        manager = factory.createEntityManager();
-        manager.getTransaction().begin();
+    public databaseRoomRepo(EntityManager manager) {
+        this.manager = manager;
         populate_rooms();
+        manager.getTransaction().commit();
     }
 
     private void populate_rooms()
@@ -44,12 +42,11 @@ public class databaseRoomRepo implements IRoomRepository {
         manager.persist(roomt3);
         manager.persist(rooma1);
         manager.persist(rooma2);
-
-
     }
     @Override
     public void add(Room room) {
         manager.persist(room);
+        manager.getTransaction().commit();
     }
 
     @Override
@@ -57,6 +54,7 @@ public class databaseRoomRepo implements IRoomRepository {
         Query query = manager.createNativeQuery("DELETE FROM Room WHERE id=:idRoom",Room.class);
         query.setParameter("idRoom", Integer.toString(roomId));
         query.executeUpdate();
+        manager.getTransaction().commit();
     }
 
     @Override
@@ -66,6 +64,7 @@ public class databaseRoomRepo implements IRoomRepository {
         query.setParameter("roomPr", room.getPrice());
         query.setParameter("roomT", room.getType());
         query.executeUpdate();
+        manager.getTransaction().commit();
     }
     @Override
     public Room findById(Integer id){

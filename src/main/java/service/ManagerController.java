@@ -1,7 +1,11 @@
 package service;
 
 import model.*;
-import repository.inMemoryRepo.*;
+import repository.ICleanerRepository;
+import repository.ICleaningRepository;
+import repository.IClientRespository;
+import repository.IRoomRepository;
+import repository.databaseRepo.*;
 import utils.CustomIllegalArgument;
 import views.ManagerView;
 
@@ -10,13 +14,13 @@ import java.util.Objects;
 
 public class ManagerController {
     private String password;
-    private InMemoryRoomRepo roomRepo;
-    private InMemoryClientRepo clientRepo;
-    private InMemoryCleanerRepo cleanerRepo;
-    private InMemoryCleaningRepo cleaningRepo;
+    private IRoomRepository roomRepo;
+    private IClientRespository clientRepo;
+    private ICleanerRepository cleanerRepo;
+    private ICleaningRepository cleaningRepo;
 
 
-    public ManagerController(InMemoryRoomRepo roomRepo, InMemoryClientRepo clientRepo, InMemoryCleanerRepo cleanerRepo,InMemoryCleaningRepo cleaningRepo, String password) {
+    public ManagerController(IRoomRepository roomRepo, IClientRespository clientRepo, ICleanerRepository cleanerRepo,ICleaningRepository cleaningRepo, String password) {
         this.password = password;
         this.roomRepo = roomRepo;
         this.clientRepo = clientRepo;
