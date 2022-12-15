@@ -12,13 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class databaseCleaningRepo implements ICleaningRepository {
-    EntityManagerFactory factory;
+
     EntityManager manager;
 
-    public databaseCleaningRepo() {
-        factory = Persistence.createEntityManagerFactory("default");
-        manager = factory.createEntityManager();
-        manager.getTransaction().begin();
+    public databaseCleaningRepo(EntityManager manager) {
+        this.manager = manager;
     }
 
     public List<Cleaning> getCleanings() {
@@ -56,10 +54,12 @@ public class databaseCleaningRepo implements ICleaningRepository {
     }
     public void addCleaning(Cleaning cleaning){
         manager.persist(cleaning);
+        manager.getTransaction().commit();
     }
     public void removeCleaning(Cleaning cleaning){
         Query query = manager.createNativeQuery("DELETE FROM Cleaning WHERE id=:idCleaning",Cleaning.class);
         query.setParameter("idCleaning", Integer.toString(cleaning.getId()));
         query.executeUpdate();
+        manager.getTransaction().commit();
     }
 }

@@ -1,4 +1,12 @@
 import model.*;
+import repository.ICleanerRepository;
+import repository.ICleaningRepository;
+import repository.IClientRespository;
+import repository.IRoomRepository;
+import repository.databaseRepo.databaseCleanerRepo;
+import repository.databaseRepo.databaseCleaningRepo;
+import repository.databaseRepo.databaseClientRepo;
+import repository.databaseRepo.databaseRoomRepo;
 import repository.inMemoryRepo.*;
 import service.CleanerController;
 import service.ClientController;
@@ -7,8 +15,10 @@ import views.CleanerView;
 import views.ClientView;
 import views.ManagerView;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,10 +26,10 @@ public class Ui {
     // nu ar trebui  sa initializam repo cu aceste liste si sa facem constructoarele de la ele goale si pe moment sa le popoulam cu functiile de populate
 
 
-    InMemoryCleanerRepo inMemoryCleanerRepo;
-    InMemoryClientRepo inMemoryClientRepo;
-    InMemoryRoomRepo inMemoryRoomRepo;
-    InMemoryCleaningRepo inMemoryCleaningRepo;
+    ICleanerRepository cleanerRepo;
+    IClientRespository clientRepo;
+    IRoomRepository roomRepo;
+    ICleaningRepository cleaningRepo;
 
     ClientController clientController;
     CleanerController cleanerController;
@@ -29,23 +39,35 @@ public class Ui {
     CleanerView cleanerView;
     ManagerView managerView;
 
-    public Ui() {
+    public Ui(boolean memory) {
 
+        if(memory){
+            // Cleaner Controller
+            this.cleanerRepo = new InMemoryCleanerRepo();
+            this.cleaningRepo = new InMemoryCleaningRepo();
+            // Client Controller
+            this.clientRepo = new InMemoryClientRepo();
+            this.roomRepo = new InMemoryRoomRepo();
+        }
+        else {
+            EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
+            EntityManager manager = factory.createEntityManager();
+            manager.getTransaction().begin();
+            // Cleaner Controller
+            this.cleanerRepo = new databaseCleanerRepo(manager);
+            this.cleaningRepo = new databaseCleaningRepo(manager);
+            // Client Controller
+            this.clientRepo = new databaseClientRepo(manager);
+            this.roomRepo = new databaseRoomRepo(manager);
+        }
         // Cleaner Controller
-        this.inMemoryCleanerRepo = new InMemoryCleanerRepo();
-        this.inMemoryCleaningRepo = new InMemoryCleaningRepo();
-        this.cleanerController = new CleanerController(inMemoryCleanerRepo, inMemoryRoomRepo,inMemoryCleaningRepo);
+        this.cleanerController = new CleanerController(cleanerRepo, roomRepo, cleaningRepo);
 
         // Client Controller
-        this.inMemoryClientRepo = new InMemoryClientRepo();
+        this.clientController = new ClientController(clientRepo, roomRepo, cleanerRepo);
 
-        this.inMemoryRoomRepo = new InMemoryRoomRepo();
-
-
-        this.clientController = new ClientController(inMemoryClientRepo, inMemoryRoomRepo, inMemoryCleanerRepo);
-        this.cleanerController = new CleanerController(inMemoryCleanerRepo,inMemoryRoomRepo,inMemoryCleaningRepo);
         // Manager Controller
-        this.managerController = new ManagerController(inMemoryRoomRepo, inMemoryClientRepo, inMemoryCleanerRepo, inMemoryCleaningRepo,"parola1");
+        this.managerController = new ManagerController(roomRepo, clientRepo, cleanerRepo, cleaningRepo,"parola1");
     }
 
 
@@ -149,7 +171,7 @@ public class Ui {
                 String password = myObj.nextLine();
                 System.out.println("\n");
                 if (clientView.loginStatus(username,password)) {
-                    clientMenu(inMemoryClientRepo.findByUsername(username));
+                    clientMenu(clientRepo.findByUsername(username));
                 }
                 else{
                     showOptionsClient();
@@ -182,7 +204,7 @@ public class Ui {
                     // adaugam clientul si in lista de clienti actualizata
 
 
-                    clientMenu(inMemoryClientRepo.findByUsername(username));
+                    clientMenu(clientRepo.findByUsername(username));
 
                 }
                 else{
@@ -221,7 +243,7 @@ public class Ui {
                 String password = myObj.nextLine();
                 System.out.println("\n");
                 if (cleanerView.loginStatus(username,password)) {
-                    cleanerMenu(inMemoryCleanerRepo.findByUsername(username));
+                    cleanerMenu(cleanerRepo.findByUsername(username));
                 }
                 else{
                     showOptionsCleaner();
@@ -248,7 +270,7 @@ public class Ui {
                 String password = myObj.nextLine();
 
                 if (cleanerView.registerStatus(firstname,lastname,username,password)) {
-                    cleanerMenu(inMemoryCleanerRepo.findByUsername(username));
+                    cleanerMenu(cleanerRepo.findByUsername(username));
                 }
                 else{
                     showOptionsCleaner();

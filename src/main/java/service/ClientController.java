@@ -1,7 +1,11 @@
 package service;
 
 import model.*;
-import repository.inMemoryRepo.*;
+import repository.ICleanerRepository;
+import repository.ICleaningRepository;
+import repository.IClientRespository;
+import repository.IRoomRepository;
+import repository.databaseRepo.*;
 import utils.CustomIllegalArgument;
 
 import java.time.LocalDate;
@@ -12,12 +16,12 @@ import java.util.stream.Stream;
 
 public class ClientController {
 
-    private final InMemoryClientRepo clientRepo;
-    private final InMemoryRoomRepo roomRepo;
-    private InMemoryCleanerRepo cleanerRepo;
+    private final IClientRespository clientRepo;
+    private final IRoomRepository roomRepo;
+    private ICleanerRepository cleanerRepo;
 
 
-    public ClientController(InMemoryClientRepo clientRepo, InMemoryRoomRepo roomRepo, InMemoryCleanerRepo cleanerRepo) {
+    public ClientController(IClientRespository clientRepo, IRoomRepository roomRepo, ICleanerRepository cleanerRepo) {
         this.clientRepo = clientRepo;
         this.roomRepo = roomRepo;
         this.cleanerRepo = cleanerRepo;
@@ -231,8 +235,6 @@ public class ClientController {
     public void deleteReservation(int resId, int clientId) throws  CustomIllegalArgument {
         if (findReservationById(clientId,resId) != null) {
             clientRepo.removeReservation(resId, clientId);
-
-
         }
         throw new CustomIllegalArgument("Reservation not found!");
 

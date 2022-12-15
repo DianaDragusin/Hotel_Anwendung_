@@ -12,13 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class databaseCleanerRepo implements ICleanerRepository {
-    EntityManagerFactory factory;
     EntityManager manager;
 
-    public databaseCleanerRepo() {
-        factory = Persistence.createEntityManagerFactory("default");
-        manager = factory.createEntityManager();
-        manager.getTransaction().begin();
+    public databaseCleanerRepo(EntityManager manager) {
+        this.manager = manager;
         populate_cleaners();
     }
     private void populate_cleaners(){
@@ -29,6 +26,7 @@ public class databaseCleanerRepo implements ICleanerRepository {
         manager.persist(cleaner1);
         manager.persist(cleaner2);
         manager.persist(cleaner3);
+        manager.getTransaction().commit();
     }
     @Override
     public void add(Cleaner cleaner) {
@@ -40,6 +38,7 @@ public class databaseCleanerRepo implements ICleanerRepository {
         Query query = manager.createNativeQuery("DELETE FROM Cleaner WHERE id=:idCleaner",Cleaner.class);
         query.setParameter("idCleaner", Integer.toString(cleanerId));
         query.executeUpdate();
+        manager.getTransaction().commit();
     }
 
     @Override
@@ -51,6 +50,7 @@ public class databaseCleanerRepo implements ICleanerRepository {
         query.setParameter("clP", cleaner.getPassword());
         query.setParameter("clId", Integer.toString(id));
         query.executeUpdate();
+        manager.getTransaction().commit();
     }
 
     @Override
