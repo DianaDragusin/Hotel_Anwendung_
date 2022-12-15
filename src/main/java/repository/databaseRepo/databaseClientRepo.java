@@ -18,7 +18,7 @@ public class databaseClientRepo implements IClientRespository {
     public databaseClientRepo(EntityManager manager) {
         this.manager = manager;
         populate_clients();
-        manager.getTransaction().commit();
+       // manager.getTransaction().commit();
     }
 
     private void populate_clients(){
@@ -34,14 +34,14 @@ public class databaseClientRepo implements IClientRespository {
     @Override
     public void add(Client client) {
         manager.persist(client);
-        manager.getTransaction().commit();
+        //manager.getTransaction().commit();
     }
     @Override
     public void delete(Integer clientId) {
         Query query = manager.createNativeQuery("DELETE FROM Client WHERE id=:idClient", Client.class);
         query.setParameter("idClient", Integer.toString(clientId));
         query.executeUpdate();
-        manager.getTransaction().commit();
+       // manager.getTransaction().commit();
 
     }
 
@@ -54,7 +54,7 @@ public class databaseClientRepo implements IClientRespository {
         query.setParameter("clP", client.getPassword());
         query.setParameter("clId", Integer.toString(clientId));
         query.executeUpdate();
-        manager.getTransaction().commit();
+       // manager.getTransaction().commit();
 
 
     }
@@ -80,7 +80,7 @@ public class databaseClientRepo implements IClientRespository {
     public void addCoupon(Coupon c, int client_id)
     {
         manager.persist(c);
-        manager.getTransaction().commit();
+      //  manager.getTransaction().commit();
 
     }
     public void removeCoupon(Coupon coupon, int clientId)
@@ -89,7 +89,7 @@ public class databaseClientRepo implements IClientRespository {
         query.setParameter("idCoupon", Integer.toString(coupon.getCode()));
         query.setParameter("idCl", Integer.toString(clientId));
         query.executeUpdate();
-        manager.getTransaction().commit();
+       // manager.getTransaction().commit();
 
     }
 
@@ -99,7 +99,7 @@ public class databaseClientRepo implements IClientRespository {
     public void addReservation(Reservation r, int clientId)
     {
         manager.persist(r);
-        manager.getTransaction().commit();
+       // manager.getTransaction().commit();
 
     }
     public Reservation findReservationById(int reservationId){

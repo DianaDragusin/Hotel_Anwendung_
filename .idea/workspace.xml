@@ -5,27 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="exceptions sterted">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_opentest4j_opentest4j_1_2_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/ICleaningRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/ICleaningRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/IClientRespository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/IClientRespository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseCleanerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseCleanerRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseCleaningRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseCleaningRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseClientRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseRoomRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/CleanerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/CleanerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -455,7 +440,21 @@
       <option name="project" value="LOCAL" />
       <updated>1670850690862</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="exceptions continued, Tests Client done , a filter added">
+      <created>1671133813028</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1671133813028</updated>
+    </task>
+    <task id="LOCAL-00034" summary=".">
+      <created>1671134007602</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1671134007602</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -473,8 +472,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="client, coupon, person, crud + some packages done" />
-    <MESSAGE value="Hotel implementierung" />
     <MESSAGE value="Controller" />
     <MESSAGE value="revizuire totala&#10;metode toString&#10;Repository&#10;legaturi&#10;logica" />
     <MESSAGE value="toString room" />
@@ -498,6 +495,8 @@
     <MESSAGE value="some changes" />
     <MESSAGE value="database connection established&#10;fixed cleanings class and many to many relationship&#10;created reservation_room class in jdbc connection" />
     <MESSAGE value="exceptions sterted" />
-    <option name="LAST_COMMIT_MESSAGE" value="exceptions sterted" />
+    <MESSAGE value="exceptions continued, Tests Client done , a filter added" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
 </project>

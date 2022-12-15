@@ -54,12 +54,12 @@ public class databaseCleaningRepo implements ICleaningRepository {
     }
     public void addCleaning(Cleaning cleaning){
         manager.persist(cleaning);
-        manager.getTransaction().commit();
+       // manager.getTransaction().commit();
     }
     public void removeCleaning(Cleaning cleaning){
         Query query = manager.createNativeQuery("DELETE FROM Cleaning WHERE id=:idCleaning",Cleaning.class);
         query.setParameter("idCleaning", Integer.toString(cleaning.getId()));
         query.executeUpdate();
-        manager.getTransaction().commit();
+       // manager.getTransaction().commit();
     }
 }

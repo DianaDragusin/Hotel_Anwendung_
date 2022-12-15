@@ -26,19 +26,19 @@ public class databaseCleanerRepo implements ICleanerRepository {
         manager.persist(cleaner1);
         manager.persist(cleaner2);
         manager.persist(cleaner3);
-        manager.getTransaction().commit();
+       // manager.getTransaction().commit();
     }
     @Override
     public void add(Cleaner cleaner) {
         manager.persist(cleaner);
-        manager.getTransaction().commit();
+       // manager.getTransaction().commit();
     }
     @Override
     public void delete(Integer cleanerId) {
         Query query = manager.createNativeQuery("DELETE FROM Cleaner WHERE id=:idCleaner",Cleaner.class);
         query.setParameter("idCleaner", Integer.toString(cleanerId));
         query.executeUpdate();
-        manager.getTransaction().commit();
+       // manager.getTransaction().commit();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class databaseCleanerRepo implements ICleanerRepository {
         query.setParameter("clP", cleaner.getPassword());
         query.setParameter("clId", Integer.toString(id));
         query.executeUpdate();
-        manager.getTransaction().commit();
+      //  manager.getTransaction().commit();
     }
 
     @Override
