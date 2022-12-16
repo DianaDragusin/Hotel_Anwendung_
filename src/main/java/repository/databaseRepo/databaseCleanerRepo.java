@@ -19,6 +19,7 @@ public class databaseCleanerRepo implements ICleanerRepository {
         populate_cleaners();
     }
     private void populate_cleaners(){
+        manager.getTransaction().begin();
 
         Cleaner cleaner1 = new Cleaner("Andu", "Andreescu","anduandre","1234");
         Cleaner cleaner2 = new Cleaner("Laura", "Halmaciu","lauramaciu","2222");
@@ -26,23 +27,26 @@ public class databaseCleanerRepo implements ICleanerRepository {
         manager.persist(cleaner1);
         manager.persist(cleaner2);
         manager.persist(cleaner3);
-       // manager.getTransaction().commit();
+        manager.getTransaction().commit();
     }
     @Override
     public void add(Cleaner cleaner) {
+        manager.getTransaction().begin();
         manager.persist(cleaner);
-       // manager.getTransaction().commit();
+        manager.getTransaction().commit();
     }
     @Override
     public void delete(Integer cleanerId) {
+        manager.getTransaction().begin();
         Query query = manager.createNativeQuery("DELETE FROM Cleaner WHERE id=:idCleaner",Cleaner.class);
         query.setParameter("idCleaner", Integer.toString(cleanerId));
         query.executeUpdate();
-       // manager.getTransaction().commit();
+        manager.getTransaction().commit();
     }
 
     @Override
     public void update(Integer id, Cleaner cleaner) {
+        manager.getTransaction().begin();
         Query query = manager.createNativeQuery("UPDATE Cleaner SET firstname=:clFN, lastname=:clLN, username=:clU, password=:clP WHERE id=:clId",Cleaner.class);
         query.setParameter("clFN", cleaner.getFirstName());
         query.setParameter("clLN", cleaner.getLastName());
@@ -50,25 +54,37 @@ public class databaseCleanerRepo implements ICleanerRepository {
         query.setParameter("clP", cleaner.getPassword());
         query.setParameter("clId", Integer.toString(id));
         query.executeUpdate();
-      //  manager.getTransaction().commit();
+        manager.getTransaction().commit();
     }
 
     @Override
     public Cleaner findByUsername(String username) {
+        Cleaner c = null;
+        manager.getTransaction().begin();
         Query query = manager.createNativeQuery("SELECT * FROM Cleaner WHERE username=:clU",Cleaner.class);
         query.setParameter("clU", username);
-        return (Cleaner) query.getSingleResult();
+        c = (Cleaner) query.getSingleResult();
+        manager.getTransaction().commit();
+        return c;
     }
     public Cleaner findById(Integer id){
+        Cleaner c  = null;
+        manager.getTransaction().begin();
         Query query = manager.createNativeQuery("SELECT * FROM Cleaner WHERE id=:clId",Cleaner.class);
         query.setParameter("clId", Integer.toString(id));
-        return (Cleaner) query.getSingleResult();
+        c=  (Cleaner) query.getSingleResult();
+        manager.getTransaction().commit();
+        return c;
     }
 
     @Override
     public List<Cleaner> getAll() {
+        List<Cleaner> cleaners = new ArrayList<>();
+        manager.getTransaction().begin();
         Query query = manager.createNativeQuery("SELECT * FROM Cleaner",Cleaner.class);
-        return (List<Cleaner>) query.getResultList();
+        cleaners =  (List<Cleaner>) query.getResultList();
+        manager.getTransaction().commit();
+        return cleaners;
     }
 
 }

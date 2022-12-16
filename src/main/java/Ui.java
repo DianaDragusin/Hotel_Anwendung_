@@ -52,7 +52,7 @@ public class Ui {
         else {
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
             EntityManager manager = factory.createEntityManager();
-            manager.getTransaction().begin();
+
             // Cleaner Controller
             this.cleanerRepo = new databaseCleanerRepo(manager);
             this.cleaningRepo = new databaseCleaningRepo(manager);
@@ -99,8 +99,7 @@ public class Ui {
                 3. Cleaner
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
-        try
-        {
+
             int option = Integer.parseInt(myObj.nextLine());
             System.out.println("Ok let's go!");
             if (option >3 || option < 1 )
@@ -109,11 +108,7 @@ public class Ui {
                 createView(option);
             }
 
-        }catch(Exception exception)
-        {
-            System.out.println("You must enter a number in interval [1,3] ");
-            showMenu();
-        }
+
 
 
     }
@@ -159,7 +154,7 @@ public class Ui {
                 2. Register
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
-        try {
+
             int option = Integer.parseInt(myObj.nextLine());
             if(option == 0){
                 showMenu();
@@ -215,10 +210,7 @@ public class Ui {
             {
                 showOptionsClient();
             }
-        }catch (Exception exception)
-        {
-            System.out.println("You must enter a number in interval [0,2]");
-        }
+
 
 
     }

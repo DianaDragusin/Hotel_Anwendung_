@@ -74,7 +74,18 @@ public class Main {
 //        System.out.println(foundCourse.getClientid());
         manager.getTransaction().commit();
 
+
+  EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
+        EntityManager manager = factory.createEntityManager();
+        Room r  = new Room(Type.TRIPLE,2050,3);
+        Cleaner c = new Cleaner("ana", "maria", "anaa" ,"mariaa");
+        manager.getTransaction().begin();
+        manager.persist(r);
+        manager.getTransaction().commit();
  */
+
+
+
 
 
         boolean memory = false;
