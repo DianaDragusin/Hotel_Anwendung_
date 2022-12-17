@@ -297,7 +297,7 @@ public class Ui {
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
 
-            System.out.println(client.getId());
+
             int option = Integer.parseInt(myObj.nextLine());
             if (option == -1)
             {

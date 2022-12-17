@@ -37,23 +37,24 @@ public class databaseClientRepo implements IClientRespository {
 
     @Override
     public void add(Client client) {
-
+        manager.getTransaction().begin();
         manager.persist(client);
+        manager.getTransaction().commit();
 
     }
     @Override
     public void delete(Integer clientId) {
-        manager.getTransaction().begin();
+
         Query query = manager.createNativeQuery("DELETE FROM Client WHERE id=:idClient", Client.class);
         query.setParameter("idClient", Integer.toString(clientId));
         query.executeUpdate();
-        manager.getTransaction().commit();
+
 
     }
 
     @Override
     public void update(Integer clientId, Client client) {
-        manager.getTransaction().begin();
+
         Query query = manager.createNativeQuery("UPDATE Client SET firstname=:clFN, lastname=:clLN, username=:clU, password=:clP WHERE id=:clId",Client.class);
         query.setParameter("clFN", client.getFirstName());
         query.setParameter("clLN", client.getLastName());
@@ -61,7 +62,7 @@ public class databaseClientRepo implements IClientRespository {
         query.setParameter("clP", client.getPassword());
         query.setParameter("clId", Integer.toString(clientId));
         query.executeUpdate();
-        manager.getTransaction().commit();
+
 
 
     }
@@ -71,11 +72,11 @@ public class databaseClientRepo implements IClientRespository {
         Client c = null;
 
         try {
-            manager.getTransaction().begin();
+
             Query query = manager.createNativeQuery("SELECT * FROM Client WHERE username=:clU", Client.class);
             query.setParameter("clU", username);
             c = (Client) query.getSingleResult();
-            manager.getTransaction().commit();
+
         }catch (Exception e)
         {
             return c;
@@ -85,22 +86,32 @@ public class databaseClientRepo implements IClientRespository {
     }
     @Override
     public Client findById(Integer clientId){
-        Client c;
-        manager.getTransaction().begin();
-        Query query = manager.createNativeQuery("SELECT * FROM Client WHERE id=:clId",Client.class);
-        query.setParameter("clId", Integer.toString(clientId));
-        c = (Client) query.getSingleResult();
-        manager.getTransaction().commit();
+        Client c = null;
+        try {
+            Query query = manager.createNativeQuery("SELECT * FROM Client WHERE id=:clId",Client.class);
+            query.setParameter("clId", Integer.toString(clientId));
+            c = (Client) query.getSingleResult();
+        }catch (Exception exception)
+        {
+            return c;
+        }
+
+
         return c ;
     }
 
     @Override
     public List<Client> getAll() {
-        List<Client>clients;
-        manager.getTransaction().begin();
-        Query query = manager.createNativeQuery("SELECT * FROM Client",Client.class);
-        clients =  (List<Client>) query.getResultList();
-        manager.getTransaction().commit();
+        List<Client>clients = new ArrayList<>();
+        try {
+            Query query = manager.createNativeQuery("SELECT * FROM Client",Client.class);
+            clients =  (List<Client>) query.getResultList();
+        }catch (Exception exception)
+        {
+            return clients;
+        }
+
+
         return clients;
     }
     public void addCoupon(Coupon c, int client_id)
@@ -112,12 +123,12 @@ public class databaseClientRepo implements IClientRespository {
     }
     public void removeCoupon(Coupon coupon, int clientId)
     {
-        manager.getTransaction().begin();
+        //manager.getTransaction().begin();
         Query query = manager.createNativeQuery("DELETE FROM Coupon WHERE id=:idCoupon AND client_id=:idCl", Coupon.class);
         query.setParameter("idCoupon", Integer.toString(coupon.getCode()));
         query.setParameter("idCl", Integer.toString(clientId));
         query.executeUpdate();
-        manager.getTransaction().commit();
+        //manager.getTransaction().commit();
 
     }
 
@@ -132,7 +143,7 @@ public class databaseClientRepo implements IClientRespository {
 
     }
     public Reservation findReservationById(int reservationId){
-        manager.getTransaction().begin();
+        //manager.getTransaction().begin();
         //Reservations
         Query query1 = manager.createNativeQuery("SELECT * FROM Reservation WHERE id=:resId",Reservation.class);
         query1.setParameter("resId", Integer.toString(reservationId));
@@ -155,45 +166,52 @@ public class databaseClientRepo implements IClientRespository {
         }
         Reservation reservation = (Reservation) query1.getSingleResult();
         reservation.setRooms(rooms);
-        manager.getTransaction().commit();
+        //manager.getTransaction().commit();
         return reservation;
     }
     public void removeReservation(int resIid, int clientId)
     {
-        manager.getTransaction().begin();
+       // manager.getTransaction().begin();
         Reservation reservation = findReservationById(resIid);
         Query query = manager.createNativeQuery("DELETE FROM Reservation WHERE id=:idRes AND client_id=:idCl", Reservation.class);
         query.setParameter("idRes", Integer.toString(resIid));
         query.setParameter("idCl", Integer.toString(clientId));
         query.executeUpdate();
-        manager.getTransaction().commit();
+       // manager.getTransaction().commit();
     }
     public List<Reservation> getReservationsForClient(int clientId){
-        manager.getTransaction().begin();
-        Query query = manager.createNativeQuery("SELECT reservation_id FROM Reservation WHERE client_id=:idCl", Reservation.class);
-        query.setParameter("idCl", Integer.toString(clientId));
-        List<Integer> resIds = (List<Integer>) query.getResultList();
-        List<Reservation> reservationsForClient = new ArrayList<>();
-        for(int resId : resIds) {
-            reservationsForClient.add(findReservationById(resId));
+       // manager.getTransaction().begin();
+        try{
+            Query query = manager.createNativeQuery("SELECT id FROM Reservation WHERE client_id=:idCl", Reservation.class);
+            query.setParameter("idCl", Integer.toString(clientId));
+            List<Integer> resIds = (List<Integer>) query.getResultList();
+            List<Reservation> reservationsForClient = new ArrayList<>();
+            for(int resId : resIds) {
+                reservationsForClient.add(findReservationById(resId));
+            }
+            return reservationsForClient;
+        } catch (Exception exception)
+        {
+            return new ArrayList<>();
         }
-        manager.getTransaction().commit();
-        return reservationsForClient;
+
+        //manager.getTransaction().commit();
+
     }
 
     public List<Reservation> getAllReservations(){
-        manager.getTransaction().begin();
+       // manager.getTransaction().begin();
         List<Integer> clientIds = getAll().stream().map(Client::getId).toList();
         List<Reservation> reservations = new ArrayList<>();
         for(int clientId : clientIds){
             reservations.addAll(getReservationsForClient(clientId));
         }
-        manager.getTransaction().commit();
+        //manager.getTransaction().commit();
         return reservations;
     }
 
     public List<Room> returnAllUnAvailableRooms(LocalDate start, LocalDate end) {
-        manager.getTransaction().begin();
+        //manager.getTransaction().begin();
         List<Room> rooms = new ArrayList<>();
         for (Reservation reservation : getAllReservations())
         {
@@ -205,7 +223,7 @@ public class databaseClientRepo implements IClientRespository {
                 rooms.addAll(reservation.getRooms());
             }
         }
-        manager.getTransaction().commit();
+      //  manager.getTransaction().commit();
         return rooms;
     }
 
@@ -213,12 +231,12 @@ public class databaseClientRepo implements IClientRespository {
     public Coupon findCouponById(int couponId, int clientId)
     {
         Coupon c ;
-        manager.getTransaction().begin();
+       // manager.getTransaction().begin();
         Query query = manager.createNativeQuery("SELECT * FROM Coupon WHERE id=:coId AND client_id=:clId",Coupon.class);
         query.setParameter("coId", Integer.toString(couponId));
         query.setParameter("clId", Integer.toString(clientId));
         c = (Coupon) query.getSingleResult();
-        manager.getTransaction().commit();
+        //manager.getTransaction().commit();
         return  c;
     }
 }

@@ -46,10 +46,7 @@ public class Main {
         // manager.persist(r);
         // manager.persist(room2);
       //  manager.persist(client3);
-       // Query query2 =  manager.createNativeQuery("select * from Client where username=:reservationNr ",Client.class);
-       // query2.setParameter("reservationNr","c");
-       // Client foundCourse = (Client) query2.getSingleResult();
-       // System.out.println(foundCourse);
+       //
        // Query query = manager.createNativeQuery("SELECT * FROM Client",Client.class);
       ////  List<Client> clients = query.getResultList();
      ////   for(Client cl : clients){
@@ -73,13 +70,24 @@ public class Main {
        Reservation foundCourse = (Reservation) query.getSingleResult();
 //        System.out.println(foundCourse.getClientid());
         manager.getTransaction().commit();
-    EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
+
+
+
+     EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         EntityManager manager = factory.createEntityManager();
-       // Room r  = new Room(Type.TRIPLE,2050,3);
-        Client c = new Client("ana", "maria", "anaa" ,"mariaa");
-        manager.getTransaction().begin();
-        manager.persist(c);
-        manager.getTransaction().commit();
+        // Room r  = new Room(Type.TRIPLE,2050,3);
+       // Client c = new Client("ana", "maria", "anaa" ,"mariaa");
+       // Query query2 =  manager.createNativeQuery("select * from Client where username=:reservationNr ",Client.class);
+        //query2.setParameter("reservationNr","anaa");
+        //Client foundCourse = (Client) query2.getSingleResult();
+        //System.out.println(foundCourse);
+
+      int clientId = 9;
+
+        Query query = manager.createNativeQuery("SELECT  FROM Client WHERE username=:idCl", Client.class);
+        query.setParameter("idCl", "e");
+        int nr = (int) query.getSingleResult();
+        System.out.println(nr);
 
 
  */
@@ -89,6 +97,7 @@ public class Main {
         boolean memory = false;
         Ui ui = new Ui(memory);
         ui.showMenu();
+
     }
 
 
