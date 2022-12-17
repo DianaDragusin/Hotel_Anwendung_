@@ -117,6 +117,7 @@ public class databaseClientRepo implements IClientRespository {
     public void addCoupon(Coupon c, int client_id)
     {
         manager.getTransaction().begin();
+        findById(client_id).addCoupon(c);
         manager.persist(c);
         manager.getTransaction().commit();
 
@@ -124,7 +125,7 @@ public class databaseClientRepo implements IClientRespository {
     public void removeCoupon(Coupon coupon, int clientId)
     {
         //manager.getTransaction().begin();
-        Query query = manager.createNativeQuery("DELETE FROM Coupon WHERE id=:idCoupon AND client_id=:idCl", Coupon.class);
+        Query query = manager.createNativeQuery("DELETE FROM Coupon WHERE code=:idCoupon AND client_id=:idCl", Coupon.class);
         query.setParameter("idCoupon", Integer.toString(coupon.getCode()));
         query.setParameter("idCl", Integer.toString(clientId));
         query.executeUpdate();
@@ -138,6 +139,7 @@ public class databaseClientRepo implements IClientRespository {
     public void addReservation(Reservation r, int clientId)
     {
         manager.getTransaction().begin();
+        findById(clientId).addReservation(r);
         manager.persist(r);
         manager.getTransaction().commit();
 
@@ -232,7 +234,7 @@ public class databaseClientRepo implements IClientRespository {
     {
         Coupon c ;
        // manager.getTransaction().begin();
-        Query query = manager.createNativeQuery("SELECT * FROM Coupon WHERE id=:coId AND client_id=:clId",Coupon.class);
+        Query query = manager.createNativeQuery("SELECT * FROM Coupon WHERE code=:coId AND client_id=:clId",Coupon.class);
         query.setParameter("coId", Integer.toString(couponId));
         query.setParameter("clId", Integer.toString(clientId));
         c = (Coupon) query.getSingleResult();

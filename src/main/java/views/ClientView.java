@@ -156,8 +156,9 @@ public class ClientView {
                 if (couponans >-1 && options.size() > 0)
                 {
                     // nest another level
-                    makeReservationWithCouponStatus(options.get(optionnr - 1),clientcontroller.findCouponById(couponans, client.getId()), client.getId(),from,to);
-                    clientcontroller.removeCoupon(clientcontroller.findCouponById(couponans,client.getId()),client.getId());
+                    Coupon c = clientcontroller.findCouponById(couponans, client.getId());
+                    makeReservationWithCouponStatus(options.get(optionnr - 1),c, client.getId(),from,to);
+                    clientcontroller.removeCoupon(c,client.getId());
                 }
                 else if(couponans == -1 && options.size() > 0)
                 {

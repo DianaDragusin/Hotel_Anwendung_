@@ -177,12 +177,11 @@ public class ClientController {
     public Reservation makeReservationWithCoupon(Option option, Coupon coupon, int clientId, LocalDate start, LocalDate end) {
         // work to do
        // System.out.println("Se creeaza rezervarea cu cupon.");
-        Reservation reservation = new Reservation(start, end, option.getTotalPrice());
-        reservation.setPrice(applyCoupon(coupon, option.getTotalPrice()));
+        Reservation reservation = new Reservation(start, end, applyCoupon(coupon, option.getTotalPrice()));
        // System.out.println("Am stetat pretul rezervarii actualizat.");
         reservation.setRooms(option.getRooms());
         clientRepo.addReservation(reservation,clientId);
-        clientRepo.findById(clientId).removeCoupon(coupon);
+        clientRepo.removeCoupon(coupon,clientId);
         return reservation;
     }
 

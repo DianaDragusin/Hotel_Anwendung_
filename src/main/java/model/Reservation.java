@@ -10,6 +10,7 @@ public class Reservation {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private LocalDate startDate;
+
     private LocalDate endDate;
     private int price;
     @ManyToMany(cascade = CascadeType.ALL)

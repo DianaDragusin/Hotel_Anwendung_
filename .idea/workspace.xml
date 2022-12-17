@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="modificarii var 2 la databaserepo">
+    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="modificarii var 3 la databaserepo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ui.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseClientRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/views/ClientView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/ClientView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +77,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="ClientControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ClientControllerTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="Hotel_Anwendung" />
       <extension name="coverage">
         <pattern>
@@ -159,7 +158,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ClientControllerTest" />
         <item itemvalue="JUnit.ClientControllerTest.findCouponById" />
         <item itemvalue="JUnit.ClientControllerTest.removeCoupon" />
         <item itemvalue="JUnit.ClientControllerTest.addCoupon" />
@@ -213,7 +211,8 @@
       <workItem from="1670838301705" duration="660000" />
       <workItem from="1670847819741" duration="2919000" />
       <workItem from="1670858255995" duration="20312000" />
-      <workItem from="1671279612943" duration="7309000" />
+      <workItem from="1671279612943" duration="7524000" />
+      <workItem from="1671292068006" duration="4372000" />
     </task>
     <task id="LOCAL-00001" summary="commit 4">
       <created>1667139692561</created>
@@ -474,7 +473,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671283560431</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="modificarii var 3 la databaserepo">
+      <created>1671287068524</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1671287068524</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -492,7 +498,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="rename form memory to inMemory&#10;check extension and implementation with interfaces&#10;some logic changes on classes" />
     <MESSAGE value="Reservation Rooms plus generate options started" />
     <MESSAGE value="test" />
     <MESSAGE value="genenerate option started plus Reservation Rooms class created" />
@@ -517,6 +522,7 @@
     <MESSAGE value="commit.cometat" />
     <MESSAGE value="modificarii la databaserepo" />
     <MESSAGE value="modificarii var 2 la databaserepo" />
-    <option name="LAST_COMMIT_MESSAGE" value="modificarii var 2 la databaserepo" />
+    <MESSAGE value="modificarii var 3 la databaserepo" />
+    <option name="LAST_COMMIT_MESSAGE" value="modificarii var 3 la databaserepo" />
   </component>
 </project>
