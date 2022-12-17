@@ -97,12 +97,17 @@ public class Ui {
                 1. Client
                 2. Manager
                 3. Cleaner
+                4. Exit
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
 
             int option = Integer.parseInt(myObj.nextLine());
+            if (option == 4)
+            {
+                System.exit(0);
+            }
             System.out.println("Ok let's go!");
-            if (option >3 || option < 1 )
+            if (option >4 || option < 1 )
                 showMenu();
             else {
                 createView(option);
@@ -175,29 +180,24 @@ public class Ui {
             else if (option == 2) {
                 System.out.println("Please enter your first Name:");
                 String firstname = myObj.nextLine();
-                System.out.println("\n");
                 System.out.println("Please enter your last Name:");
                 String lastname = myObj.nextLine();
-                System.out.println("\n");
                 System.out.println("Please enter your username:");
                 String username = myObj.nextLine();
-                System.out.println("\n");
                 if (clientView.findUserStatus(username))
                 {
                     while(clientView.findUserStatus(username)) {
-                        System.out.println("\n");
                         System.out.println("This username is already Taken.");
                         System.out.println("Please enter your username:");
                         username = myObj.nextLine();
                     }
 
                 }
-                System.out.println("\n");
                 System.out.println("Please enter your password:");
                 String password = myObj.nextLine();
                 if (clientView.registerStatus(firstname,lastname,username,password)) {
                     // adaugam clientul si in lista de clienti actualizata
-
+                    System.out.println(clientRepo.findByUsername(username).getId());
 
                     clientMenu(clientRepo.findByUsername(username));
 
@@ -220,11 +220,14 @@ public class Ui {
                 0. Back
                 1. Login
                 2. Register
+                3. Exit
                 Enter your option:""");
-        try
-        {
+
             Scanner myObj = new Scanner(System.in);
             int option = Integer.parseInt(myObj.nextLine());
+            if(option == 3){
+                System.exit(0);
+            }
             if(option == 0){
                 showMenu();
             } else if (option == 1) {
@@ -271,10 +274,7 @@ public class Ui {
             else {
                 showOptionsCleaner();
             }
-        }catch (Exception exception)
-        {
-            System.out.println("You must enter a number in interval [0,2]");
-        }
+
 
     }
     private void clientMenu(Client client){
@@ -292,11 +292,11 @@ public class Ui {
                 7. See your details
                 EXIT
                 0.  Logout
+                -1. Exit
                 
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
-        try
-        {
+
             System.out.println(client.getId());
             int option = Integer.parseInt(myObj.nextLine());
             if (option == -1)
@@ -400,10 +400,7 @@ public class Ui {
                 clientMenu(client);
             }
 
-        }catch (Exception exception)
-        {
-            System.out.println("You must enter a number in interval [-1,7]");
-        }
+
 
 
 
@@ -422,11 +419,11 @@ public class Ui {
                 6. See your details
                 EXIT
                 0.  Logout
-                -1. Close app
+                -1. Exit
                
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
-        try {
+
             int option = Integer.parseInt(myObj.nextLine());
             if (option == 0 )
             {
@@ -485,10 +482,7 @@ public class Ui {
                 System.exit(0);
             }
 
-        }catch (Exception exception)
-        {
-            System.out.println("Enter a number in interval [-1,6]");
-        }
+
 
     }
     private void managerMenu(){
@@ -522,14 +516,13 @@ public class Ui {
                 
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
-        try
-        {
+
             int option = Integer.parseInt(myObj.nextLine());
 
             switch (option) {
                 case 0 -> {
                     showMenu();
-                    return;
+
                 }
                 case 1 -> managerView.printAllClients();
                 case 2 -> {
@@ -670,10 +663,7 @@ public class Ui {
                 default -> System.out.println("Not a valid option!");
             }
 
-        }catch (Exception exception)
-        {
-            System.out.println("Enter  a number in interval [-1, 18]");
-        }
+
 
         managerMenu();
     }

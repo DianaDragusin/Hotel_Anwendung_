@@ -16,7 +16,7 @@ public class databaseCleanerRepo implements ICleanerRepository {
 
     public databaseCleanerRepo(EntityManager manager) {
         this.manager = manager;
-        populate_cleaners();
+       // populate_cleaners();
     }
     private void populate_cleaners(){
         manager.getTransaction().begin();

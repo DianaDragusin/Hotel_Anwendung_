@@ -248,6 +248,7 @@ public class ClientController {
 
     public void register(String firstName, String lastName, String username, String password) throws CustomIllegalArgument{
         Client c = clientRepo.findByUsername(username);
+
         if (c == null) {
             clientRepo.add(new Client(firstName, lastName, username, password));
 

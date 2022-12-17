@@ -15,8 +15,9 @@ public class databaseRoomRepo implements IRoomRepository {
 
     public databaseRoomRepo(EntityManager manager) {
         this.manager = manager;
-        populate_rooms();
-      //  manager.getTransaction().commit();
+        manager.getTransaction().begin();
+      //  populate_rooms();
+        manager.getTransaction().commit();
     }
 
     private void populate_rooms()
@@ -45,26 +46,29 @@ public class databaseRoomRepo implements IRoomRepository {
     }
     @Override
     public void add(Room room) {
+        manager.getTransaction().begin();
         manager.persist(room);
-       // manager.getTransaction().commit();
+        manager.getTransaction().commit();
     }
 
     @Override
     public void delete(Integer roomId) {
+        manager.getTransaction().begin();
         Query query = manager.createNativeQuery("DELETE FROM Room WHERE id=:idRoom",Room.class);
         query.setParameter("idRoom", Integer.toString(roomId));
         query.executeUpdate();
-        //manager.getTransaction().commit();
+        manager.getTransaction().commit();
     }
 
     @Override
     public void update(Integer id, Room room) {
+        manager.getTransaction().begin();
         Query query = manager.createNativeQuery("UPDATE Room SET nrPers=:roomNrP, price=:roomPr, type=:roomT", Room.class);
         query.setParameter("roomNrP", room.getNrPers());
         query.setParameter("roomPr", room.getPrice());
         query.setParameter("roomT", room.getType());
         query.executeUpdate();
-      //  manager.getTransaction().commit();
+        manager.getTransaction().commit();
     }
     @Override
     public Room findById(Integer id){
@@ -78,8 +82,12 @@ public class databaseRoomRepo implements IRoomRepository {
 
     @Override
     public List<Room> getAll() {
+        List<Room> rooms = new ArrayList<>();
+        manager.getTransaction().begin();
         Query query = manager.createNativeQuery("SELECT * FROM Room", Room.class);
-        return (List<Room>) query.getResultList();
+        rooms = (List<Room>) query.getResultList();
+        manager.getTransaction().commit();
+        return  rooms;
     }
 
 

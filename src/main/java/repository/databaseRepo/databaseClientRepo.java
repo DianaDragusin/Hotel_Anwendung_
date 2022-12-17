@@ -16,30 +16,30 @@ public class databaseClientRepo implements IClientRespository {
     EntityManager manager;
 
     public databaseClientRepo(EntityManager manager) {
-        manager.getTransaction().begin();
         this.manager = manager;
-        populate_clients();
-        manager.getTransaction().commit();
+
+
+       // populate_clients();
+
     }
 
     private void populate_clients(){
-
+        manager.getTransaction().begin();
         Client client1 = new Client("Bob", "Pop","bobpop","00bob");
         Client client2 = new Client("Laura", "Georgescu","laurgeor","22laura");
         Client client3 = new Client("Catalin", "Olariu","cataola","24catalin");
         manager.persist(client1);
         manager.persist(client2);
         manager.persist(client3);
+        manager.getTransaction().commit();
 
     }
 
     @Override
     public void add(Client client) {
-        manager.getTransaction().begin();
-        manager.getTransaction().begin();
+
         manager.persist(client);
-        manager.getTransaction().commit();
-        manager.getTransaction().commit();
+
     }
     @Override
     public void delete(Integer clientId) {
@@ -69,11 +69,13 @@ public class databaseClientRepo implements IClientRespository {
     @Override
     public Client findByUsername(String username) {
         Client c = null;
-        manager.getTransaction().begin();
+
         try {
+            manager.getTransaction().begin();
             Query query = manager.createNativeQuery("SELECT * FROM Client WHERE username=:clU", Client.class);
             query.setParameter("clU", username);
             c = (Client) query.getSingleResult();
+            manager.getTransaction().commit();
         }catch (Exception e)
         {
             return c;

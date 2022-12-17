@@ -73,18 +73,16 @@ public class Main {
        Reservation foundCourse = (Reservation) query.getSingleResult();
 //        System.out.println(foundCourse.getClientid());
         manager.getTransaction().commit();
-
-
-  EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
+    EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         EntityManager manager = factory.createEntityManager();
-        Room r  = new Room(Type.TRIPLE,2050,3);
-        Cleaner c = new Cleaner("ana", "maria", "anaa" ,"mariaa");
+       // Room r  = new Room(Type.TRIPLE,2050,3);
+        Client c = new Client("ana", "maria", "anaa" ,"mariaa");
         manager.getTransaction().begin();
-        manager.persist(r);
+        manager.persist(c);
         manager.getTransaction().commit();
+
+
  */
-
-
 
 
 
