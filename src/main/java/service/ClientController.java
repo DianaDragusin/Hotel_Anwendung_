@@ -8,6 +8,7 @@ import repository.IRoomRepository;
 import repository.databaseRepo.*;
 import utils.CustomIllegalArgument;
 
+import javax.swing.plaf.OptionPaneUI;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +34,8 @@ public class ClientController {
         List<Room> unavailableRooms = clientRepo.returnAllUnAvailableRooms(checkIn, checkOut);
         for (Room r : unavailableRooms )
         {
-            rooms.remove(r);
+          rooms.remove(r);
+
         }
         return rooms;
 
@@ -127,6 +129,7 @@ public class ClientController {
     }
     public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrTotalPers) throws CustomIllegalArgument{
         List<Room> availableRooms = searchAvailableRoom(checkIn,checkOut);
+
         if (availableRooms.size()<1)
         {
             throw new CustomIllegalArgument("There are no available rooms in this period");
@@ -149,6 +152,7 @@ public class ClientController {
         int optionId = 1;
 
         for(int[] i : combinations){
+            int ok = 1;
             option_rooms.clear();
             totalPrice = 0;
             if(Arrays.stream(i).sum() == nrTotalPers){
@@ -156,13 +160,15 @@ public class ClientController {
                     options.add(i);
                     for(int el : i){
                         Room r = findARoomByType(availableRooms,findTypeByNrPers(el));
-                        option_rooms.add(r);
+
+                             option_rooms.add(r);
                         assert r != null;
                         totalPrice += r.getPrice();
                     }
-                    Option option = new Option(totalPrice,option_rooms.stream().toList());
-                    option.setId(optionId);
-                    final_options.add(option);
+
+
+
+
                     optionId++;
                 }
             }
@@ -174,15 +180,23 @@ public class ClientController {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public Reservation makeReservationWithCoupon(Option option, Coupon coupon, int clientId, LocalDate start, LocalDate end) {
+    public Reservation makeReservationWithCoupon(Option option, int couponid, int clientId, LocalDate start, LocalDate end) {
         // work to do
        // System.out.println("Se creeaza rezervarea cu cupon.");
-        Reservation reservation = new Reservation(start, end, applyCoupon(coupon, option.getTotalPrice()));
-       // System.out.println("Am stetat pretul rezervarii actualizat.");
-        reservation.setRooms(option.getRooms());
-        clientRepo.addReservation(reservation,clientId);
-        clientRepo.removeCoupon(coupon,clientId);
-        return reservation;
+        Coupon coupon = findCouponById(couponid,clientId);
+        if (coupon!= null)
+        {
+
+            Reservation reservation = new Reservation(start, end, applyCoupon(coupon, option.getTotalPrice()));
+            // System.out.println("Am stetat pretul rezervarii actualizat.");
+            reservation.setRooms(option.getRooms());
+            clientRepo.addReservation(reservation,clientId);
+
+            return reservation;
+        }
+        else return null;
+
+
     }
 
     public Reservation makeReservation(Option option, Integer clientId, LocalDate start, LocalDate end) {
@@ -294,9 +308,9 @@ public class ClientController {
     {
         clientRepo.addCoupon(c,client_id);
     }
-    public void removeCoupon(Coupon c, int client_id)
+    public void removeCoupon(int couponid, int client_id)
     {
-        clientRepo.removeCoupon(c,client_id);
+        clientRepo.removeCoupon(couponid,client_id);
     }
     public Coupon findCouponById(int couponId, int clientid)
     {

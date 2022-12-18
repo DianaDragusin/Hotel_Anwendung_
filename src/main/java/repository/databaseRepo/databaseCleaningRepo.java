@@ -21,11 +21,17 @@ public class databaseCleaningRepo implements ICleaningRepository {
 
     public List<Cleaning> getCleanings() {
         List<Cleaning>cleanings;
-        manager.getTransaction().begin();
-        Query query = manager.createNativeQuery("SELECT * FROM Cleaning", Cleaning.class);
-        cleanings = (List<Cleaning>) query.getResultList();
-        manager.getTransaction().commit();
-        return cleanings;
+        try{
+            manager.getTransaction().begin();
+            Query query = manager.createNativeQuery("SELECT * FROM Cleaning", Cleaning.class);
+            cleanings = (List<Cleaning>) query.getResultList();
+            manager.getTransaction().commit();
+            return cleanings;
+        }catch (Exception exception)
+        {
+            return new ArrayList<>();
+        }
+
     }
 
     @Override
@@ -61,11 +67,19 @@ public class databaseCleaningRepo implements ICleaningRepository {
         manager.persist(cleaning);
         manager.getTransaction().commit();
     }
-    public void removeCleaning(Cleaning cleaning){
+    public void deleteCleaning(Cleaning cleaning){
+        manager.getTransaction().begin();
+        Cleaning cl = manager.find(Cleaning.class,cleaning.getId());
+        manager.remove(cl);
+        manager.getTransaction().commit();
+
+        /*
         manager.getTransaction().begin();
         Query query = manager.createNativeQuery("DELETE FROM Cleaning WHERE id=:idCleaning",Cleaning.class);
         query.setParameter("idCleaning", Integer.toString(cleaning.getId()));
         query.executeUpdate();
         manager.getTransaction().commit();
+
+         */
     }
 }

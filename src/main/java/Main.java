@@ -1,5 +1,6 @@
 import model.*;
 
+import org.hibernate.Session;
 import repository.inMemoryRepo.*;
 import service.CleanerController;
 import service.ClientController;
@@ -7,10 +8,7 @@ import service.ManagerController;
 import views.ClientView;
 import views.ManagerView;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,15 +86,66 @@ public class Main {
         query.setParameter("idCl", "e");
         int nr = (int) query.getSingleResult();
         System.out.println(nr);
+ EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
+        EntityManager manager = factory.createEntityManager();
+        Client c = new Client("b", "b", "b" ,"b");
+        Coupon coupon = new Coupon(30);
 
+
+
+       // manager.getTransaction().begin();
+        List<Room>rooms;
+        Query query = manager.createNativeQuery("SELECT * FROM Room", Room.class);
+        rooms = (List<Room>) query.getResultList();
+        System.out.println(rooms);
+       // manager.persist(c);
+
+        //Client cl =  manager.find(Client.class,22);
+
+
+        //cl.addCoupon(coupon);
+        //manager.persist(coupon);
+        //cl.setCouponList(new ArrayList<>());
+       // manager.remove(cl);
+        //Coupon coupon2  = manager.find(Coupon.class,10);
+        //cl.removeCoupon(coupon2);
+        //manager.remove(coupon2);
+        //System.out.println(cl);
+        //System.out.println(cl.getCouponList());
+        //System.out.println(coupon2);
+        //manager.remove(coupon2);
+        //manager.persist(c);
+
+        //Coupon cou = manager.find(Coupon.class,2);
+       // manager.remove(coupon);
+        //System.out.println(coupon);
+       // c.setFirstName("test");
+        //manager.merge(c);
+
+        //manager.detach(cl);
+        //cl.setFirstName("test");
+        //
+
+       // Client cl =  manager.find(Client.class,10);
+       // manager.remove(cl);
+       // manager.detach(cl);
+      //  System.out.println(cl);
+     //   manager.getTransaction().commit();
+      //  c.setId(1);
 
  */
 
+      //  EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
+       // EntityManager manager = factory.createEntityManager();
 
+        //Client c = manager.find(Client.class,5);
+        //System.out.println(c);
 
         boolean memory = false;
         Ui ui = new Ui(memory);
         ui.showMenu();
+
+
 
     }
 

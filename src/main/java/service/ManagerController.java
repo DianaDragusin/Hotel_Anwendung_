@@ -103,6 +103,10 @@ public class ManagerController {
         Room r = roomRepo.findById(id);
         if(r != null )
         {
+            for (Cleaning cleaning : getRoomCleanings(id))
+            {
+                cleaningRepo.deleteCleaning(cleaning);
+            }
             roomRepo.delete(id);
             return r;
         }
@@ -149,6 +153,10 @@ public class ManagerController {
     public Cleaner deleteCleaner(int id){
         Cleaner c = cleanerRepo.findById(id);
         if(c != null){
+            for (Cleaning cleaning : getCleanerCleanings(id))
+            {
+                cleaningRepo.deleteCleaning(cleaning);
+            }
             cleanerRepo.delete(id);
             return c;
         }

@@ -10,6 +10,7 @@ public interface ICleaningRepository {
     List<Cleaning> getCleaningsForRoom(int roomId);
     List<Cleaning> getCleaningsForCleaner(int cleanerId);
     void addCleaning(Cleaning cleaning);
+    void deleteCleaning(Cleaning cleaning);
 
     List<Cleaning> getCleanings();
 }

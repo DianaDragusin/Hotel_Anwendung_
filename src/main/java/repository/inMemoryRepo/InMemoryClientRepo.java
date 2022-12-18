@@ -117,9 +117,9 @@ public class InMemoryClientRepo implements IClientRespository {
         for (Reservation reservation : getAllReservations())
         {
             if ((reservation.getStart().isAfter(start) && reservation.getStart().isBefore(end)) ||
-                    (reservation.getStart() == start) ||
+                    (reservation.getStart().isEqual(start) ) ||
                     (reservation.getEnd().isAfter(start) && reservation.getEnd().isBefore(end)) ||
-                    (reservation.getEnd() == end) ||
+                    (reservation.getEnd().isEqual(end) ) ||
                     (reservation.getStart().isBefore(start) && reservation.getEnd().isAfter(end))
                     || (reservation.getStart().isEqual(start) && reservation.getEnd().isEqual(end)))
             {
@@ -138,9 +138,9 @@ public class InMemoryClientRepo implements IClientRespository {
         c.setCode(coupon_id);
         findById(clientId).addCoupon(c);
     }
-    public void removeCoupon(Coupon coupon, int clientId)
+    public void removeCoupon(int couponid, int clientId)
     {
-        findById(clientId).removeCoupon(coupon);
+        findById(clientId).removeCoupon(findCouponById(couponid,clientId));
     }
 
 

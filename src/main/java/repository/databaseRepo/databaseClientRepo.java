@@ -19,7 +19,7 @@ public class databaseClientRepo implements IClientRespository {
         this.manager = manager;
 
 
-       // populate_clients();
+        populate_clients();
 
     }
 
@@ -44,17 +44,29 @@ public class databaseClientRepo implements IClientRespository {
     }
     @Override
     public void delete(Integer clientId) {
+        manager.getTransaction().begin();
+        Client cl =  manager.find(Client.class,clientId);
+        manager.remove(cl);
+        manager.getTransaction().commit();
 
-        Query query = manager.createNativeQuery("DELETE FROM Client WHERE id=:idClient", Client.class);
-        query.setParameter("idClient", Integer.toString(clientId));
-        query.executeUpdate();
+      //  Query query = manager.createNativeQuery("DELETE FROM Client WHERE id=:idClient", Client.class);
+       // query.setParameter("idClient", Integer.toString(clientId));
+       // query.executeUpdate();
 
 
     }
 
     @Override
     public void update(Integer clientId, Client client) {
-
+        //manager.getTransaction().begin();
+        Client cl =  manager.find(Client.class,clientId);
+        cl.setFirstName(client.getFirstName());
+        cl.setLastName(client.getFirstName());
+        cl.setUsername(client.getUsername());
+        cl.setPassword(client.getPassword());
+        manager.merge(cl);
+        //manager.getTransaction().commit();
+        /*
         Query query = manager.createNativeQuery("UPDATE Client SET firstname=:clFN, lastname=:clLN, username=:clU, password=:clP WHERE id=:clId",Client.class);
         query.setParameter("clFN", client.getFirstName());
         query.setParameter("clLN", client.getLastName());
@@ -63,13 +75,14 @@ public class databaseClientRepo implements IClientRespository {
         query.setParameter("clId", Integer.toString(clientId));
         query.executeUpdate();
 
-
+*/
 
     }
 
     @Override
     public Client findByUsername(String username) {
-        Client c = null;
+
+        Client c ;
 
         try {
 
@@ -79,13 +92,22 @@ public class databaseClientRepo implements IClientRespository {
 
         }catch (Exception e)
         {
-            return c;
+            return null;
         }
        return  c;
 
     }
     @Override
     public Client findById(Integer clientId){
+        //manager.getTransaction().begin();
+
+
+        Client cl =  manager.find(Client.class,clientId);
+
+        //manager.getTransaction().commit();
+        return cl;
+       /*
+
         Client c = null;
         try {
             Query query = manager.createNativeQuery("SELECT * FROM Client WHERE id=:clId",Client.class);
@@ -98,17 +120,19 @@ public class databaseClientRepo implements IClientRespository {
 
 
         return c ;
+
+        */
     }
 
     @Override
     public List<Client> getAll() {
-        List<Client>clients = new ArrayList<>();
+        List<Client>clients ;
         try {
             Query query = manager.createNativeQuery("SELECT * FROM Client",Client.class);
             clients =  (List<Client>) query.getResultList();
         }catch (Exception exception)
         {
-            return clients;
+            return new ArrayList<>();
         }
 
 
@@ -122,14 +146,27 @@ public class databaseClientRepo implements IClientRespository {
         manager.getTransaction().commit();
 
     }
-    public void removeCoupon(Coupon coupon, int clientId)
+    public void removeCoupon(int couponid, int clientId)
     {
+        manager.getTransaction().begin();
+        Coupon couponDatabase  = manager.find(Coupon.class,couponid);
+        Client clientDatabase = manager.find(Client.class,clientId);
+        manager.remove(couponDatabase);
+        clientDatabase.removeCoupon(couponDatabase);
+        manager.getTransaction().commit();
+        /*
+       // Client cl =  manager.find(Client.class,clientId);
+       // Coupon coupon = manager.find(Coupon.class,coupon.getCode());
+        manager.remove(cl);
+        manager.getTransaction().commit();
         //manager.getTransaction().begin();
         Query query = manager.createNativeQuery("DELETE FROM Coupon WHERE code=:idCoupon AND client_id=:idCl", Coupon.class);
         query.setParameter("idCoupon", Integer.toString(coupon.getCode()));
         query.setParameter("idCl", Integer.toString(clientId));
         query.executeUpdate();
-        //manager.getTransaction().commit();
+
+         */
+
 
     }
 
@@ -145,6 +182,11 @@ public class databaseClientRepo implements IClientRespository {
 
     }
     public Reservation findReservationById(int reservationId){
+       // manager.getTransaction().begin();
+        Reservation reservation = manager.find(Reservation.class,reservationId);
+        //manager.getTransaction().commit();
+        return reservation;
+        /*
         //manager.getTransaction().begin();
         //Reservations
         Query query1 = manager.createNativeQuery("SELECT * FROM Reservation WHERE id=:resId",Reservation.class);
@@ -170,9 +212,19 @@ public class databaseClientRepo implements IClientRespository {
         reservation.setRooms(rooms);
         //manager.getTransaction().commit();
         return reservation;
+
+         */
+
     }
     public void removeReservation(int resIid, int clientId)
     {
+        manager.getTransaction().begin();
+        Reservation reservationDatabase  = manager.find(Reservation.class,resIid);
+        Client clientDatabase = manager.find(Client.class,clientId);
+        clientDatabase.removeReservation(reservationDatabase);
+        manager.remove(reservationDatabase);
+        manager.getTransaction().commit();
+        /*
        // manager.getTransaction().begin();
         Reservation reservation = findReservationById(resIid);
         Query query = manager.createNativeQuery("DELETE FROM Reservation WHERE id=:idRes AND client_id=:idCl", Reservation.class);
@@ -180,8 +232,18 @@ public class databaseClientRepo implements IClientRespository {
         query.setParameter("idCl", Integer.toString(clientId));
         query.executeUpdate();
        // manager.getTransaction().commit();
+
+         */
     }
     public List<Reservation> getReservationsForClient(int clientId){
+        List<Reservation>reservations = new ArrayList<>();
+       // manager.getTransaction().begin();
+        Client clientDatabase = manager.find(Client.class,clientId);
+        reservations =  clientDatabase.getReservationList();
+
+        //manager.getTransaction().commit();
+        return reservations;
+        /*
        // manager.getTransaction().begin();
         try{
             Query query = manager.createNativeQuery("SELECT id FROM Reservation WHERE client_id=:idCl", Reservation.class);
@@ -198,11 +260,19 @@ public class databaseClientRepo implements IClientRespository {
         }
 
         //manager.getTransaction().commit();
-
+       */
     }
 
     public List<Reservation> getAllReservations(){
        // manager.getTransaction().begin();
+        List<Client> clients = getAll();
+        List<Reservation> reservations = new ArrayList<>();
+        for (Client client : clients)
+        {
+            reservations.addAll(client.getReservationList());
+        }
+        return  reservations;
+        /*
         List<Integer> clientIds = getAll().stream().map(Client::getId).toList();
         List<Reservation> reservations = new ArrayList<>();
         for(int clientId : clientIds){
@@ -210,17 +280,22 @@ public class databaseClientRepo implements IClientRespository {
         }
         //manager.getTransaction().commit();
         return reservations;
+
+         */
     }
 
     public List<Room> returnAllUnAvailableRooms(LocalDate start, LocalDate end) {
         //manager.getTransaction().begin();
         List<Room> rooms = new ArrayList<>();
-        for (Reservation reservation : getAllReservations())
+        List<Reservation>reservations = getAllReservations();
+        for (Reservation reservation : reservations)
         {
-            if (reservation.getStart().isBefore(end) && reservation.getEnd().isAfter(start) ||
-                reservation.getStart().isBefore(end) && reservation.getEnd().isEqual(start) ||
-                reservation.getStart().isEqual(end) && reservation.getEnd().isAfter(start) ||
-                reservation.getStart().isEqual(end) && reservation.getEnd().isEqual(start))
+            if ((reservation.getStart().isAfter(start) && reservation.getStart().isBefore(end)) ||
+                    (reservation.getStart().isEqual(start) ) ||
+                    (reservation.getEnd().isAfter(start) && reservation.getEnd().isBefore(end)) ||
+                    (reservation.getEnd().isEqual(end) ) ||
+                    (reservation.getStart().isBefore(start) && reservation.getEnd().isAfter(end))
+                    || (reservation.getStart().isEqual(start) && reservation.getEnd().isEqual(end)))
             {
                 rooms.addAll(reservation.getRooms());
             }
@@ -232,6 +307,11 @@ public class databaseClientRepo implements IClientRespository {
     ///////////////////////////////////////////////////////////////////////////////////////////////
     public Coupon findCouponById(int couponId, int clientId)
     {
+       // manager.getTransaction().begin();
+        Coupon coupon = manager.find(Coupon.class,couponId);
+       // manager.getTransaction().commit();
+        return coupon;
+        /*
         Coupon c ;
        // manager.getTransaction().begin();
         Query query = manager.createNativeQuery("SELECT * FROM Coupon WHERE code=:coId AND client_id=:clId",Coupon.class);
@@ -240,6 +320,8 @@ public class databaseClientRepo implements IClientRespository {
         c = (Coupon) query.getSingleResult();
         //manager.getTransaction().commit();
         return  c;
+
+         */
     }
 }
 

@@ -77,7 +77,10 @@ class ClientControllerTest {
         rooms.add(room1);
         Option option = new Option(100,rooms);
         Coupon c = new Coupon(50);
-        clientController.makeReservationWithCoupon(option,c,client.getId(),LocalDate.of(2003,2,1), LocalDate.of(2003,2,3));
+
+        //c.setCode(90000);
+        client.addCoupon(c);
+        clientController.makeReservationWithCoupon(option,c.getCode(),client.getId(),LocalDate.of(2003,2,1), LocalDate.of(2003,2,3));
         int resId = client.getReservationList().size() - 1;
         Reservation res = client.getReservationList().get(resId);
 

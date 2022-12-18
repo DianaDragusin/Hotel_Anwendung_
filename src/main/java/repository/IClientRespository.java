@@ -18,7 +18,7 @@ public interface IClientRespository extends ICrud<Integer,Client>{
 
     void addCoupon(Coupon c, int client_id);
 
-    void removeCoupon(Coupon c, int client_id);
+    void removeCoupon(int couponid, int client_id);
 
     Coupon findCouponById(int couponId, int clientid);
 

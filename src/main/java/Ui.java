@@ -146,7 +146,7 @@ public class Ui {
 
         }catch (Exception exception)
         {
-            System.out.println("You must enter a number in interval [0,1] ");
+            System.out.println(exception.getMessage());
         }
 
 
@@ -347,7 +347,7 @@ public class Ui {
 
                 }catch (Exception exception)
                 {
-                    System.out.println("Only numbers are accepted");
+                    System.out.println(exception.getMessage());
                 }
 
 
@@ -607,7 +607,7 @@ public class Ui {
                     managerView.setSalarySatus(id, salary);
                 }
                 case 12 -> {
-                    System.out.println("Enter the username of the cleaner you want to delete");
+                    System.out.println("Enter the id of the cleaner you want to delete");
                     int id = Integer.parseInt(myObj.nextLine());
                     managerView.deleteCleanerStatus(id);
                 }

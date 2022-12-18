@@ -54,9 +54,9 @@ public class ClientView {
         }
         System.out.println("Reservation not created!");
     }
-    public void makeReservationWithCouponStatus(Option option, Coupon coupon, int id, LocalDate start, LocalDate end)
+    public void makeReservationWithCouponStatus(Option option, int couponid, int id, LocalDate start, LocalDate end)
     {
-        if(clientcontroller.makeReservationWithCoupon(option,coupon,id, start,end)!= null){
+        if(clientcontroller.makeReservationWithCoupon(option,couponid,id, start,end)!= null){
             System.out.println("Reservation created successfully!");
             return;
         }
@@ -138,6 +138,7 @@ public class ClientView {
         for (Option option :options)
         {
             System.out.println(option.toString());
+
         }
     }
     public void optionPart (int couponans, LocalDate from, LocalDate to, int people, Client client)
@@ -155,15 +156,19 @@ public class ClientView {
 
                 if (couponans >-1 && options.size() > 0)
                 {
-                    // nest another level
-                    Coupon c = clientcontroller.findCouponById(couponans, client.getId());
-                    makeReservationWithCouponStatus(options.get(optionnr - 1),c, client.getId(),from,to);
-                    clientcontroller.removeCoupon(c,client.getId());
+
+                        // nest another level
+                       // Coupon c = clientcontroller.findCouponById(couponans, client.getId());
+                        makeReservationWithCouponStatus(options.get(optionnr - 1),couponans, client.getId(),from,to);
+                        clientcontroller.removeCoupon(couponans,client.getId());
+
+
                 }
                 else if(couponans == -1 && options.size() > 0)
                 {
                     // nest another level
                     makeReservationStatus(options.get(optionnr - 1), client.getId(),from,to);
+
                     if (clientcontroller.seeAllReservations(client.getId()).size() %2 == 0)
                     {
 
@@ -178,7 +183,7 @@ public class ClientView {
 
             }catch (Exception exception)
             {
-                System.out.println("You must enter a number");
+                System.out.println(exception.getMessage());
             }
 
 

@@ -15,9 +15,8 @@ public class databaseRoomRepo implements IRoomRepository {
 
     public databaseRoomRepo(EntityManager manager) {
         this.manager = manager;
-        manager.getTransaction().begin();
-      //  populate_rooms();
-        manager.getTransaction().commit();
+        populate_rooms();
+
     }
 
     private void populate_rooms()
@@ -54,14 +53,29 @@ public class databaseRoomRepo implements IRoomRepository {
     @Override
     public void delete(Integer roomId) {
         manager.getTransaction().begin();
+        Room room =  manager.find(Room.class,roomId);
+        manager.remove(room);
+        manager.getTransaction().commit();
+        /*
+        manager.getTransaction().begin();
         Query query = manager.createNativeQuery("DELETE FROM Room WHERE id=:idRoom",Room.class);
         query.setParameter("idRoom", Integer.toString(roomId));
         query.executeUpdate();
         manager.getTransaction().commit();
+
+         */
     }
 
     @Override
     public void update(Integer id, Room room) {
+        manager.getTransaction().begin();
+        Room r =  manager.find(Room.class,id);
+        r.setType(room.getType());
+        r.setPrice(room.getPrice());
+        r.setNrPers(room.getNrPers());
+        manager.merge(r);
+        manager.getTransaction().commit();
+        /*
         manager.getTransaction().begin();
         Query query = manager.createNativeQuery("UPDATE Room SET nrPers=:roomNrP, price=:roomPr, type=:roomT", Room.class);
         query.setParameter("roomNrP", room.getNrPers());
@@ -69,32 +83,46 @@ public class databaseRoomRepo implements IRoomRepository {
         query.setParameter("roomT", room.getType());
         query.executeUpdate();
         manager.getTransaction().commit();
+
+         */
     }
     @Override
     public Room findById(Integer id){
+        manager.getTransaction().begin();
+        Room room = manager.find(Room.class,id);
+        manager.getTransaction().commit();
+        return room;
+        /*
         for(Room r : getAll()){
             if(r.getId() == id){
                 return r;
             }
         }
         return null;
+
+         */
     }
 
     @Override
     public List<Room> getAll() {
-        List<Room> rooms = new ArrayList<>();
-        manager.getTransaction().begin();
-        Query query = manager.createNativeQuery("SELECT * FROM Room", Room.class);
-        rooms = (List<Room>) query.getResultList();
-        manager.getTransaction().commit();
+        List<Room> rooms ;
+        try {
+            Query query = manager.createNativeQuery("SELECT * FROM Room", Room.class);
+            rooms = (List<Room>) query.getResultList();
+
+        }catch (Exception exception)
+        {
+            return new ArrayList<>();
+        }
         return  rooms;
     }
 
 
     @Override
     public List<Room> returnRoomsOfType(Type t) {
+        List<Room>rooms =getAll();
         List<Room>typeRooms = new ArrayList<>();
-        for (Room room : getAll())
+        for (Room room : rooms)
         {
             if (room.getType() == t)
             {
