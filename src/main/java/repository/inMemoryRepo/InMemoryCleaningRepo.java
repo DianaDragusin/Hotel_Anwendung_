@@ -55,8 +55,4 @@ public class InMemoryCleaningRepo implements ICleaningRepository {
     public void deleteCleaning(Cleaning cleaning) {
         cleanings.remove(cleaning);
     }
-
-    public void removeCleaning(Cleaning cleaning){
-        cleanings.remove(cleaning);
-    }
 }

@@ -130,6 +130,7 @@ public class ClientController {
     public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrTotalPers) throws CustomIllegalArgument{
         List<Room> availableRooms = searchAvailableRoom(checkIn,checkOut);
 
+
         if (availableRooms.size()<1)
         {
             throw new CustomIllegalArgument("There are no available rooms in this period");
@@ -157,17 +158,23 @@ public class ClientController {
             totalPrice = 0;
             if(Arrays.stream(i).sum() == nrTotalPers){
                 if(!contains_array(options,i)){
+                    List<Room> availableRoomsAux = new ArrayList<>(availableRooms);
                     options.add(i);
                     for(int el : i){
                         Room r = findARoomByType(availableRooms,findTypeByNrPers(el));
+                        while(option_rooms.contains(r)){
+                            availableRoomsAux.remove(r);
+                            r = findARoomByType(availableRoomsAux,findTypeByNrPers(el));
+                        }
 
-                             option_rooms.add(r);
-                        assert r != null;
-                        totalPrice += r.getPrice();
+                    option_rooms.add(r);
+                    assert r != null;
+                    totalPrice += r.getPrice();
                     }
 
-
-
+                    Option option = new Option(totalPrice,option_rooms.stream().toList());
+                    option.setId(optionId);
+                    final_options.add(option);
 
                     optionId++;
                 }

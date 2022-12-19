@@ -135,6 +135,7 @@ public class ClientView {
     }
     private void printOptions(List<Option> options)
     {
+        System.out.println("options size="+options.size());
         for (Option option :options)
         {
             System.out.println(option.toString());

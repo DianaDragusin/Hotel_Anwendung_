@@ -21,7 +21,7 @@ public class databaseRoomRepo implements IRoomRepository {
 
     private void populate_rooms()
     {
-
+        manager.getTransaction().begin();
         Room rooms1 = new Room(Type.SINGLE,300,1);
         Room rooms2 = new Room(Type.SINGLE,300,1);
         Room rooms3 = new Room(Type.SINGLE,300,1);
@@ -42,6 +42,7 @@ public class databaseRoomRepo implements IRoomRepository {
         manager.persist(roomt3);
         manager.persist(rooma1);
         manager.persist(rooma2);
+        manager.getTransaction().commit();
     }
     @Override
     public void add(Room room) {

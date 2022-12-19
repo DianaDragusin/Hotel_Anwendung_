@@ -4,24 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="modificarii var 4 la databaserepo">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_12_2022_01_02_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_12_2022_01_02__Changes_.xml" beforeDir="false" />
+    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment=".">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/dfe4fe76-1d41-4b33-b45d-c29f1825fbec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/dfe4fe76-1d41-4b33-b45d-c29f1825fbec.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/dfe4fe76-1d41-4b33-b45d-c29f1825fbec/storage_v2/_src_/database/Hotel2.HmEvgQ/schema/dbo.sYMBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/dfe4fe76-1d41-4b33-b45d-c29f1825fbec/storage_v2/_src_/database/Hotel2.HmEvgQ/schema/dbo.sYMBAA.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_12_2022_10_59__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_12_2022_10_59__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_12_2022_21_45__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/ICleaningRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/ICleaningRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/IClientRespository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/IClientRespository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseCleanerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseCleanerRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseCleaningRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseCleaningRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseClientRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Reservation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseRoomRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryCleaningRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryCleaningRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryClientRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryRoomRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/views/ClientView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/ClientView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/tests/ClientControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tests/ClientControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +86,14 @@
       <recent name="tests" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Hotel_Anwendung" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ClientControllerTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="Hotel_Anwendung" />
       <extension name="coverage">
@@ -100,6 +104,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
       <option name="MAIN_CLASS_NAME" value="tests.ClientControllerTest" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -169,6 +174,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.ClientControllerTest" />
+      <item itemvalue="JUnit.ClientControllerTest.addCoupon" />
+      <item itemvalue="JUnit.ClientControllerTest.deleteReservation" />
+      <item itemvalue="JUnit.ClientControllerTest.findCouponById" />
+      <item itemvalue="JUnit.ClientControllerTest.removeCoupon" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ClientControllerTest.findCouponById" />
