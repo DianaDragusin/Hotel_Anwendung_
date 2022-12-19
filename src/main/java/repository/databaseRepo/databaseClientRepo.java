@@ -19,7 +19,7 @@ public class databaseClientRepo implements IClientRespository {
         this.manager = manager;
 
 
-       // populate_clients();
+        populate_clients();
 
     }
 
