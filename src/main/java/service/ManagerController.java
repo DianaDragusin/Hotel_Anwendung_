@@ -103,11 +103,32 @@ public class ManagerController {
         Room r = roomRepo.findById(id);
         if(r != null )
         {
+
             for (Cleaning cleaning : getRoomCleanings(id))
             {
                 cleaningRepo.deleteCleaning(cleaning);
             }
             roomRepo.delete(id);
+            /*
+            for (Client client : clientRepo.getAll() )
+            {
+                for(Reservation reservation : client.getReservationList())
+                {
+                    for (Room room : reservation.getRooms())
+                    {
+                        if (room.getId() == id)
+                        {
+                            clientRepo.removeReservation(reservation.getId(),client.getId());
+
+                        }
+                    }
+
+                }
+            }
+
+             */
+
+
             return r;
         }
         return null;

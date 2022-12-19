@@ -20,6 +20,14 @@ public class Room {
         this.nrPers = nrPers;
     }
 
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

@@ -18,7 +18,7 @@ public class databaseCleanerRepo implements ICleanerRepository {
 
     public databaseCleanerRepo(EntityManager manager) {
         this.manager = manager;
-        populate_cleaners();
+        //populate_cleaners();
     }
     private void populate_cleaners(){
         manager.getTransaction().begin();
@@ -55,15 +55,16 @@ public class databaseCleanerRepo implements ICleanerRepository {
 
     @Override
     public void update(Integer id, Cleaner cleaner) {
-        //manager.getTransaction().begin();
+        manager.getTransaction().begin();
         Cleaner cl =  manager.find(Cleaner.class,id);
+        manager.detach(cl);
         cl.setFirstName(cleaner.getFirstName());
         cl.setLastName(cleaner.getFirstName());
         cl.setUsername(cleaner.getUsername());
         cl.setPassword(cleaner.getPassword());
         cl.setSalary(cleaner.getSalary());
         manager.merge(cl);
-       // manager.getTransaction().commit();
+        manager.getTransaction().commit();
         /*
         manager.getTransaction().begin();
         Query query = manager.createNativeQuery("UPDATE Cleaner SET firstname=:clFN, lastname=:clLN, username=:clU, password=:clP WHERE id=:clId",Cleaner.class);

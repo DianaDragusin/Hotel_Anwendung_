@@ -91,6 +91,17 @@ public class ClientView {
 
 
     }
+    public void printDetails(Client client)
+    {
+
+            System.out.println("These are your personal details:");
+            System.out.println("Name: " + client.getLastName() + " " + client.getFirstName());
+            System.out.println("Username: " + client.getUsername());
+            System.out.println("Password: " + client.getPassword());
+           // System.out.println("Coupons " + client.getCouponList());
+           // System.out.println("Reservations: " + client.getReservationList());
+
+    }
     public  boolean changeDetailsStatus (String newfirstName,String newlastName,int id)
     {
 
@@ -139,6 +150,7 @@ public class ClientView {
         for (Option option :options)
         {
             System.out.println(option.toString());
+
 
         }
     }

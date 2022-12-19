@@ -9,6 +9,7 @@ import views.ClientView;
 import views.ManagerView;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,9 +96,7 @@ public class Main {
 
        // manager.getTransaction().begin();
         List<Room>rooms;
-        Query query = manager.createNativeQuery("SELECT * FROM Room", Room.class);
-        rooms = (List<Room>) query.getResultList();
-        System.out.println(rooms);
+
        // manager.persist(c);
 
         //Client cl =  manager.find(Client.class,22);
@@ -132,18 +131,42 @@ public class Main {
       //  System.out.println(cl);
      //   manager.getTransaction().commit();
       //  c.setId(1);
+EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
+        EntityManager manager = factory.createEntityManager();
+        Client c = new Client("c","c","c","c");
+        manager.getTransaction().begin();
+        manager.persist(c);
+        manager.getTransaction().commit();
+        Client cl = manager.find(Client.class,6);
+        System.out.println(cl);
+        manager.detach(cl);
+        System.out.println(cl);
+        manager.getTransaction().begin();
 
- */
-
-      //  EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
-       // EntityManager manager = factory.createEntityManager();
+        Client cl2 = manager.find(Client.class,6);
+        manager.merge(cl2);
+        System.out.println(cl2);
+        manager.remove(cl2);
+        manager.getTransaction().commit();
 
         //Client c = manager.find(Client.class,5);
         //System.out.println(c);
+          //Query query2 =  manager.createNativeQuery("select * from Client where username=:reservationNr ",Client.class);
+        //query2.setParameter("reservationNr","anaa");
+        //Client foundCourse = (Client) query2.getSingleResult();
+        //System.out.println(foundCourse);
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
+        EntityManager manager = factory.createEntityManager();
 
-        boolean memory = false;
-        Ui ui = new Ui(memory);
-        ui.showMenu();
+        System.out.println(rooms);
+ */
+
+
+
+
+     boolean memory = false;
+     Ui ui = new Ui(memory);
+     ui.showMenu();
 
 
 

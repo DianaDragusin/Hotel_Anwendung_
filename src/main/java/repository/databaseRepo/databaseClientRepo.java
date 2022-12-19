@@ -19,7 +19,7 @@ public class databaseClientRepo implements IClientRespository {
         this.manager = manager;
 
 
-        populate_clients();
+       // populate_clients();
 
     }
 
@@ -58,14 +58,17 @@ public class databaseClientRepo implements IClientRespository {
 
     @Override
     public void update(Integer clientId, Client client) {
-        //manager.getTransaction().begin();
+        manager.getTransaction().begin();
         Client cl =  manager.find(Client.class,clientId);
+        manager.detach(cl);
         cl.setFirstName(client.getFirstName());
-        cl.setLastName(client.getFirstName());
+        cl.setLastName(client.getLastName());
         cl.setUsername(client.getUsername());
         cl.setPassword(client.getPassword());
+        cl.setCouponList(cl.getCouponList());
+        cl.setReservationList(cl.getReservationList());
         manager.merge(cl);
-        //manager.getTransaction().commit();
+        manager.getTransaction().commit();
         /*
         Query query = manager.createNativeQuery("UPDATE Client SET firstname=:clFN, lastname=:clLN, username=:clU, password=:clP WHERE id=:clId",Client.class);
         query.setParameter("clFN", client.getFirstName());
@@ -181,10 +184,20 @@ public class databaseClientRepo implements IClientRespository {
         manager.getTransaction().commit();
 
     }
-    public Reservation findReservationById(int reservationId){
-       // manager.getTransaction().begin();
+    public Reservation findReferenceReservation(int id)
+    {
+        manager.getTransaction().begin();
+        Reservation reservation = manager.getReference(Reservation.class,id);
+        manager.getTransaction().commit();
+        return reservation;
+
+    }
+    public Reservation findReservationById(int reservationId,int clientid){
+        manager.getTransaction().begin();
         Reservation reservation = manager.find(Reservation.class,reservationId);
-        //manager.getTransaction().commit();
+       manager.detach(reservation);
+        System.out.println(reservation);
+        manager.getTransaction().commit();
         return reservation;
         /*
         //manager.getTransaction().begin();
@@ -221,9 +234,32 @@ public class databaseClientRepo implements IClientRespository {
         manager.getTransaction().begin();
         Reservation reservationDatabase  = manager.find(Reservation.class,resIid);
         Client clientDatabase = manager.find(Client.class,clientId);
+
+        Query query = manager.createNativeQuery("DELETE FROM reservation_room WHERE reservation_id=:idRes ", Reservation.class);
+        query.setParameter("idRes", Integer.toString(resIid));
+        query.executeUpdate();
+        Query query2 = manager.createNativeQuery("DELETE FROM reservation WHERE id=:idRes ", Reservation.class);
+        query2.setParameter("idRes", Integer.toString(resIid));
+        query2.executeUpdate();
         clientDatabase.removeReservation(reservationDatabase);
-        manager.remove(reservationDatabase);
         manager.getTransaction().commit();
+/*
+        for (Room r : reservationDatabase.getRooms()) {
+            if (r.getReservations().size() == 1) {
+                manager.remove(r);
+            } else {
+                r.getReservations().remove(reservationDatabase);
+            }
+        }
+
+ */
+       // manager.remove(reservationDatabase);
+
+
+       // manager.remove(manager.contains(reservationDatabase) ? reservationDatabase : manager.merge(reservationDatabase));
+        //manager.remove(reservationDatabase);
+
+
         /*
        // manager.getTransaction().begin();
         Reservation reservation = findReservationById(resIid);

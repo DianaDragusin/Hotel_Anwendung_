@@ -53,6 +53,7 @@ public class InMemoryRoomRepo implements IRoomRepository {
     @Override
     public void delete(Integer id) {
         if(findById(id)!=null){
+
             rooms.remove(findById(id));
         }
 

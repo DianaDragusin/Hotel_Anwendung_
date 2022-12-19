@@ -360,10 +360,8 @@ public class Ui {
             }
             else if (option == 3)
             {
-                System.out.println("\n");
                 System.out.println("Which reservation would you like to delete? Ans = ");
                 int resnr = Integer.parseInt(myObj.nextLine());
-                System.out.println("\n");
                 clientView.deleteReservationStatus(resnr,client.getId());
                 clientMenu(client);
             }
@@ -388,12 +386,18 @@ public class Ui {
             }
             else if (option == 6)
             {
-                System.out.println("\n");
+
                 System.out.println("Enter your new Password:");
                 String password = myObj.nextLine();
-                System.out.println("\n");
                 clientView.changePasswordStatus(client.getId(),password);
                 clientMenu(client);
+            }
+            else if (option == 7)
+            {
+                System.out.println("Your Personal information:");
+                clientView.printDetails(client);
+                clientMenu(client);
+
             }
             else {
                 System.out.println("You must enter a number in interval [-1,7]");

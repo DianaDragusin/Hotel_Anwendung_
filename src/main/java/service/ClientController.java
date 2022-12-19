@@ -232,6 +232,8 @@ public class ClientController {
         }
         return null;
     }
+
+   // not working
     public Reservation findReservationById (int clientId, int reservationId)
     {
         List<Client>clients = clientRepo.getAll();
@@ -252,11 +254,16 @@ public class ClientController {
         }
         return null;
     }
+
+
     public void deleteReservation(int resId, int clientId) throws  CustomIllegalArgument {
         if (findReservationById(clientId,resId) != null) {
             clientRepo.removeReservation(resId, clientId);
         }
-        throw new CustomIllegalArgument("Reservation not found!");
+        else {
+            throw new CustomIllegalArgument("Reservation not found!");
+        }
+
 
 
 
@@ -301,7 +308,12 @@ public class ClientController {
     }
 
     public String changePassword(int id, String newPassword) {
-        clientRepo.findById(id).setPassword(newPassword);
+
+        Client c = clientRepo.findById(id);
+        c.setPassword(newPassword);
+        System.out.println(c.toString());
+        System.out.println(c.getPassword());
+        clientRepo.update(id,c);
         return "Password changed successfully!";
     }
 

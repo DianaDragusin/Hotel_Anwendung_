@@ -15,7 +15,7 @@ public class databaseRoomRepo implements IRoomRepository {
 
     public databaseRoomRepo(EntityManager manager) {
         this.manager = manager;
-        populate_rooms();
+       // populate_rooms();
 
     }
 
@@ -54,6 +54,33 @@ public class databaseRoomRepo implements IRoomRepository {
     @Override
     public void delete(Integer roomId) {
         manager.getTransaction().begin();
+        Room room = manager.find(Room.class,roomId);
+
+       // Reservation reservationDatabase  = manager.find(Reservation.class,resIid);
+       // Client clientDatabase = manager.find(Client.class,clientId);
+        Query query = manager.createNativeQuery("SELECT reservation_id FROM reservation_room where room_id=:idc");
+        query.setParameter("idc", Integer.toString(roomId));
+        List<Integer>reservations = (List<Integer>) query.getResultList();
+        for (int reserv : reservations)
+        {
+            Reservation r = manager.find(Reservation.class,reserv);
+            Query query2 = manager.createNativeQuery("DELETE FROM reservation_room WHERE reservation_id=:idRes ");
+            query2.setParameter("idRes", Integer.toString(reserv));
+            query2.executeUpdate();
+
+            Query query3 = manager.createNativeQuery("DELETE FROM reservation WHERE id=:idRes ", Reservation.class);
+            query3.setParameter("idRes", Integer.toString(reserv));
+            query3.executeUpdate();
+            r.setRooms(new ArrayList<>());
+        }
+
+        manager.remove(room);
+        manager.getTransaction().commit();
+        /*
+        manager.getTransaction().begin();
+        Query query = manager.createNativeQuery("DELETE FROM Room WHERE id=:idRoom",Room.class);
+        query.setParameter("idRoom", Integer.toString(roomId));
+        query.executeUpdate();
         Room room =  manager.find(Room.class,roomId);
         manager.remove(room);
         manager.getTransaction().commit();
@@ -64,13 +91,17 @@ public class databaseRoomRepo implements IRoomRepository {
         query.executeUpdate();
         manager.getTransaction().commit();
 
+
          */
+
+
     }
 
     @Override
     public void update(Integer id, Room room) {
         manager.getTransaction().begin();
         Room r =  manager.find(Room.class,id);
+        manager.detach(r);
         r.setType(room.getType());
         r.setPrice(room.getPrice());
         r.setNrPers(room.getNrPers());

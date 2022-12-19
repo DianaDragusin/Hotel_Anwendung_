@@ -162,4 +162,20 @@ public class InMemoryClientRepo implements IClientRespository {
         }
       return null;
     }
+
+    @Override
+    public Reservation findReservationById(int reservationId, int clientid) {
+        Reservation res = null;
+        for(Reservation r : getAllReservations()){
+            if(r.getId() == reservationId){
+                res=r;
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Reservation findReferenceReservation(int reservationId) {
+        return null;
+    }
 }

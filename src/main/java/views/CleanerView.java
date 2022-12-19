@@ -67,8 +67,10 @@ public class CleanerView {
 
     public void showUserDetails(Cleaner cleaner) {
         System.out.println("These are your personal details:");
+        System.out.println("Name: " + cleaner.getLastName() + " " + cleaner.getFirstName());
         System.out.println("Username: " + cleaner.getUsername());
-        System.out.println("Name: " + cleaner.getLastName() + " " + cleaner.getFirstName()+cleaner);
+        System.out.println("Password: " + cleaner.getPassword());
+        System.out.println("Salary: " + cleaner.getSalary());
     }
 
     public void printAllRooms() {
