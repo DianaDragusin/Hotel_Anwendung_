@@ -130,9 +130,7 @@ public class Ui {
             if(option == 0){
                 showMenu();
             } else if (option == 1) {
-                System.out.println("Please enter your password:");
-                String password = myObj.nextLine();
-                if (managerView.loginStatus(password)) {
+                if (managerView.loginStatus()) {
                     managerMenu();
                 }
                 else{
@@ -157,50 +155,29 @@ public class Ui {
                 0. Back
                 1. Login
                 2. Register
+                3. Exit
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
 
             int option = Integer.parseInt(myObj.nextLine());
+            if(option == 3){
+                System.exit(0);
+            }
             if(option == 0){
                 showMenu();
             } else if (option == 1) {
-                System.out.println("Please enter your username:");
-                String username = myObj.nextLine();
-                System.out.println("\n");
-                System.out.println("Please enter your password:");
-                String password = myObj.nextLine();
-                System.out.println("\n");
-                if (clientView.loginStatus(username,password)) {
-                    clientMenu(clientRepo.findByUsername(username));
+                Client client = clientView.loginStatus();
+                if (client != null) {
+                    clientMenu(client.getId());
                 }
                 else{
                     showOptionsClient();
                 }
             }
             else if (option == 2) {
-                System.out.println("Please enter your first Name:");
-                String firstname = myObj.nextLine();
-                System.out.println("Please enter your last Name:");
-                String lastname = myObj.nextLine();
-                System.out.println("Please enter your username:");
-                String username = myObj.nextLine();
-                if (clientView.findUserStatus(username))
-                {
-                    while(clientView.findUserStatus(username)) {
-                        System.out.println("This username is already Taken.");
-                        System.out.println("Please enter your username:");
-                        username = myObj.nextLine();
-                    }
-
-                }
-                System.out.println("Please enter your password:");
-                String password = myObj.nextLine();
-                if (clientView.registerStatus(firstname,lastname,username,password)) {
-                    // adaugam clientul si in lista de clienti actualizata
-                    System.out.println(clientRepo.findByUsername(username).getId());
-
-                    clientMenu(clientRepo.findByUsername(username));
-
+                Client client = clientView.registerStatus();
+                if (client != null) {
+                    clientMenu(client.getId());
                 }
                 else{
                     showOptionsClient();
@@ -210,8 +187,6 @@ public class Ui {
             {
                 showOptionsClient();
             }
-
-
 
     }
     public void showOptionsCleaner(){
@@ -231,41 +206,18 @@ public class Ui {
             if(option == 0){
                 showMenu();
             } else if (option == 1) {
-                System.out.println("Please enter your username:");
-                String username = myObj.nextLine();
-                System.out.println("\n");
-                System.out.println("Please enter your password:");
-                String password = myObj.nextLine();
-                System.out.println("\n");
-                if (cleanerView.loginStatus(username,password)) {
-                    cleanerMenu(cleanerRepo.findByUsername(username));
+                Cleaner cleaner = cleanerView.loginStatus();
+                if (cleaner != null) {
+                    cleanerMenu(cleaner.getUsername());
                 }
                 else{
                     showOptionsCleaner();
                 }
             }
             else if (option == 2) {
-                System.out.println("Please enter your first Name:");
-                String firstname = myObj.nextLine();
-                System.out.println("Please enter your last Name:");
-                String lastname = myObj.nextLine();
-                System.out.println("Please enter your username:");
-                String username = myObj.nextLine();
-                if (cleanerController.findUserByUsername(username)!= null)
-                {
-                    while(cleanerController.findUserByUsername(username)!=null) {
-                        System.out.println("This username is already Taken.");
-                        System.out.println("Please enter your username:");
-                        username = myObj.nextLine();
-                    }
-
-                }
-
-                System.out.println("Please enter your password:");
-                String password = myObj.nextLine();
-
-                if (cleanerView.registerStatus(firstname,lastname,username,password)) {
-                    cleanerMenu(cleanerRepo.findByUsername(username));
+                Cleaner cleaner = cleanerView.registerStatus();
+                if (cleaner != null) {
+                    cleanerMenu(cleaner.getUsername());
                 }
                 else{
                     showOptionsCleaner();
@@ -274,10 +226,9 @@ public class Ui {
             else {
                 showOptionsCleaner();
             }
-
-
     }
-    private void clientMenu(Client client){
+    private void clientMenu(int id){
+        Client client = clientController.findUserById(id);
         System.out.println("""
                 Hello Client!
                 Choose an option!
@@ -309,107 +260,50 @@ public class Ui {
             }
             else if (option == 1 )
             {
-
-
-                System.out.println("When will you be staying with us ?");
-
-                try {
-                    System.out.println("From year = ");
-                    int year  =  Integer.parseInt(myObj.nextLine());
-
-                    System.out.println("month = ");
-                    int month = Integer.parseInt(myObj.nextLine());
-
-                    System.out.println("day = ");
-                    int day = Integer.parseInt(myObj.nextLine());
-
-                    LocalDate from = LocalDate.of(year,month,day);
-                    System.out.println("To year = ");
-                    int year2  =  Integer.parseInt(myObj.nextLine());
-
-                    System.out.println("month = ");
-                    int month2 = Integer.parseInt(myObj.nextLine());
-
-                    System.out.println("day = ");
-                    int day2 = Integer.parseInt(myObj.nextLine());
-                    LocalDate to = LocalDate.of(year2,month2,day2);
-                    System.out.println("How many will be staying with us ?");
-                    System.out.println("people = ");
-                    int people  =  Integer.parseInt(myObj.nextLine());
-
-                    System.out.println("These are your coupons: ");
-                    List<Coupon> couplist = clientController.showCoupons(client.getId());
-                    clientView.showCoupons(client.getId());
-                    System.out.println("Which coupon would you like to use? Type -1 if you wont like to use any \n");
-                    System.out.println("coupon = ");
-                    int couponans = Integer.parseInt(myObj.nextLine());
-                    clientView.optionPart(couponans,from, to, people,client);
-
-                }catch (Exception exception)
-                {
-                    System.out.println(exception.getMessage());
-                }
-
-
-                clientMenu(client);
+                clientView.optionPart(client.getId());
+                clientMenu(client.getId());
             }
             else if (option == 2)
             {
                 clientView.printAllReservations(client.getId());
-                clientMenu(client);
+                clientMenu(client.getId());
             }
             else if (option == 3)
             {
-                System.out.println("Which reservation would you like to delete? Ans = ");
-                int resnr = Integer.parseInt(myObj.nextLine());
-                clientView.deleteReservationStatus(resnr,client.getId());
-                clientMenu(client);
+                clientView.deleteReservationStatus(client.getId());
+                clientMenu(client.getId());
             }
             else if (option == 4)
             {
-                System.out.println("These are your coupons:");
                 clientView.showCoupons(client.getId());
-                clientMenu(client);
+                clientMenu(client.getId());
 
             }
             else if (option == 5)
             {
-                System.out.println("\n");
-                System.out.println("Enter your new First Name:");
-                String firstname = myObj.nextLine();
-                System.out.println("\n");
-                System.out.println("Enter your new Last Name:");
-                String lastname = myObj.nextLine();
-                System.out.println("\n");
-                clientView.changeDetailsStatus(firstname,lastname,client.getId());
-                clientMenu(client);
+                clientView.changeDetailsStatus(client.getId());
+                clientMenu(client.getId());
             }
             else if (option == 6)
             {
-
-                System.out.println("Enter your new Password:");
-                String password = myObj.nextLine();
-                clientView.changePasswordStatus(client.getId(),password);
-                clientMenu(client);
+                clientView.changePasswordStatus(client.getId());
+                clientMenu(client.getId());
             }
             else if (option == 7)
             {
-                System.out.println("Your Personal information:");
-                clientView.printDetails(client);
-                clientMenu(client);
+                clientView.printDetails(client.getId());
+                clientMenu(client.getId());
 
             }
             else {
                 System.out.println("You must enter a number in interval [-1,7]");
-                clientMenu(client);
+                clientMenu(client.getId());
             }
 
-
-
-
-
     }
-    private void cleanerMenu(Cleaner cleaner){
+
+    private void cleanerMenu(String username){
+        Cleaner cleaner = cleanerView.findCleanerByUsername(username);
         System.out.println("""
                 Hello Cleaner!
                 Choose an option!
@@ -435,51 +329,31 @@ public class Ui {
             }
             else if (option == 1 )
             {
-                System.out.println("What room would you like to clean?\n");
-                int room  =  Integer.parseInt(myObj.nextLine());
-                System.out.println("When ? ");
-                System.out.print("year = ");
-                int year  =  Integer.parseInt(myObj.nextLine());
-                System.out.print("month = ");
-                int month = Integer.parseInt(myObj.nextLine());
-                System.out.print("day = ");
-                int day = Integer.parseInt(myObj.nextLine());
-                LocalDate date = LocalDate.of(year,month,day);
-                cleanerView.cleanroomStatus(cleaner.getId(),room,date);
-
-                cleanerMenu(cleaner);
+                cleanerView.cleanroomStatus(cleaner.getId());
+                cleanerMenu(cleaner.getUsername());
             }
             else if (option == 2)
             {
-                System.out.println("These rooms have been cleaned by you:");
                 cleanerView.printCleanedRooms(cleaner.getId());
-                cleanerMenu(cleaner);
+                cleanerMenu(cleaner.getUsername());
             }
             else if(option == 3){
                 cleanerView.printAllRooms();
-                cleanerMenu(cleaner);
+                cleanerMenu(cleaner.getUsername());
             }
             else if (option == 4)
             {
-                System.out.println("Enter your new First Name:");
-                String firstname = myObj.nextLine();
-                System.out.println("Enter your new Last Name:");
-                String lastname = myObj.nextLine();
-                cleanerView.changeDetailsStatus(firstname,lastname,cleaner.getId());
-
-                cleanerMenu(cleaner);
+                cleanerView.changeDetailsStatus(cleaner.getId());
+                cleanerMenu(cleaner.getUsername());
             }
             else if (option == 5)
             {
-                System.out.println("Enter your new Password:");
-                String password = myObj.nextLine();
-                cleanerView.changePasswordStatus(cleaner.getId(),password);
-
-                cleanerMenu(cleaner);
+                cleanerView.changePasswordStatus(cleaner.getId());
+                cleanerMenu(cleaner.getUsername());
             }
             else if (option == 6){
-                cleanerView.showUserDetails(cleaner);
-                cleanerMenu(cleaner);
+                cleanerView.showUserDetails(cleaner.getUsername());
+                cleanerMenu(cleaner.getUsername());
             }
             if (option == -1)
             {
@@ -493,30 +367,31 @@ public class Ui {
         System.out.println("""
                 Hello Manager!
                 Choose an option!
+                0.  Logout
+                1.  Change password
                 CLIENTS
-                1.  See all clients
-                2.  Find client by username
-                3.  Delete client
+                2.  See all clients
+                3.  Find client by username
+                4.  Delete client
                 ROOMS
-                4.  See all rooms
-                5.  Add room
-                6.  Delete room
-                7.  Update room details
-                8.  Find room by id
+                5.  See all rooms
+                6.  Add room
+                7.  Delete room
+                8.  Update room details
+                9.  Find room by id
                 CLEANERS
-                9.  See all cleaners
-                10. Find cleaner by username
-                11. Modify salary for cleaner
-                12. Delete cleaner
+                10.  See all cleaners
+                11. Find cleaner by username
+                12. Modify salary for cleaner
+                13. Delete cleaner
                 CLEANINGS
-                13. See all cleanings
-                14. See all cleanings for cleaner
-                15. See all cleanings for room
+                14. See all cleanings
+                15. See all cleanings for cleaner
+                16. See all cleanings for room
                 RESERVATIONS
                 17. See all available rooms
                 18. See all reservations
-                0.  Logout
-                16. Exit
+                19. Exit
                 
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
@@ -528,147 +403,30 @@ public class Ui {
                     showMenu();
 
                 }
-                case 1 -> managerView.printAllClients();
-                case 2 -> {
-                    System.out.println("Enter the username of the client you want to find:");
-                    String username = myObj.nextLine();
-                    managerView.findClientByUsernameStatus(username);
-                }
-                case 3 -> {
-                    System.out.println("Enter the id of the client you want to delete:");
-                    int id = Integer.parseInt(myObj.nextLine());
-                    managerView.deleteClientStatus(id);
-                }
-                case 4 -> managerView.printAllRooms();
-                case 5 -> {
-                    System.out.println("Enter the data of the room you want to create:");
-                    System.out.println("Enter type (1-SINGLE, 2-DOUBLE, 3-TRIPLE, 4-APARTMENT:");
-                    int typeint = Integer.parseInt(myObj.nextLine());
-                    Type type;
-                    if(typeint == 1){
-                        type = Type.SINGLE;
-                    }else if (typeint == 2){
-                        type = Type.DOUBLE;
-                    } else if (typeint == 3){
-                        type = Type.TRIPLE;
-                    }else {
-                        type = Type.APARTMENT;
-                    }
-
-                    System.out.println("Enter price:");
-                    double price = myObj.nextDouble();
-                    System.out.println("Enter capacity (persons):");
-                    int nrPers = Integer.parseInt(myObj.nextLine());
-
-                    managerView.addRoomStatus(type,price,nrPers);
-                }
-                case 6 -> {
-                    System.out.println("Enter the id of the room you want to delete:");
-                    int id = Integer.parseInt(myObj.nextLine());
-
-                    managerView.deleteRoomStatus(id);
-                }
-                case 7 -> {
-                    System.out.println("Enter the id of the room you want to update:");
-                    int id = Integer.parseInt(myObj.nextLine());
-
-                    System.out.println("Enter new type (1-SINGLE, 2-DOUBLE, 3-TRIPLE, 4-APARTMENT:");
-                    int typeint = Integer.parseInt(myObj.nextLine());
-                    Type type;
-                    if(typeint == 1){
-                        type = Type.SINGLE;
-                    }else if (typeint == 2){
-                        type = Type.DOUBLE;
-                    } else if (typeint == 3){
-                        type = Type.TRIPLE;
-                    }else {
-                        type = Type.APARTMENT;
-                    }
-
-                    System.out.println("Enter new price:");
-                    int price = Integer.parseInt(myObj.nextLine());
-                    System.out.println("Enter new capacity (persons):");
-                    int nrPers = Integer.parseInt(myObj.nextLine());
-
-                    managerView.updateRoomStatus(id, type, price, nrPers);
-                }
-                case 8 -> {
-                    System.out.println("Enter the id of the room you want to find:");
-                    int id = Integer.parseInt(myObj.nextLine());
-                    managerView.findRoomByIdStatus(id);
-                }
-                case 9 -> managerView.printAllCleaners();
-                case 10 -> {
-                    System.out.println("Enter the username of the cleaner you want to find:");
-                    String username = myObj.nextLine();
-                    managerView.findCleanerByUsernameStatus(username);
-                }
-                case 11 -> {
-                    System.out.println("Enter the id of the cleaner you want to change salary:");
-                    int id = Integer.parseInt(myObj.nextLine());
-                    System.out.println("Enter the new salary for cleaner "+id);
-                    int salary = Integer.parseInt(myObj.nextLine());
-                    managerView.setSalarySatus(id, salary);
-                }
-                case 12 -> {
-                    System.out.println("Enter the id of the cleaner you want to delete");
-                    int id = Integer.parseInt(myObj.nextLine());
-                    managerView.deleteCleanerStatus(id);
-                }
-                case 13 -> {
-                    managerView.printAllCleanings();
-                }
-                case 14 -> {
-                    System.out.println("The cleaner id to show cleanings for:");
-                    int id = Integer.parseInt(myObj.nextLine());
-                    managerView.printCleaningsForCleaner(id);
-                }
-                case 15 -> {
-                    System.out.println("The room id to show cleanings for:");
-                    int id = Integer.parseInt(myObj.nextLine());
-                    managerView.printCleaningsForRoom(id);
-                }
-                case 16 -> {
+                case 1 -> managerView.changePassword();
+                case 2 -> managerView.printAllClients();
+                case 3 -> managerView.findClientByUsernameStatus();
+                case 4 -> managerView.deleteClientStatus();
+                case 5 -> managerView.printAllRooms();
+                case 6 -> managerView.addRoomStatus();
+                case 7 -> managerView.deleteRoomStatus();
+                case 8 -> managerView.updateRoomStatus();
+                case 9 -> managerView.findRoomByIdStatus();
+                case 10 -> managerView.printAllCleaners();
+                case 11 -> managerView.findCleanerByUsernameStatus();
+                case 12 -> managerView.setSalarySatus();
+                case 13 -> managerView.deleteCleanerStatus();
+                case 14 -> managerView.printAllCleanings();
+                case 15 -> managerView.printCleaningsForCleaner();
+                case 16 -> managerView.printCleaningsForRoom();
+                case 17 -> managerView.seeAllAvailableRooms();
+                case 18 -> managerView.seeAllReservations();
+                case 19 -> {
                     System.out.println("Bye!!!");
                     System.exit(0);
                 }
-                case 17 -> {
-
-                    System.out.println("When will you be staying with us ?");
-                    System.out.print("From year = ");
-                    int year  =  Integer.parseInt(myObj.nextLine());
-
-                    System.out.print("month = ");
-                    int month = Integer.parseInt(myObj.nextLine());
-
-                    System.out.print("day = ");
-                    int day = Integer.parseInt(myObj.nextLine());
-
-                    LocalDate from = LocalDate.of(year,month,day);
-                    System.out.print("To year = ");
-                    int year2  =  Integer.parseInt(myObj.nextLine());
-
-                    System.out.print("month = ");
-                    int month2 = Integer.parseInt(myObj.nextLine());
-
-                    System.out.print("day = ");
-                    int day2 = Integer.parseInt(myObj.nextLine());
-
-                    LocalDate to = LocalDate.of(year2,month2,day2);
-                    List<Room> rooms =   clientController.searchAvailableRoom(from,to);
-                    for (Room r : rooms)
-                    {
-                        System.out.println(r.toString());
-                    }
-                }
-                case 18 -> {
-                    managerView.seeAllReservations();
-                }
                 default -> System.out.println("Not a valid option!");
             }
-
-
-
         managerMenu();
     }
 

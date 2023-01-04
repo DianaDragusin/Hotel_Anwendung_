@@ -2,13 +2,10 @@ package service;
 
 import model.*;
 import repository.ICleanerRepository;
-import repository.ICleaningRepository;
 import repository.IClientRespository;
 import repository.IRoomRepository;
-import repository.databaseRepo.*;
 import utils.CustomIllegalArgument;
 
-import javax.swing.plaf.OptionPaneUI;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -308,25 +305,20 @@ public class ClientController {
 
     }
 
-    public String changePassword(int id, String newPassword) {
-
+    public void changePassword(int id, String newPassword) {
         Client c = clientRepo.findById(id);
         c.setPassword(newPassword);
-        System.out.println(c.toString());
-        System.out.println(c.getPassword());
         clientRepo.update(id,c);
-        return "Password changed successfully!";
     }
 
-    public boolean findUser(String username) {
-        Client c = clientRepo.findByUsername(username);
-        return c != null;
+    public Client findClientByUsername(String username) {
+        return clientRepo.findByUsername(username);
 
     }
 
-    public void addCoupon(Coupon c, int client_id)
+    public void addCoupon(Coupon c, int clientId)
     {
-        clientRepo.addCoupon(c,client_id);
+        clientRepo.addCoupon(c,clientId);
     }
     public void removeCoupon(int couponid, int client_id)
     {

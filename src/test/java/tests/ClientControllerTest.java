@@ -131,11 +131,8 @@ class ClientControllerTest {
         Option option = new Option(100,rooms);
         clientController.makeReservation(option,client.getId(),LocalDate.of(2003,2,1), LocalDate.of(2003,2,3));
 
-        int resId = client.getReservationList().size() - 1;
-
-        Reservation r = client.getReservationList().get(resId);
-
-        CustomIllegalArgument exception = assertThrows(CustomIllegalArgument.class, () -> clientController.deleteReservation(resId+1,client.getId()));
+        Reservation r = client.getReservationList().get(0);
+        CustomIllegalArgument exception = assertThrows(CustomIllegalArgument.class, () -> clientController.deleteReservation(2,client.getId()));
         assertEquals("Reservation not found!", exception.getMessage());
         System.out.println("Delete Reservation works!");
 

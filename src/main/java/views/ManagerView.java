@@ -4,18 +4,23 @@ import model.*;
 import service.ClientController;
 import service.ManagerController;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
 public class ManagerView {
-    public ManagerController managercontroller;
+    private ManagerController managercontroller;
+    private Scanner myObj;
 
     public ManagerView(ManagerController managercontroller) {
         this.managercontroller = managercontroller;
+        this.myObj = new Scanner(System.in);
     }
 
-    public boolean loginStatus( String password)
+    public boolean loginStatus()
     {
+        System.out.println("Please enter your password:");
+        String password = myObj.nextLine();
         try {
             managercontroller.login(password);
             System.out.println("Welcome to your designated space\n" );
@@ -26,9 +31,6 @@ public class ManagerView {
             System.out.println(exception.getMessage());
             return false;
         }
-
-
-
     }
 
     // CLIENT
@@ -42,8 +44,11 @@ public class ManagerView {
             System.out.println(c.toString());
         }
     }
-    public void findClientByUsernameStatus(String username)
+    public void findClientByUsernameStatus()
     {
+        System.out.println("Enter the username of the client you want to find:");
+        String username = myObj.nextLine();
+
         Client client = managercontroller.findClientByUsername(username);
 
         if (client == null)
@@ -55,8 +60,10 @@ public class ManagerView {
             System.out.println("The client is:\n"+client+"\n");
         }
     }
-    public void deleteClientStatus(int id)
+    public void deleteClientStatus()
     {
+        System.out.println("Enter the id of the client you want to delete:");
+        int id = Integer.parseInt(myObj.nextLine());
         try{
             managercontroller.deleteClient(id);
             System.out.println("Client successfully deleted!\n");
@@ -77,7 +84,26 @@ public class ManagerView {
             System.out.println(r.toString());
         }
     }
-    public void addRoomStatus(Type type, Double price, int nrPers){
+    public void addRoomStatus(){
+        System.out.println("Enter the data of the room you want to create:");
+        System.out.println("Enter type (1-SINGLE, 2-DOUBLE, 3-TRIPLE, 4-APARTMENT:");
+        int typeint = Integer.parseInt(myObj.nextLine());
+        Type type;
+        if(typeint == 1){
+            type = Type.SINGLE;
+        }else if (typeint == 2){
+            type = Type.DOUBLE;
+        } else if (typeint == 3){
+            type = Type.TRIPLE;
+        }else {
+            type = Type.APARTMENT;
+        }
+
+        System.out.println("Enter price:");
+        double price = myObj.nextDouble();
+        System.out.println("Enter capacity (persons):");
+        int nrPers = Integer.parseInt(myObj.nextLine());
+
         try{
             managercontroller.addRoom(type,price,nrPers);
             System.out.println("Room successfully added!\n");
@@ -85,21 +111,40 @@ public class ManagerView {
         }catch (Exception exception){
             System.out.println(exception.getMessage());
         }
-
-
     }
-    public void deleteRoomStatus(int id)
+    public void deleteRoomStatus()
     {
-
-        if(managercontroller.deleteRoom(id)!=null){
+        System.out.println("Enter the id of the room you want to delete:");
+        int id = Integer.parseInt(myObj.nextLine());
+        if(managercontroller.deleteRoom(id) != null){
             System.out.println("Room deleted successfully!\n");
         }
         else {
             System.out.println("Room not found! Check the id and try again!\n");
         }
     }
-    public void updateRoomStatus(int id, Type type, double price, int nrPers)
+    public void updateRoomStatus()
     {
+        System.out.println("Enter the id of the room you want to update:");
+        int id = Integer.parseInt(myObj.nextLine());
+
+        System.out.println("Enter new type (1-SINGLE, 2-DOUBLE, 3-TRIPLE, 4-APARTMENT:");
+        int typeint = Integer.parseInt(myObj.nextLine());
+        Type type;
+        if(typeint == 1){
+            type = Type.SINGLE;
+        }else if (typeint == 2){
+            type = Type.DOUBLE;
+        } else if (typeint == 3){
+            type = Type.TRIPLE;
+        }else {
+            type = Type.APARTMENT;
+        }
+
+        System.out.println("Enter new price:");
+        int price = Integer.parseInt(myObj.nextLine());
+        System.out.println("Enter new capacity (persons):");
+        int nrPers = Integer.parseInt(myObj.nextLine());
         Room room = managercontroller.findRoomById(id);
         if(room != null) {
 
@@ -109,8 +154,10 @@ public class ManagerView {
             System.out.println("Room not found! Check the id and try again!\n");
         }
     }
-    public void findRoomByIdStatus(int id)
+    public void findRoomByIdStatus()
     {
+        System.out.println("Enter the id of the room you want to find:");
+        int id = Integer.parseInt(myObj.nextLine());
         Room room = managercontroller.findRoomById(id);
 
         if (room == null)
@@ -134,8 +181,11 @@ public class ManagerView {
             System.out.println(c.toString());
         }
     }
-    public void findCleanerByUsernameStatus(String username)
+    public void findCleanerByUsernameStatus()
     {
+        System.out.println("Enter the username of the cleaner you want to find:");
+        String username = myObj.nextLine();
+
         Cleaner cleaner = managercontroller.findCleanerByUsername(username);
 
         if (cleaner == null)
@@ -147,8 +197,13 @@ public class ManagerView {
             System.out.println("The cleaner is:\n"+cleaner+"\n");
         }
     }
-    public void setSalarySatus(int id, int salary)
+    public void setSalarySatus()
     {
+        System.out.println("Enter the id of the cleaner you want to change salary:");
+        int id = Integer.parseInt(myObj.nextLine());
+        System.out.println("Enter the new salary for cleaner "+ id);
+        int salary = Integer.parseInt(myObj.nextLine());
+
         Cleaner cleaner = managercontroller.findCleanerById(id);
         if(cleaner == null){
             System.out.println("Cleaner was not found. Check the username and try again!\n");
@@ -163,7 +218,10 @@ public class ManagerView {
         }
 
     }
-    public void deleteCleanerStatus(int id){
+    public void deleteCleanerStatus(){
+        System.out.println("Enter the id of the cleaner you want to delete");
+        int id = Integer.parseInt(myObj.nextLine());
+
         Cleaner cleaner = managercontroller.findCleanerById(id);
         if(cleaner == null){
             System.out.println("Cleaner was not found. Check the username and try again!\n");
@@ -175,8 +233,11 @@ public class ManagerView {
 
     // CLEANING
 
-    public void printCleaningsForCleaner(int cleanerId)
+    public void printCleaningsForCleaner()
     {
+        System.out.println("The cleaner id to show cleanings for:");
+        int cleanerId = Integer.parseInt(myObj.nextLine());
+
         List <Cleaning> cleanings = managercontroller.getCleanerCleanings(cleanerId);
         for (Cleaning cleaning : cleanings)
         {
@@ -186,9 +247,12 @@ public class ManagerView {
             System.out.println("There is no cleaned rooms by this cleaner.");
         }
     }
-    public void printCleaningsForRoom(int roomid)
+    public void printCleaningsForRoom()
     {
-        List <Cleaning> cleanings = managercontroller.getRoomCleanings(roomid);
+        System.out.println("The room id to show cleanings for:");
+        int roomId = Integer.parseInt(myObj.nextLine());
+
+        List <Cleaning> cleanings = managercontroller.getRoomCleanings(roomId);
         for (Cleaning cleaning : cleanings)
         {
             System.out.println(cleaning.toString());
@@ -213,4 +277,39 @@ public class ManagerView {
         System.out.println('\n');
     }
 
+    public void seeAllAvailableRooms() {
+
+        System.out.println("When will you be staying with us ?");
+        System.out.print("From year = ");
+        int year  =  Integer.parseInt(myObj.nextLine());
+
+        System.out.print("month = ");
+        int month = Integer.parseInt(myObj.nextLine());
+
+        System.out.print("day = ");
+        int day = Integer.parseInt(myObj.nextLine());
+
+        LocalDate from = LocalDate.of(year,month,day);
+        System.out.print("To year = ");
+        int year2  =  Integer.parseInt(myObj.nextLine());
+
+        System.out.print("month = ");
+        int month2 = Integer.parseInt(myObj.nextLine());
+
+        System.out.print("day = ");
+        int day2 = Integer.parseInt(myObj.nextLine());
+
+        LocalDate to = LocalDate.of(year2,month2,day2);
+        List<Room> rooms =   managercontroller.searchAvailableRoom(from,to);
+        for (Room r : rooms)
+        {
+            System.out.println(r.toString());
+        }
+    }
+    public void changePassword() {
+        System.out.println("Enter the new password:");
+        String password = myObj.nextLine();
+        managercontroller.changePassword(password);
+        System.out.println("Password changed successfully!");
+    }
 }

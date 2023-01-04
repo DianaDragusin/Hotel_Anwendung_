@@ -9,6 +9,7 @@ import repository.databaseRepo.*;
 import utils.CustomIllegalArgument;
 import views.ManagerView;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,9 +38,8 @@ public class ManagerController {
         }
 
     }
-    public String changePassword(String password){
+    public void changePassword(String password){
         this.password=password;
-        return "Password changed successfully!";
     }
 
     // CLIENT
@@ -66,6 +66,17 @@ public class ManagerController {
     // ROOM
 
 
+    public List<Room> searchAvailableRoom(LocalDate checkIn, LocalDate checkOut)  {
+        List<Room> rooms = roomRepo.getAll();
+        List<Room> unavailableRooms = clientRepo.returnAllUnAvailableRooms(checkIn, checkOut);
+        for (Room r : unavailableRooms )
+        {
+            rooms.remove(r);
+
+        }
+        return rooms;
+
+    }
     public List<Room> seeAllRooms(){
         return roomRepo.getAll();
     }
