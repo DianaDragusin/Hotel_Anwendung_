@@ -5,13 +5,11 @@ import repository.ICleanerRepository;
 import repository.ICleaningRepository;
 import repository.IClientRespository;
 import repository.IRoomRepository;
-import repository.databaseRepo.*;
 import utils.CustomIllegalArgument;
-import views.ManagerView;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ManagerController {
     private String password;
@@ -31,12 +29,8 @@ public class ManagerController {
 
     // PASSWORD
 
-    public void login(String password) throws CustomIllegalArgument {
-        if (!password.equals(this.password))
-        {
-            throw  new CustomIllegalArgument("Invalid password");
-        }
-
+    public boolean login(String password) {
+        return password.equals(this.password);
     }
     public void changePassword(String password){
         this.password=password;
@@ -47,35 +41,29 @@ public class ManagerController {
     public List<Client> seeAllClients(){
         return clientRepo.getAll();
     }
-    public Client findClientById(int id){
-        return clientRepo.findById(id);
+    public Client findClientByUsername(String username) {
+        return clientRepo.findByUsername(username);
     }
-    public Client findClientByUsername(String username){return clientRepo.findByUsername(username);}
-    public void deleteClient(Integer id) throws  CustomIllegalArgument{
-        Client C = clientRepo.findById(id);
-        if(C!=null){
+    public Client deleteClient(Integer id) {
+        Client c = clientRepo.findById(id);
+        if(c != null){
             clientRepo.delete(id);
-
         }
-        else{
-            throw  new CustomIllegalArgument("There is no client with this id in our database!");
-        }
+        return c;
     }
 
 
     // ROOM
 
 
-    public List<Room> searchAvailableRoom(LocalDate checkIn, LocalDate checkOut)  {
-        List<Room> rooms = roomRepo.getAll();
+    public List<Room> searchAvailableRooms(LocalDate checkIn, LocalDate checkOut) {
+        List<Room> rooms = new ArrayList<>(roomRepo.getAll());
         List<Room> unavailableRooms = clientRepo.returnAllUnAvailableRooms(checkIn, checkOut);
         for (Room r : unavailableRooms )
         {
             rooms.remove(r);
-
         }
         return rooms;
-
     }
     public List<Room> seeAllRooms(){
         return roomRepo.getAll();
@@ -101,45 +89,26 @@ public class ManagerController {
         }
         return false;
     }
-    public void addRoom(Type type, double price, int nrPers) throws  CustomIllegalArgument{
-
-        if (checkTypeRoom(type,nrPers))
-        {
+    public void addRoom(Type type, double price, int nrPers) {
+        if (checkTypeRoom(type,nrPers)) {
             roomRepo.add(new Room(type,price,nrPers));
         }
-        else throw  new CustomIllegalArgument("Type must be equal to the number of persons in meaning");
-
     }
+
     public Room deleteRoom(Integer id){
         Room r = roomRepo.findById(id);
-        if(r != null )
-        {
-
-            for (Cleaning cleaning : getRoomCleanings(id))
-            {
+        if(r != null ) {
+            for (Cleaning cleaning : getRoomCleanings(id)) {
                 cleaningRepo.deleteCleaning(cleaning);
             }
-            roomRepo.delete(id);
-            /*
-            for (Client client : clientRepo.getAll() )
-            {
-                for(Reservation reservation : client.getReservationList())
-                {
-                    for (Room room : reservation.getRooms())
-                    {
-                        if (room.getId() == id)
-                        {
-                            clientRepo.removeReservation(reservation.getId(),client.getId());
-
-                        }
+            for(Reservation res : this.findReservationsForRoom(id)){
+                for(Client client : clientRepo.getAll()){
+                    if(client.getReservationList().contains(res)){
+                        clientRepo.removeReservation(res.getId(), client.getId());
                     }
-
                 }
             }
-
-             */
-
-
+            roomRepo.delete(id);
             return r;
         }
         return null;
@@ -211,6 +180,17 @@ public class ManagerController {
 
     public List<Reservation> seeAllReservations(){
         return clientRepo.getAllReservations();
+    }
+
+    public List<Reservation> findReservationsForRoom(int rid){
+        List<Reservation> reservations = new ArrayList<>();
+        Room r = roomRepo.findById(rid);
+        for(Reservation res : this.seeAllReservations()){
+            if(res.getRooms().contains(r)){
+                reservations.add(res);
+            }
+        }
+        return reservations;
     }
 
 }

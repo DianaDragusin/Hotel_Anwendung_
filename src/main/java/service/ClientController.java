@@ -28,15 +28,13 @@ public class ClientController {
     }
     // make private
     public List<Room> searchAvailableRoom(LocalDate checkIn, LocalDate checkOut)  {
-        List<Room> rooms = roomRepo.getAll();
+        List<Room> rooms = new ArrayList<>(roomRepo.getAll());
         List<Room> unavailableRooms = clientRepo.returnAllUnAvailableRooms(checkIn, checkOut);
         for (Room r : unavailableRooms )
         {
           rooms.remove(r);
-
         }
         return rooms;
-
     }
 
     public List<Coupon> showCoupons(Integer id) {
@@ -125,13 +123,14 @@ public class ClientController {
         }
         return optionMinPreis;
     }
-    public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrTotalPers) throws CustomIllegalArgument{
+    public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrTotalPers){
         List<Room> availableRooms = searchAvailableRoom(checkIn,checkOut);
 
 
         if (availableRooms.size()<1)
         {
-            throw new CustomIllegalArgument("There are no available rooms in this period");
+            System.out.println("There is no available room, sorry!");
+            return null;
         }
 
         //nrPersList va fi lista de nrPersoane din fiecare camera
@@ -254,42 +253,33 @@ public class ClientController {
     }
 
 
-    public void deleteReservation(int resId, int clientId) throws  CustomIllegalArgument {
-        if (findReservationById(clientId,resId) != null) {
+    public Reservation deleteReservation(int resId, int clientId) {
+        Reservation r = findReservationById(clientId,resId);
+        if (r != null) {
             clientRepo.removeReservation(resId, clientId);
+            return r;
         }
-        else {
-            throw new CustomIllegalArgument("Reservation not found!");
-        }
-
-
-
-
+        return null;
     }
 
     public List<Reservation> seeAllReservations(int id) {
         return clientRepo.getReservationsForClient(id);
     }
 
-    public void register(String firstName, String lastName, String username, String password) throws CustomIllegalArgument{
-        Client c = clientRepo.findByUsername(username);
-
-        if (c == null) {
-            clientRepo.add(new Client(firstName, lastName, username, password));
-
-        } else throw new CustomIllegalArgument("There is already a user with this username in our system");
+    public Client register(String firstName, String lastName, String username, String password) {
+        if (clientRepo.findByUsername(username) == null){
+            Client c = new Client(firstName,lastName,username,password);
+            clientRepo.add(c);
+            return c;
+        }
+        return null;
     }
 
-    public void changeDetails(String newfirstName, String newlastName, int id) throws  CustomIllegalArgument {
-        Client client = clientRepo.findById(id);
-        if (client != null) {
-            Client c = new Client(newfirstName, newlastName, client.getUsername(), client.getPassword());
-            c.setCouponList(client.getCouponList());
-            clientRepo.update(id, c);
-
-
-        } else throw new CustomIllegalArgument("You are not in our database");
-
+    public void changeDetails(String newFirstName, String newLastName, int id) {
+        if (clientRepo.findById(id)!=null) {
+            clientRepo.findById(id).setFirstName(newFirstName);
+            clientRepo.findById(id).setLastName(newLastName);
+        }
     }
 
     public void login(String username, String password)throws CustomIllegalArgument {

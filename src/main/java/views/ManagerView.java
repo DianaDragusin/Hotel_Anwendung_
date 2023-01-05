@@ -1,7 +1,6 @@
 package views;
 
 import model.*;
-import service.ClientController;
 import service.ManagerController;
 
 import java.time.LocalDate;
@@ -21,21 +20,17 @@ public class ManagerView {
     {
         System.out.println("Please enter your password:");
         String password = myObj.nextLine();
-        try {
-            managercontroller.login(password);
+        if(managercontroller.login(password)) {
             System.out.println("Welcome to your designated space\n" );
             return true;
-
-        }catch (Exception exception)
-        {
-            System.out.println(exception.getMessage());
-            return false;
         }
+        System.out.println("Invalid password!");
+        return false;
     }
 
     // CLIENT
 
-    public void  printAllClients()
+    public void printAllClients()
     {
         List<Client> clients =  managercontroller.seeAllClients();
         System.out.println("These clients are in our system\n");
@@ -63,13 +58,12 @@ public class ManagerView {
     public void deleteClientStatus()
     {
         System.out.println("Enter the id of the client you want to delete:");
-        int id = Integer.parseInt(myObj.nextLine());
         try{
+            int id = Integer.parseInt(myObj.nextLine());
             managercontroller.deleteClient(id);
             System.out.println("Client successfully deleted!\n");
-        }catch (Exception exception)
-        {
-            System.out.println(exception.getMessage());
+        }catch (Exception exception) {
+            System.out.println("Invalid input type!");
         }
     }
 
@@ -78,38 +72,42 @@ public class ManagerView {
     public void printAllRooms ()
     {
         List<Room> rooms =  managercontroller.seeAllRooms();
-        System.out.println("These rooms are in our system:\n");
-        for (Room r: rooms)
-        {
-            System.out.println(r.toString());
+        if(rooms.size() == 0){
+            System.out.println("There is no room yet!");
+        }
+        else {
+            System.out.println("These rooms are in our system:\n");
+            for (Room r: rooms)
+            {
+                System.out.println(r.toString());
+            }
         }
     }
     public void addRoomStatus(){
         System.out.println("Enter the data of the room you want to create:");
         System.out.println("Enter type (1-SINGLE, 2-DOUBLE, 3-TRIPLE, 4-APARTMENT:");
-        int typeint = Integer.parseInt(myObj.nextLine());
-        Type type;
-        if(typeint == 1){
-            type = Type.SINGLE;
-        }else if (typeint == 2){
-            type = Type.DOUBLE;
-        } else if (typeint == 3){
-            type = Type.TRIPLE;
-        }else {
-            type = Type.APARTMENT;
-        }
+        try {
+            int typeint = Integer.parseInt(myObj.nextLine());
+            Type type;
+            if(typeint == 1){
+                type = Type.SINGLE;
+            }else if (typeint == 2){
+                type = Type.DOUBLE;
+            } else if (typeint == 3){
+                type = Type.TRIPLE;
+            }else {
+                type = Type.APARTMENT;
+            }
 
-        System.out.println("Enter price:");
-        double price = myObj.nextDouble();
-        System.out.println("Enter capacity (persons):");
-        int nrPers = Integer.parseInt(myObj.nextLine());
-
-        try{
+            System.out.println("Enter price:");
+            double price = myObj.nextDouble();
+            System.out.println("Enter capacity (persons):");
+            int nrPers = Integer.parseInt(myObj.nextLine());
             managercontroller.addRoom(type,price,nrPers);
             System.out.println("Room successfully added!\n");
 
-        }catch (Exception exception){
-            System.out.println(exception.getMessage());
+        } catch (Exception exception) {
+            System.out.println("Invalid input type!");
         }
     }
     public void deleteRoomStatus()
@@ -300,7 +298,7 @@ public class ManagerView {
         int day2 = Integer.parseInt(myObj.nextLine());
 
         LocalDate to = LocalDate.of(year2,month2,day2);
-        List<Room> rooms =   managercontroller.searchAvailableRoom(from,to);
+        List<Room> rooms =   managercontroller.searchAvailableRooms(from,to);
         for (Room r : rooms)
         {
             System.out.println(r.toString());

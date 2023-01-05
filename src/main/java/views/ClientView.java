@@ -28,15 +28,8 @@ public class ClientView {
         {
             System.out.println(c.toString());
         }
-        return  clientcontroller.showCoupons(id);
+        return clientcontroller.showCoupons(id);
     }
-
-   /// public  void printOptions (LocalDate checkin, LocalDate checkout ,int nrperson )
-   // {
-     //   List<Option>options = clientcontroller.generateOptions(checkin,checkout,nrperson);
-
-
-   // }
 
     public void  printAllReservations (int id)
     {
@@ -66,17 +59,19 @@ public class ClientView {
     }
     public void deleteReservationStatus(int clientId)  {
         System.out.println("Which reservation would you like to delete? Ans = ");
-        int resId = Integer.parseInt(myObj.nextLine());
         try
         {
-            clientcontroller.deleteReservation(resId,clientId);
-            System.out.println("Reservation deleted successfully!");
+            int resId = Integer.parseInt(myObj.nextLine());
+            if(clientcontroller.deleteReservation(resId,clientId) != null){
+                System.out.println("Reservation deleted successfully!");
+            }
+            else {
+                System.out.println("Reservation not found!");
+            }
         }catch (Exception exception)
         {
-            System.out.println(exception.getMessage());
+            System.out.println("Invalid input type!");
         }
-
-
     }
     public Client registerStatus()
     {
@@ -84,33 +79,22 @@ public class ClientView {
         String firstName = myObj.nextLine();
         System.out.println("Please enter your last Name:");
         String lastName = myObj.nextLine();
-        System.out.println("Please enter your username:");
-        String username = myObj.nextLine();
-        if (clientcontroller.findClientByUsername(username) != null)
-        {
-            while(clientcontroller.findClientByUsername(username) != null) {
-                System.out.println("This username is already taken.");
-                System.out.println("Please enter your username:");
-                username = myObj.nextLine();
+        String username;
+        do{
+            System.out.println("Please enter your username:");
+            username = myObj.nextLine();
+            if(clientcontroller.findClientByUsername(username)!= null){
+                System.out.println("This username is already Taken.");
             }
+        } while(clientcontroller.findClientByUsername(username)!= null);
 
-        }
         System.out.println("Please enter your password:");
         String password = myObj.nextLine();
-        try
-        {
-            clientcontroller.register(firstName, lastName,username,password);
-            System.out.println("Client registered successfully!" );
-            return clientcontroller.findClientByUsername(username);
-
-        }catch (Exception exception)
-        {
-            System.out.println(exception.getMessage());
-            return  null;
+        Client c = clientcontroller.register(firstName,lastName,username,password);
+        if(c != null){
+            System.out.println("Client registered successfully!");
         }
-
-
-
+        return c;
     }
     public void printDetails(int id)
     {
@@ -119,30 +103,15 @@ public class ClientView {
         System.out.println("Name: " + client.getLastName() + " " + client.getFirstName());
         System.out.println("Username: " + client.getUsername());
         System.out.println("Password: " + client.getPassword());
-        // System.out.println("Coupons " + client.getCouponList());
-        // System.out.println("Reservations: " + client.getReservationList());
-
+        System.out.println("Coupons " + client.getCouponList());
     }
-    public boolean changeDetailsStatus (int id)
+    public void changeDetailsStatus (int id)
     {
-        System.out.println("\n");
         System.out.println("Enter your new First Name:");
         String newFirstName = myObj.nextLine();
-        System.out.println("\n");
         System.out.println("Enter your new Last Name:");
         String newLastName = myObj.nextLine();
-        System.out.println("\n");
-        try
-        {
-            clientcontroller.changeDetails(newFirstName, newLastName,id);
-            System.out.println("User has changed its first and last name succsesfully \n" );
-            return true;
-
-        }catch (Exception exception)
-        {
-            System.out.println(exception.getMessage());
-            return  false;
-        }
+        clientcontroller.changeDetails(newFirstName, newLastName, id);
     }
 
     public Client loginStatus()
@@ -167,10 +136,6 @@ public class ClientView {
 
 
 
-    }
-    public Client findClientByUsernameStatus(String username)
-    {
-        return clientcontroller.findClientByUsername(username);
     }
     public void changePasswordStatus(int id)
     {
@@ -220,58 +185,46 @@ public class ClientView {
             people = Integer.parseInt(myObj.nextLine());
 
             System.out.println("These are your coupons: ");
-//            couplist = clientcontroller.showCoupons(clientId);
             this.showCoupons(clientId);
-            System.out.println("Which coupon would you like to use? Type -1 if you wont like to use any \n");
+            System.out.println("Which coupon would you like to use? Type -1 if you won't like to use any \n");
             System.out.println("coupon = ");
             couponans = Integer.parseInt(myObj.nextLine());
 
-        }catch (Exception exception)
+        } catch (Exception exception)
         {
-            System.out.println(exception.getMessage());
+            System.out.println("Invalid input type!");
         }
 
-        List<Option> options = new ArrayList<>();
         Scanner myObj = new Scanner(System.in);
-        try
-        {
-            options = clientcontroller.generateOptions(from,to,people);
-            System.out.println("Options:");
-            printOptions(options);
-            System.out.println("What option do you prefer:");
-            try {
-                int optionnr = Integer.parseInt(myObj.nextLine());
 
-                if (couponans >-1 && options.size() > 0)
-                {
-                        // nest another level
-                        makeReservationWithCouponStatus(findOptionById(options,optionnr),couponans, clientId,from,to);
-                        clientcontroller.removeCoupon(couponans,clientId);
-                }
-                else if(couponans == -1 && options.size() > 0)
-                {
-                    // nest another level
-                    makeReservationStatus(findOptionById(options,optionnr), clientId,from,to);
-
-                    if (clientcontroller.seeAllReservations(clientId).size() %2 == 0)
-                    {
-                        int random_int = (int)Math.floor(Math.random()*(90-10+1)+10)/10;
-                        random_int = random_int * 10;
-
-                        Coupon coupon = new Coupon(random_int);
-                        clientcontroller.addCoupon(coupon,clientId);
-                    }
-                }
-
-            }catch (Exception exception)
+        List<Option> options = clientcontroller.generateOptions(from,to,people);
+        if(options == null){
+            return;
+        }
+        System.out.println("Options:");
+        this.printOptions(options);
+        System.out.println("What option do you prefer:");
+        try {
+            int optionnr = Integer.parseInt(myObj.nextLine());
+            if (couponans >-1 && options.size() > 0)
             {
-                System.out.println(exception.getMessage());
+                makeReservationWithCouponStatus(findOptionById(options,optionnr),couponans, clientId,from,to);
+                clientcontroller.removeCoupon(couponans,clientId);
             }
+            else if(couponans == -1 && options.size() > 0)
+            {
+                makeReservationStatus(findOptionById(options,optionnr), clientId,from,to);
+                if (clientcontroller.seeAllReservations(clientId).size() %2 == 0)
+                {
+                    int random_int = (int)Math.floor(Math.random()*(90-10+1)+10)/10;
+                    random_int = random_int * 10;
 
-
-        }catch (Exception exception)
-        {
-            System.out.println(exception.getMessage());
+                    Coupon coupon = new Coupon(random_int);
+                    clientcontroller.addCoupon(coupon,clientId);
+                }
+            }
+        } catch (Exception exception) {
+            System.out.println("Invalid input type!");
         }
     }
 
