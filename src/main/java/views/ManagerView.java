@@ -100,7 +100,7 @@ public class ManagerView {
             }
 
             System.out.println("Enter price:");
-            double price = myObj.nextDouble();
+            double price = Double.parseDouble(myObj.nextLine());
             System.out.println("Enter capacity (persons):");
             int nrPers = Integer.parseInt(myObj.nextLine());
             managercontroller.addRoom(type,price,nrPers);
@@ -268,9 +268,13 @@ public class ManagerView {
     }
 
     public void seeAllReservations(){
-        List<Reservation> reservations = managercontroller.seeAllReservations();
-        for(Reservation r : reservations){
-            System.out.println(r);
+        for(Client client : managercontroller.seeAllClients()){
+            if(managercontroller.findReservationsForClient(client).size() != 0){
+                System.out.println(client.getUsername());
+                for(Reservation r : managercontroller.findReservationsForClient(client)){
+                    System.out.println(r);
+                }
+            }
         }
         System.out.println('\n');
     }

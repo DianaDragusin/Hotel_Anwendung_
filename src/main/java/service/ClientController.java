@@ -7,10 +7,7 @@ import repository.IRoomRepository;
 import utils.CustomIllegalArgument;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class ClientController {
@@ -24,7 +21,13 @@ public class ClientController {
         this.clientRepo = clientRepo;
         this.roomRepo = roomRepo;
         this.cleanerRepo = cleanerRepo;
-
+        populateReservation();
+    }
+    private void populateReservation(){
+        Option option1 = new Option(600,new ArrayList<>(Arrays.asList(roomRepo.findById(1),roomRepo.findById(2))));
+        makeReservation(option1,1,LocalDate.of(2022,12,12), LocalDate.of(2022,12,14));
+        Option option2 = new Option(1000,new ArrayList<>(Collections.singletonList(roomRepo.findById(9))));
+        makeReservation(option2,1,LocalDate.of(2023,2,1), LocalDate.of(2023,2,15));
     }
     // make private
     public List<Room> searchAvailableRoom(LocalDate checkIn, LocalDate checkOut)  {

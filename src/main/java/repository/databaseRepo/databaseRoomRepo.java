@@ -56,7 +56,7 @@ public class databaseRoomRepo implements IRoomRepository {
         manager.getTransaction().begin();
         Room room = manager.find(Room.class,roomId);
 
-       // Reservation reservationDatabase  = manager.find(Reservation.class,resIid);
+       // Reservation reservationDatabase = manager.find(Reservation.class,resIid);
        // Client clientDatabase = manager.find(Client.class,clientId);
         Query query = manager.createNativeQuery("SELECT reservation_id FROM reservation_room where room_id=:idc");
         query.setParameter("idc", Integer.toString(roomId));
@@ -90,11 +90,7 @@ public class databaseRoomRepo implements IRoomRepository {
         query.setParameter("idRoom", Integer.toString(roomId));
         query.executeUpdate();
         manager.getTransaction().commit();
-
-
-         */
-
-
+        */
     }
 
     @Override

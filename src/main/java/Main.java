@@ -1,6 +1,10 @@
 import model.*;
 
 import org.hibernate.Session;
+import repository.ICleanerRepository;
+import repository.IRoomRepository;
+import repository.databaseRepo.databaseCleanerRepo;
+import repository.databaseRepo.databaseRoomRepo;
 import repository.inMemoryRepo.*;
 import service.CleanerController;
 import service.ClientController;
@@ -160,7 +164,8 @@ EntityManagerFactory factory = Persistence.createEntityManagerFactory("default")
 
         System.out.println(rooms);
  */
-        boolean memory = true;
+
+        boolean memory = false;
         //niste cod care se executa de fiecare data cand programul se termina sau il oprim
         //se sterge baza de date si se creeaza alta goala
         if(!memory){
@@ -182,8 +187,6 @@ EntityManagerFactory factory = Persistence.createEntityManagerFactory("default")
 
          Ui ui = new Ui(memory);
          ui.showMenu();
-
-
 
     }
 

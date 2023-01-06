@@ -5,10 +5,12 @@ import repository.ICleanerRepository;
 import repository.ICleaningRepository;
 import repository.IClientRespository;
 import repository.IRoomRepository;
+import repository.inMemoryRepo.InMemoryRoomRepo;
 import utils.CustomIllegalArgument;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ManagerController {
@@ -95,16 +97,36 @@ public class ManagerController {
         }
     }
 
+//    public Room deleteRoom(Integer id){
+//        Room r = roomRepo.findById(id);
+//        if(r != null ) {
+//            for (Cleaning cleaning : getRoomCleanings(id)) {
+//                cleaningRepo.deleteCleaning(cleaning);
+//            }
+//            roomRepo.delete(id);
+//            for(Client client : clientRepo.getAll()){
+//                for(Reservation res : client.getReservationList()){
+//                    if (res.getRooms().contains(r)){
+//                        clientRepo.removeReservation(res.getId(), client.getId());
+//                    }
+//                }
+//            }
+//            return r;
+//        }
+//        return null;
+//    }
     public Room deleteRoom(Integer id){
         Room r = roomRepo.findById(id);
         if(r != null ) {
             for (Cleaning cleaning : getRoomCleanings(id)) {
                 cleaningRepo.deleteCleaning(cleaning);
             }
-            for(Reservation res : this.findReservationsForRoom(id)){
-                for(Client client : clientRepo.getAll()){
-                    if(client.getReservationList().contains(res)){
-                        clientRepo.removeReservation(res.getId(), client.getId());
+            if(roomRepo instanceof InMemoryRoomRepo){
+                for(Reservation res : this.findReservationsForRoom(id)){
+                    for(Client client : clientRepo.getAll()){
+                        if(clientRepo.getReservationsForClient(client.getId()).contains(res)){
+                            clientRepo.removeReservation(res.getId(), client.getId());
+                        }
                     }
                 }
             }
@@ -193,4 +215,7 @@ public class ManagerController {
         return reservations;
     }
 
+    public List<Reservation> findReservationsForClient(Client client) {
+        return clientRepo.getReservationsForClient(client.getId());
+    }
 }

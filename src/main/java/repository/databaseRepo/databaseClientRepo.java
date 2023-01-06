@@ -7,9 +7,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 public class databaseClientRepo implements IClientRespository {
@@ -269,13 +274,53 @@ public class databaseClientRepo implements IClientRespository {
          */
     }
     public List<Reservation> getReservationsForClient(int clientId){
-        List<Reservation>reservations = new ArrayList<>();
-       // manager.getTransaction().begin();
-        Client clientDatabase = manager.find(Client.class,clientId);
-        reservations =  clientDatabase.getReservationList();
+        List<Reservation> reservations = new ArrayList<>();
+        Query query = manager.createNativeQuery("SELECT id FROM Reservation WHERE client_id=:clId");
+        query.setParameter("clId", clientId);
+        List<Integer> res_ids = (List<Integer>) query.getResultList();
+        for (int res : res_ids) {
+            Query query1 = manager.createNativeQuery("SELECT startDate FROM Reservation WHERE id=:resId");
+            query1.setParameter("resId", res);
+            Timestamp TStart = (Timestamp) query1.getSingleResult();
+            LocalDate finalStart = TStart.toLocalDateTime().toLocalDate();
 
-        //manager.getTransaction().commit();
+            Query query2 = manager.createNativeQuery("SELECT endDate FROM Reservation WHERE id=:resId");
+            query2.setParameter("resId", res);
+            Timestamp TEnd = (Timestamp) query2.getSingleResult();
+            LocalDate finalEnd = TEnd.toLocalDateTime().toLocalDate();
+
+            Query query3 = manager.createNativeQuery("SELECT price FROM Reservation WHERE id=:resId");
+            query3.setParameter("resId", res);
+            int finalPrice = (int) query3.getSingleResult();
+
+            Query query4 = manager.createNativeQuery("SELECT room_id FROM reservation_room WHERE reservation_id=:resId");
+            query4.setParameter("resId", res);
+            List<Integer> roomIds = (List<Integer>) query4.getResultList();
+
+            List<Room> finalRooms = new ArrayList<>();
+            for (int room : roomIds) {
+                Query query5 = manager.createNativeQuery("SELECT * FROM Room WHERE id=:roomId", Room.class);
+                query5.setParameter("roomId", room);
+                Room finalRoom = (Room) query5.getSingleResult();
+                finalRooms.add(finalRoom);
+            }
+            Reservation finalReservation = new Reservation();
+            finalReservation.setId(res);
+            finalReservation.setStart(finalStart);
+            finalReservation.setEnd(finalEnd);
+            finalReservation.setPrice(finalPrice);
+            finalReservation.setRooms(finalRooms);
+            reservations.add(finalReservation);
+        }
         return reservations;
+
+//        List<Reservation>reservations = new ArrayList<>();
+//       // manager.getTransaction().begin();
+//        Client clientDatabase = manager.find(Client.class,clientId);
+//        reservations =  clientDatabase.getReservationList();
+//
+//        //manager.getTransaction().commit();
+//        return reservations;
         /*
        // manager.getTransaction().begin();
         try{
@@ -298,13 +343,54 @@ public class databaseClientRepo implements IClientRespository {
 
     public List<Reservation> getAllReservations(){
        // manager.getTransaction().begin();
-        List<Client> clients = getAll();
         List<Reservation> reservations = new ArrayList<>();
-        for (Client client : clients)
-        {
-            reservations.addAll(client.getReservationList());
+        for(Client c : getAll()) {
+            Query query = manager.createNativeQuery("SELECT id FROM Reservation WHERE client_id=:clId");
+            query.setParameter("clId", c.getId());
+            List<Integer> res_ids = (List<Integer>) query.getResultList();
+
+            for (int res : res_ids) {
+                Query query1 = manager.createNativeQuery("SELECT startDate FROM Reservation WHERE id=:resId");
+                query1.setParameter("resId", res);
+                LocalDate finalStart = (LocalDate) query1.getSingleResult();
+
+                Query query2 = manager.createNativeQuery("SELECT endDate FROM Reservation WHERE id=:resId");
+                query2.setParameter("resId", res);
+                LocalDate finalEnd = (LocalDate) query2.getSingleResult();
+
+                Query query3 = manager.createNativeQuery("SELECT price FROM Reservation WHERE id=:resId");
+                query3.setParameter("resId", res);
+                int finalPrice = (int) query3.getSingleResult();
+
+                Query query4 = manager.createNativeQuery("SELECT room_id FROM reservation-room WHERE reservation_id=:resId");
+                query4.setParameter("resId", res);
+                List<Integer> roomIds = (List<Integer>) query2.getResultList();
+
+                List<Room> finalRooms = new ArrayList<>();
+                for (int room : roomIds) {
+                    Query query5 = manager.createNativeQuery("SELECT * FROM Room WHERE id=:roomId", Room.class);
+                    query5.setParameter("roomId", room);
+                    Room finalRoom = (Room) query3.getSingleResult();
+                    finalRooms.add(finalRoom);
+                }
+                Reservation finalReservation = new Reservation();
+                finalReservation.setId(res);
+                finalReservation.setStart(finalStart);
+                finalReservation.setEnd(finalEnd);
+                finalReservation.setPrice(finalPrice);
+                finalReservation.setRooms(finalRooms);
+                reservations.add(finalReservation);
+            }
         }
-        return  reservations;
+        return reservations;
+
+//        List<Client> clients = getAll();
+//        List<Reservation> reservations = new ArrayList<>();
+//        for (Client client : clients)
+//        {
+//            reservations.addAll(client.getReservationList());
+//        }
+//        return  reservations;
         /*
         List<Integer> clientIds = getAll().stream().map(Client::getId).toList();
         List<Reservation> reservations = new ArrayList<>();

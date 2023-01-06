@@ -132,8 +132,7 @@ class ClientControllerTest {
         clientController.makeReservation(option,client.getId(),LocalDate.of(2003,2,1), LocalDate.of(2003,2,3));
 
         Reservation r = client.getReservationList().get(0);
-        CustomIllegalArgument exception = assertThrows(CustomIllegalArgument.class, () -> clientController.deleteReservation(2,client.getId()));
-        assertEquals("Reservation not found!", exception.getMessage());
+        assertEquals(clientController.deleteReservation(r.getId(), client.getId()), r);
         System.out.println("Delete Reservation works!");
 
     }

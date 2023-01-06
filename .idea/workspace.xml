@@ -4,15 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="reset database after closing program&#10;moved read and write in view&#10;ui is clean an intelligible&#10;fixed error in deleteReservation test">
+    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="Fixed try catches&#10;Exceptions fixed&#10;Added exceptions in View and UI&#10;fixed errors on deleteRoom">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/CleanerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/CleanerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseClientRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseRoomRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryRoomRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ClientController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/CleanerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/CleanerView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/ClientView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/ClientView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/views/ManagerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/ManagerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/tests/ClientControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tests/ClientControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +82,7 @@
       <recent name="tests" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.ClientControllerTest">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Hotel_Anwendung" />
@@ -241,7 +243,8 @@
       <workItem from="1672768536230" duration="16029000" />
       <workItem from="1672855667796" duration="8242000" />
       <workItem from="1672864704940" duration="400000" />
-      <workItem from="1672930342935" duration="17484000" />
+      <workItem from="1672930342935" duration="18125000" />
+      <workItem from="1673015545405" duration="24766000" />
     </task>
     <task id="LOCAL-00001" summary="commit 4">
       <created>1667139692561</created>
@@ -530,7 +533,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672863836230</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Fixed try catches&#10;Exceptions fixed&#10;Added exceptions in View and UI&#10;fixed errors on deleteRoom">
+      <created>1672948658402</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1672948658402</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -548,7 +558,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="genenerate option version 1 ended, modified classes and started make reservation" />
     <MESSAGE value="ClientController done" />
     <MESSAGE value="login and register for client and cleaner plus little changes" />
     <MESSAGE value="In file + maven" />
@@ -573,6 +582,7 @@
     <MESSAGE value="modificarii var 4 la databaserepo" />
     <MESSAGE value="sorted options" />
     <MESSAGE value="reset database after closing program&#10;moved read and write in view&#10;ui is clean an intelligible&#10;fixed error in deleteReservation test" />
-    <option name="LAST_COMMIT_MESSAGE" value="reset database after closing program&#10;moved read and write in view&#10;ui is clean an intelligible&#10;fixed error in deleteReservation test" />
+    <MESSAGE value="Fixed try catches&#10;Exceptions fixed&#10;Added exceptions in View and UI&#10;fixed errors on deleteRoom" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed try catches&#10;Exceptions fixed&#10;Added exceptions in View and UI&#10;fixed errors on deleteRoom" />
   </component>
 </project>

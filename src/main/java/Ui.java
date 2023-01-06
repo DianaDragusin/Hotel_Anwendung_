@@ -98,23 +98,25 @@ public class Ui {
                 0. Exit
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
+        int option;
         try {
-            int option = Integer.parseInt(myObj.nextLine());
-            if (option == 0) {
-                System.exit(0);
-            }else {
-                if (option < 4 && option > 0) {
-                    createView(option);
-                }
-                else {
-                    System.out.println("Invalid option!");
-                    showMenu();
-                }
-            }
+            option = Integer.parseInt(myObj.nextLine());
         }
         catch (Exception exception){
             System.out.println("Invalid input type!");
             showMenu();
+            return;
+        }
+        if (option == 0) {
+            System.exit(0);
+        }else {
+            if (option < 4 && option > 0) {
+                createView(option);
+            }
+            else {
+                System.out.println("Invalid option!");
+                showMenu();
+            }
         }
     }
 
@@ -125,31 +127,30 @@ public class Ui {
                 1. Login
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
+        int option;
         try {
-            int option = Integer.parseInt(myObj.nextLine());
-            if(option == 0){
-                showMenu();
-            } else if (option == 1) {
-                if (managerView.loginStatus()) {
-                    managerMenu();
-                }
-                else{
-                    showOptionsManager();
-                }
-            }
-            else
-            {
-                System.out.println("Invalid option!");
-                showOptionsManager();
-            }
-
-        }catch (Exception exception)
+            option = Integer.parseInt(myObj.nextLine());
+        } catch (Exception exception)
         {
             System.out.println("Invalid input type!");
             showOptionsManager();
+            return;
         }
-
-
+        if(option == 0){
+            showMenu();
+        } else if (option == 1) {
+            if (managerView.loginStatus()) {
+                managerMenu();
+            }
+            else{
+                showOptionsManager();
+            }
+        }
+        else
+        {
+            System.out.println("Invalid option!");
+            showOptionsManager();
+        }
     }
     public void showOptionsClient(){
         System.out.println("""
@@ -160,33 +161,34 @@ public class Ui {
                 3. Exit
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
+        int option;
         try {
-            int option = Integer.parseInt(myObj.nextLine());
-            if (option == 3) {
-                System.exit(0);
-            }
-            if (option == 0) {
-                showMenu();
-            } else if (option == 1) {
-                Client client = clientView.loginStatus();
-                if (client != null) {
-                    clientMenu(client.getId());
-                } else {
-                    showOptionsClient();
-                }
-            } else if (option == 2) {
-                Client client = clientView.registerStatus();
-                if (client != null) {
-                    clientMenu(client.getId());
-                } else {
-                    showOptionsClient();
-                }
+            option = Integer.parseInt(myObj.nextLine());
+        } catch (Exception exception) {
+            System.out.println("Invalid input type!");
+            showOptionsClient();
+            return;
+        }
+        if (option == 3) {
+            System.exit(0);
+        }
+        if (option == 0) {
+            showMenu();
+        } else if (option == 1) {
+            Client client = clientView.loginStatus();
+            if (client != null) {
+                clientMenu(client.getId());
             } else {
                 showOptionsClient();
             }
-        }
-        catch (Exception exception) {
-            System.out.println("Invalid input type!");
+        } else if (option == 2) {
+            Client client = clientView.registerStatus();
+            if (client != null) {
+                clientMenu(client.getId());
+            } else {
+                showOptionsClient();
+            }
+        } else {
             showOptionsClient();
         }
     }
@@ -198,38 +200,40 @@ public class Ui {
                 2. Register
                 3. Exit
                 Enter your option:""");
+        Scanner myObj = new Scanner(System.in);
+        int option;
         try {
-            Scanner myObj = new Scanner(System.in);
-            int option = Integer.parseInt(myObj.nextLine());
-            if(option == 3){
-                System.exit(0);
-            }
-            if(option == 0){
-                showMenu();
-            } else if (option == 1) {
-                Cleaner cleaner = cleanerView.loginStatus();
-                if (cleaner != null) {
-                    cleanerMenu(cleaner.getUsername());
-                }
-                else{
-                    showOptionsCleaner();
-                }
-            }
-            else if (option == 2) {
-                Cleaner cleaner = cleanerView.registerStatus();
-                if (cleaner != null) {
-                    cleanerMenu(cleaner.getUsername());
-                }
-                else{
-                    showOptionsCleaner();
-                }
-            }
-            else {
-                System.out.println("Invalid option!");
-                showOptionsCleaner();
-            }
+            option = Integer.parseInt(myObj.nextLine());
         } catch (Exception exception) {
             System.out.println("Invalid input type!");
+            showOptionsCleaner();
+            return;
+        }
+        if(option == 3){
+            System.exit(0);
+        }
+        if(option == 0){
+            showMenu();
+        } else if (option == 1) {
+            Cleaner cleaner = cleanerView.loginStatus();
+            if (cleaner != null) {
+                cleanerMenu(cleaner.getUsername());
+            }
+            else{
+                showOptionsCleaner();
+            }
+        }
+        else if (option == 2) {
+            Cleaner cleaner = cleanerView.registerStatus();
+            if (cleaner != null) {
+                cleanerMenu(cleaner.getUsername());
+            }
+            else{
+                showOptionsCleaner();
+            }
+        }
+        else {
+            System.out.println("Invalid option!");
             showOptionsCleaner();
         }
     }
@@ -253,40 +257,41 @@ public class Ui {
                 
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
+        int option;
         try {
-            int option = Integer.parseInt(myObj.nextLine());
-            if (option == -1) {
-                System.exit(0);
-            } else if (option == 0) {
-                showMenu();
-            } else if (option == 1) {
-                clientView.optionPart(client.getId());
+            option = Integer.parseInt(myObj.nextLine());
+        } catch (Exception exception) {
+                System.out.println("Invalid input type!");
                 clientMenu(client.getId());
-            } else if (option == 2) {
-                clientView.printAllReservations(client.getId());
-                clientMenu(client.getId());
-            } else if (option == 3) {
-                clientView.deleteReservationStatus(client.getId());
-                clientMenu(client.getId());
-            } else if (option == 4) {
-                clientView.showCoupons(client.getId());
-                clientMenu(client.getId());
-            } else if (option == 5) {
-                clientView.changeDetailsStatus(client.getId());
-                clientMenu(client.getId());
-            } else if (option == 6) {
-                clientView.changePasswordStatus(client.getId());
-                clientMenu(client.getId());
-            } else if (option == 7) {
-                clientView.printDetails(client.getId());
-                clientMenu(client.getId());
-            } else {
-                System.out.println("Invalid option!");
-                clientMenu(client.getId());
-            }
+                return;
         }
-        catch (Exception exception) {
-            System.out.println("Invalid input type!");
+        if (option == -1) {
+            System.exit(0);
+        } else if (option == 0) {
+            showMenu();
+        } else if (option == 1) {
+            clientView.optionPart(client.getId());
+            clientMenu(client.getId());
+        } else if (option == 2) {
+            clientView.printAllReservations(client.getId());
+            clientMenu(client.getId());
+        } else if (option == 3) {
+            clientView.deleteReservationStatus(client.getId());
+            clientMenu(client.getId());
+        } else if (option == 4) {
+            clientView.showCoupons(client.getId());
+            clientMenu(client.getId());
+        } else if (option == 5) {
+            clientView.changeDetailsStatus(client.getId());
+            clientMenu(client.getId());
+        } else if (option == 6) {
+            clientView.changePasswordStatus(client.getId());
+            clientMenu(client.getId());
+        } else if (option == 7) {
+            clientView.printDetails(client.getId());
+            clientMenu(client.getId());
+        } else {
+            System.out.println("Invalid option!");
             clientMenu(client.getId());
         }
     }
@@ -310,38 +315,40 @@ public class Ui {
                
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
+        int option;
         try {
-            int option = Integer.parseInt(myObj.nextLine());
-            if (option == -1) {
-                System.exit(0);
-            } else if (option == 0) {
-                showMenu();
-            } else if (option == 1) {
-                cleanerView.cleanRoomStatus(cleaner.getId());
-                cleanerMenu(cleaner.getUsername());
-            } else if (option == 2) {
-                cleanerView.printCleanedRooms(cleaner.getId());
-                cleanerMenu(cleaner.getUsername());
-            } else if (option == 3) {
-                cleanerView.printAllRooms();
-                cleanerMenu(cleaner.getUsername());
-            } else if (option == 4) {
-                cleanerView.changeDetailsStatus(cleaner.getId());
-                cleanerMenu(cleaner.getUsername());
-            } else if (option == 5) {
-                cleanerView.changePasswordStatus(cleaner.getId());
-                cleanerMenu(cleaner.getUsername());
-            } else if (option == 6) {
-                cleanerView.showUserDetails(cleaner.getUsername());
-                cleanerMenu(cleaner.getUsername());
-            }
-            else {
-                System.out.println("Invalid option!");
-                cleanerMenu(cleaner.getUsername());
-            }
-        }
-        catch (Exception exception){
+            option = Integer.parseInt(myObj.nextLine());
+        } catch (Exception exception){
             System.out.println("Invalid input type!");
+            cleanerMenu(cleaner.getUsername());
+            return;
+        }
+        if (option == -1) {
+            System.exit(0);
+        } else if (option == 0) {
+            showMenu();
+        } else if (option == 1) {
+            cleanerView.cleanRoomStatus(cleaner.getId());
+            cleanerMenu(cleaner.getUsername());
+        } else if (option == 2) {
+            cleanerView.printCleanedRooms(cleaner.getId());
+            cleanerMenu(cleaner.getUsername());
+        } else if (option == 3) {
+            cleanerView.printAllRooms();
+            cleanerMenu(cleaner.getUsername());
+        } else if (option == 4) {
+            cleanerView.changeDetailsStatus(cleaner.getId());
+            cleanerMenu(cleaner.getUsername());
+        } else if (option == 5) {
+            cleanerView.changePasswordStatus(cleaner.getId());
+            cleanerMenu(cleaner.getUsername());
+        } else if (option == 6) {
+            cleanerView.showUserDetails(cleaner.getUsername());
+            cleanerMenu(cleaner.getUsername());
+        }
+        else {
+            System.out.println("Invalid option!");
+            cleanerMenu(cleaner.getUsername());
         }
     }
     private void managerMenu(){
@@ -376,36 +383,37 @@ public class Ui {
                 
                 Enter your option:""");
         Scanner myObj = new Scanner(System.in);
+        int option;
         try {
-            int option = Integer.parseInt(myObj.nextLine());
-            switch (option) {
-                case 0 -> showMenu();
-                case 1 -> managerView.changePassword();
-                case 2 -> managerView.printAllClients();
-                case 3 -> managerView.findClientByUsernameStatus();
-                case 4 -> managerView.deleteClientStatus();
-                case 5 -> managerView.printAllRooms();
-                case 6 -> managerView.addRoomStatus();
-                case 7 -> managerView.deleteRoomStatus();
-                case 8 -> managerView.updateRoomStatus();
-                case 9 -> managerView.findRoomByIdStatus();
-                case 10 -> managerView.printAllCleaners();
-                case 11 -> managerView.findCleanerByUsernameStatus();
-                case 12 -> managerView.setSalarySatus();
-                case 13 -> managerView.deleteCleanerStatus();
-                case 14 -> managerView.printAllCleanings();
-                case 15 -> managerView.printCleaningsForCleaner();
-                case 16 -> managerView.printCleaningsForRoom();
-                case 17 -> managerView.seeAllAvailableRooms();
-                case 18 -> managerView.seeAllReservations();
-                case 19 -> System.exit(0);
-                default -> System.out.println("Invalid option!");
-            }
-            managerMenu();
-        }
-        catch (Exception exception) {
+            option = Integer.parseInt(myObj.nextLine());
+        } catch (Exception exception) {
             System.out.println("Invalid input type! Esti naspa");
             managerMenu();
+            return;
         }
+        switch (option) {
+            case 0 -> showMenu();
+            case 1 -> managerView.changePassword();
+            case 2 -> managerView.printAllClients();
+            case 3 -> managerView.findClientByUsernameStatus();
+            case 4 -> managerView.deleteClientStatus();
+            case 5 -> managerView.printAllRooms();
+            case 6 -> managerView.addRoomStatus();
+            case 7 -> managerView.deleteRoomStatus();
+            case 8 -> managerView.updateRoomStatus();
+            case 9 -> managerView.findRoomByIdStatus();
+            case 10 -> managerView.printAllCleaners();
+            case 11 -> managerView.findCleanerByUsernameStatus();
+            case 12 -> managerView.setSalarySatus();
+            case 13 -> managerView.deleteCleanerStatus();
+            case 14 -> managerView.printAllCleanings();
+            case 15 -> managerView.printCleaningsForCleaner();
+            case 16 -> managerView.printCleaningsForRoom();
+            case 17 -> managerView.seeAllAvailableRooms();
+            case 18 -> managerView.seeAllReservations();
+            case 19 -> System.exit(0);
+            default -> System.out.println("Invalid option!");
+        }
+        managerMenu();
     }
 }
