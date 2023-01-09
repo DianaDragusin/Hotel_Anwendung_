@@ -30,9 +30,26 @@ public class databaseClientRepo implements IClientRespository {
         Client client1 = new Client("Bob", "Pop","bobpop","00bob");
         Client client2 = new Client("Laura", "Georgescu","laurgeor","22laura");
         Client client3 = new Client("Catalin", "Olariu","cataola","24catalin");
+        Client client4 = new Client("Catalina", "Vasiu","catasiu","cata777");
+        Client client5 = new Client("Crina", "Timotei","criti","crin880");
+        Client client6 = new Client("Mira", "Muresan","miramure","mure1009");
+        Client client7 = new Client("Dan", "Morariu","dandan","dan100dd");
+        Client client8 = new Client("Darius", "Ciubaru","darciu","24darciu");
+        Client client9 = new Client("Alin", "Trambulin","alintra","aliintram7");
+        Client client10 = new Client("Iasmina", "Hondaru","iasmahondaru","iasmi699");
+        Client client11 = new Client("Ana", "Maria","ana","1234");
+
         manager.persist(client1);
         manager.persist(client2);
         manager.persist(client3);
+        manager.persist(client4);
+        manager.persist(client5);
+        manager.persist(client6);
+        manager.persist(client7);
+        manager.persist(client8);
+        manager.persist(client9);
+        manager.persist(client10);
+        manager.persist(client11);
         manager.getTransaction().commit();
 
     }

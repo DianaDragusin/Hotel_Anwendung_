@@ -3,6 +3,7 @@ package service;
 import model.Cleaner;
 import model.Cleaning;
 import model.Room;
+import model.Type;
 import repository.ICleanerRepository;
 import repository.ICleaningRepository;
 import repository.IRoomRepository;
@@ -19,8 +20,34 @@ public class CleanerController {
         this.cleanerRepo = cleanerRepo;
         this.roomRepo = roomRepo;
         this.cleaningRepo = cleaningRepo;
+        populate_cleanings();
     }
+    private void populate_cleanings(){
+        Room rooms1 = roomRepo.findById(1);
+        Room rooms2 =  roomRepo.findById(2);
+        //Cleaner cleaner2 = new Cleaner("Laura", "Halmaciu","lauramaciu","2222");
+        //Cleaner cleaner3 = new Cleaner("Catalina", "Vasiu","catasiu","24siu");
+        cleanRoom(1,rooms1.getId(),LocalDate.of(2022,12,12));
+        cleanRoom(1,rooms2.getId(),LocalDate.of(2022,12,12));
+        cleanRoom(2,9,LocalDate.of(2022,12,12));
+        cleanRoom(2,4,LocalDate.of(2020,1,1));
+        cleanRoom(2,4,LocalDate.of(2019,1,1));
+        cleanRoom(2,3,LocalDate.of(2019,1,1));
+        cleanRoom(3,4,LocalDate.of(2018,1,1));
+        cleanRoom(4,5,LocalDate.of(2018,1,1));
+        cleanRoom(5,6,LocalDate.of(2018,1,1));
+        cleanRoom(5,6,LocalDate.of(2018,5,1));
+        cleanRoom(4,5,LocalDate.of(2018,5,1));
+        cleanRoom(3,4,LocalDate.of(2018,5,1));
+        cleanRoom(3,9, LocalDate.of(2018,5,1));
+        cleanRoom(3,10, LocalDate.of(2018,5,1));
 
+
+
+
+
+
+    }
     public Cleaner register(String firstName, String lastName, String username, String password){
         if (cleanerRepo.findByUsername(username) == null){
             Cleaner c = new Cleaner(firstName,lastName,username,password);

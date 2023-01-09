@@ -72,6 +72,7 @@ public class databaseRoomRepo implements IRoomRepository {
             query3.setParameter("idRes", Integer.toString(reserv));
             query3.executeUpdate();
             r.setRooms(new ArrayList<>());
+
         }
 
         manager.remove(room);

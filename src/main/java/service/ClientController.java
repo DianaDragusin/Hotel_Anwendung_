@@ -28,6 +28,17 @@ public class ClientController {
         makeReservation(option1,1,LocalDate.of(2022,12,12), LocalDate.of(2022,12,14));
         Option option2 = new Option(1000,new ArrayList<>(Collections.singletonList(roomRepo.findById(9))));
         makeReservation(option2,1,LocalDate.of(2023,2,1), LocalDate.of(2023,2,15));
+        Option option3 = new Option(700,new ArrayList<>(Arrays.asList(roomRepo.findById(3),roomRepo.findById(4))));
+        makeReservation(option3,2,LocalDate.of(2020,1,1), LocalDate.of(2020,1,5));
+        Option option4 = new Option(700,new ArrayList<>(Arrays.asList(roomRepo.findById(3),roomRepo.findById(4))));
+        makeReservation(option4,3,LocalDate.of(2019,1,1), LocalDate.of(2019,1,5));
+        Option option5 = new Option(1500,new ArrayList<>(Arrays.asList(roomRepo.findById(4),roomRepo.findById(5),roomRepo.findById(6))));
+        makeReservation(option5,3,LocalDate.of(2018,1,1), LocalDate.of(2018,1,5));
+        Option option6 = new Option(1500,new ArrayList<>(Arrays.asList(roomRepo.findById(4),roomRepo.findById(5),roomRepo.findById(6))));
+        makeReservation(option6,4,LocalDate.of(2018,5,1), LocalDate.of(2018,5,5));
+        Option option7 = new Option(2000,new ArrayList<>(Arrays.asList(roomRepo.findById(9),roomRepo.findById(10))));
+        makeReservation(option7,5,LocalDate.of(2018,5,1), LocalDate.of(2018,5,5));
+
     }
     // make private
     public List<Room> searchAvailableRoom(LocalDate checkIn, LocalDate checkOut)  {

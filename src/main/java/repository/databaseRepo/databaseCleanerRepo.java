@@ -20,15 +20,36 @@ public class databaseCleanerRepo implements ICleanerRepository {
         this.manager = manager;
         populate_cleaners();
     }
+
+    /**
+     * Populates the cleaner repository with cleaners
+     */
     private void populate_cleaners(){
         manager.getTransaction().begin();
 
         Cleaner cleaner1 = new Cleaner("Andu", "Andreescu","anduandre","1234");
         Cleaner cleaner2 = new Cleaner("Laura", "Halmaciu","lauramaciu","2222");
         Cleaner cleaner3 = new Cleaner("Catalina", "Vasiu","catasiu","24siu");
+        Cleaner cleaner4 = new Cleaner("Catalin", "Iancu","cataian","cata556");
+        Cleaner cleaner5 = new Cleaner("Mircea", "Mirculescu","mirceam","24escu");
+        Cleaner cleaner6 = new Cleaner("Andrei", "Poenaru","andreipo","246po");
+        Cleaner cleaner7 = new Cleaner("Grigor", "Vasiu","grisiu","24grigiu");
+        Cleaner cleaner8 = new Cleaner("Ana", "Mihnea","ana","1234");
+        cleaner1.setSalary(2000);
+        cleaner2.setSalary(3400);
+        cleaner3.setSalary(4400);
+        cleaner5.setSalary(5000);
+        cleaner6.setSalary(5800);
+        cleaner7.setSalary(3400);
+        cleaner8.setSalary(3400);
         manager.persist(cleaner1);
         manager.persist(cleaner2);
         manager.persist(cleaner3);
+        manager.persist(cleaner4);
+        manager.persist(cleaner5);
+        manager.persist(cleaner6);
+        manager.persist(cleaner7);
+        manager.persist(cleaner8);
         manager.getTransaction().commit();
     }
     @Override

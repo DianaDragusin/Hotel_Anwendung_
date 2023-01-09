@@ -1,13 +1,13 @@
 package repository.databaseRepo;
 
-import model.Cleaner;
-import model.Cleaning;
+import model.*;
 import repository.ICleaningRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
