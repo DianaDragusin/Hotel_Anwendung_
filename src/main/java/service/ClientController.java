@@ -23,7 +23,7 @@ public class ClientController {
         this.clientRepo = clientRepo;
         this.roomRepo = roomRepo;
         this.cleanerRepo = cleanerRepo;
-      //  populateReservation();
+        populateReservation();
     }
     private void populateReservation(){
         Option option1 = new Option(600,new ArrayList<>(Arrays.asList(roomRepo.findById(1),roomRepo.findById(2))));
@@ -194,7 +194,6 @@ public class ClientController {
             }
         }
         int daysBetween = (int) ChronoUnit.DAYS.between(checkIn, checkOut)  ;
-        System.out.println("Days between = " + daysBetween);
         for(Option o : final_options){
             o.setTotalPrice(o.getTotalPrice() * daysBetween);
         }

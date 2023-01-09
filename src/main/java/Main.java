@@ -25,7 +25,7 @@ public class Main {
         boolean memory = false;
         //niste cod care se executa de fiecare data cand programul se termina sau il oprim
         //se sterge baza de date si se creeaza alta goala
-       /*
+
         if(!memory){
             Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
                 public void run() {
@@ -42,7 +42,7 @@ public class Main {
                 }
             }, "Shutdown-thread"));
         }
-*/
+
          Ui ui = new Ui(memory);
          ui.showMenu();
 

@@ -24,6 +24,6 @@ public class Cleaner extends Person {
 
     @Override
     public String toString() {
-        return "Cleaner(" + getUsername() + ", " + getFirstName() + ", " + getLastName() + ", salary: " + getSalary() + " lei)";
+        return "Cleaner(" + getId() + ", " + getUsername() + ", " + getFirstName() + ", " + getLastName() + ", salary: " + getSalary() + " lei)";
     }
 }

@@ -31,15 +31,28 @@ public class ManagerController {
 
     // PASSWORD
 
+    /**
+     * @param password
+     * @return
+     */
     public boolean login(String password) {
         return password.equals(this.password);
     }
+
+    /**
+     * @param password
+     * It changes the previous password with the one given in the parameter
+     */
     public void changePassword(String password){
         this.password=password;
     }
 
     // CLIENT
 
+    /**
+     * @return
+     * returns all
+     */
     public List<Client> seeAllClients(){
         return clientRepo.getAll();
     }
@@ -49,6 +62,15 @@ public class ManagerController {
     public Client deleteClient(Integer id) {
         Client c = clientRepo.findById(id);
         if(c != null){
+            for(Coupon cou : c.getCouponList())
+            {
+                clientRepo.removeCoupon(cou.getCode(),id);
+            }
+            for (Reservation res : c.getReservationList())
+            {
+                clientRepo.removeReservation(res.getId(), id);
+
+            }
             clientRepo.delete(id);
         }
         return c;
