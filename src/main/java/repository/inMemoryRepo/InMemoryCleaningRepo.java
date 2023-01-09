@@ -10,9 +10,10 @@ import java.util.List;
 
 public class InMemoryCleaningRepo implements ICleaningRepository {
     public List<Cleaning> cleanings;
-
+    private int idCleaning;
     public InMemoryCleaningRepo() {
         this.cleanings = new ArrayList<>();
+         idCleaning = 0;
     }
 
     public List<Cleaning> getCleanings() {
@@ -48,7 +49,10 @@ public class InMemoryCleaningRepo implements ICleaningRepository {
         return roomCleanings;
     }
     public void addCleaning(Cleaning cleaning){
+        idCleaning++;
+        cleaning.setId(idCleaning);
         cleanings.add(cleaning);
+
     }
 
     @Override

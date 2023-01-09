@@ -30,6 +30,22 @@ public class Cleaning {
         this.cleanDate = cleanDate;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCleaner(Cleaner cleaner) {
+        this.cleaner = cleaner;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public void setCleanDate(LocalDate cleanDate) {
+        this.cleanDate = cleanDate;
+    }
+
     public int getId() {
         return id;
     }

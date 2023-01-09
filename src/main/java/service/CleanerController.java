@@ -42,10 +42,6 @@ public class CleanerController {
         cleanRoom(3,10, LocalDate.of(2018,5,1));
 
 
-
-
-
-
     }
     public Cleaner register(String firstName, String lastName, String username, String password){
         if (cleanerRepo.findByUsername(username) == null){

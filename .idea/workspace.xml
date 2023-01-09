@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="databaseClientRepo updated">
+      <change afterPath="$PROJECT_DIR$/src/test/java/tests/CleanerControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/tests/ManagerControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/views/ManagerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/views/ManagerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Cleaning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Cleaning.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryCleaningRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/inMemoryRepo/InMemoryCleaningRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/CleanerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/CleanerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/tests/ClientControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tests/ClientControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +107,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ClientControllerTest.addCoupon" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ManagerControllerTest.changePassword" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Hotel_Anwendung" />
       <extension name="coverage">
         <pattern>
@@ -110,14 +116,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.ClientControllerTest" />
-      <option name="METHOD_NAME" value="addCoupon" />
+      <option name="MAIN_CLASS_NAME" value="tests.ManagerControllerTest" />
+      <option name="METHOD_NAME" value="changePassword" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ClientControllerTest.deleteReservation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ManagerControllerTest.deleteClient" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Hotel_Anwendung" />
       <extension name="coverage">
         <pattern>
@@ -126,14 +132,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.ClientControllerTest" />
-      <option name="METHOD_NAME" value="deleteReservation" />
+      <option name="MAIN_CLASS_NAME" value="tests.ManagerControllerTest" />
+      <option name="METHOD_NAME" value="deleteClient" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ClientControllerTest.findCouponById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ManagerControllerTest.findClientByUsername" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Hotel_Anwendung" />
       <extension name="coverage">
         <pattern>
@@ -142,14 +148,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.ClientControllerTest" />
-      <option name="METHOD_NAME" value="findCouponById" />
+      <option name="MAIN_CLASS_NAME" value="tests.ManagerControllerTest" />
+      <option name="METHOD_NAME" value="findClientByUsername" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ClientControllerTest.removeCoupon" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ManagerControllerTest.searchAvailableRooms" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Hotel_Anwendung" />
       <extension name="coverage">
         <pattern>
@@ -158,8 +164,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.ClientControllerTest" />
-      <option name="METHOD_NAME" value="removeCoupon" />
+      <option name="MAIN_CLASS_NAME" value="tests.ManagerControllerTest" />
+      <option name="METHOD_NAME" value="searchAvailableRooms" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ManagerControllerTest.seeAllClients" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Hotel_Anwendung" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.ManagerControllerTest" />
+      <option name="METHOD_NAME" value="seeAllClients" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -168,17 +190,19 @@
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.ClientControllerTest" />
-      <item itemvalue="JUnit.ClientControllerTest.addCoupon" />
-      <item itemvalue="JUnit.ClientControllerTest.deleteReservation" />
-      <item itemvalue="JUnit.ClientControllerTest.findCouponById" />
-      <item itemvalue="JUnit.ClientControllerTest.removeCoupon" />
+      <item itemvalue="JUnit.ManagerControllerTest.changePassword" />
+      <item itemvalue="JUnit.ManagerControllerTest.deleteClient" />
+      <item itemvalue="JUnit.ManagerControllerTest.findClientByUsername" />
+      <item itemvalue="JUnit.ManagerControllerTest.searchAvailableRooms" />
+      <item itemvalue="JUnit.ManagerControllerTest.seeAllClients" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ClientControllerTest.deleteReservation" />
-        <item itemvalue="JUnit.ClientControllerTest.findCouponById" />
-        <item itemvalue="JUnit.ClientControllerTest.removeCoupon" />
-        <item itemvalue="JUnit.ClientControllerTest.addCoupon" />
+        <item itemvalue="JUnit.ManagerControllerTest.searchAvailableRooms" />
+        <item itemvalue="JUnit.ManagerControllerTest.deleteClient" />
+        <item itemvalue="JUnit.ManagerControllerTest.findClientByUsername" />
+        <item itemvalue="JUnit.ManagerControllerTest.seeAllClients" />
+        <item itemvalue="JUnit.ManagerControllerTest.changePassword" />
       </list>
     </recent_temporary>
   </component>
@@ -587,5 +611,10 @@
     <MESSAGE value="Fixed try catches&#10;Exceptions fixed&#10;Added exceptions in View and UI&#10;fixed errors on deleteRoom" />
     <MESSAGE value="databaseClientRepo updated" />
     <option name="LAST_COMMIT_MESSAGE" value="databaseClientRepo updated" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Hotel_Anwendung$ManagerControllerTest_changePassword.ic" NAME="ManagerControllerTest.changePassword Coverage Results" MODIFIED="1673300693945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>tests.*</FILTER>
+    </SUITE>
   </component>
 </project>

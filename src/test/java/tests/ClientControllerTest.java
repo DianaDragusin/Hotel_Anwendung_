@@ -57,9 +57,7 @@ class ClientControllerTest {
         System.out.println("searchAvailableRoom test works good");
     }
 
-    @org.junit.jupiter.api.Test
-    void generateOptions() {
-    }
+
 
     @org.junit.jupiter.api.Test
     void makeReservationWithCoupon() {

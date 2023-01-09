@@ -31,6 +31,10 @@ public class ManagerController {
 
     // PASSWORD
 
+    public String getPassword() {
+        return password;
+    }
+
     /**
      * @param password
      * @return a boolean value which is set to true if the password is equal to the one in the parameter
