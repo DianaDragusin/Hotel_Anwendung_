@@ -4,19 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="databaseClientRepo updated">
+    <list default="true" id="6eac5dba-35b3-43a4-bb77-fc3f5a0b373a" name="Changes" comment="little bug in clients corrected">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Cleaner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Cleaner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseCleanerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseCleanerRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseClientRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseClientRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseRoomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/databaseRepo/databaseRoomRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/CleanerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/CleanerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ClientController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -550,7 +540,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673277939711</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="little bug in clients corrected">
+      <created>1673287733841</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1673287733841</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -568,7 +565,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="login and register for client and cleaner plus little changes" />
     <MESSAGE value="In file + maven" />
     <MESSAGE value="Views done" />
     <MESSAGE value="little changes" />
@@ -593,6 +589,7 @@
     <MESSAGE value="reset database after closing program&#10;moved read and write in view&#10;ui is clean an intelligible&#10;fixed error in deleteReservation test" />
     <MESSAGE value="Fixed try catches&#10;Exceptions fixed&#10;Added exceptions in View and UI&#10;fixed errors on deleteRoom" />
     <MESSAGE value="databaseClientRepo updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="databaseClientRepo updated" />
+    <MESSAGE value="little bug in clients corrected" />
+    <option name="LAST_COMMIT_MESSAGE" value="little bug in clients corrected" />
   </component>
 </project>

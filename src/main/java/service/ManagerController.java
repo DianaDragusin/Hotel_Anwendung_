@@ -33,7 +33,7 @@ public class ManagerController {
 
     /**
      * @param password
-     * @return
+     * @return a boolean value which is set to true if the password is equal to the one in the parameter
      */
     public boolean login(String password) {
         return password.equals(this.password);
@@ -51,14 +51,25 @@ public class ManagerController {
 
     /**
      * @return
-     * returns all
+     * returns all clients from clientrepo
      */
     public List<Client> seeAllClients(){
         return clientRepo.getAll();
     }
+
+    /**
+     * @param username
+     * @return a Client which is found by Username
+     */
     public Client findClientByUsername(String username) {
         return clientRepo.findByUsername(username);
     }
+
+    /**
+     * @param id of Client
+     * @return the Client which has been deleted. If the Client is not found the returnvalue will be null.
+     * We must delete all the reservations and the cupons of a client before deleting a client
+     */
     public Client deleteClient(Integer id) {
         Client c = clientRepo.findById(id);
         if(c != null){
@@ -80,6 +91,11 @@ public class ManagerController {
     // ROOM
 
 
+    /**
+     * @param checkIn Date of checkin
+     * @param checkOut Date of checkout
+     * @return a List of Rooms which are available between the given dates
+     */
     public List<Room> searchAvailableRooms(LocalDate checkIn, LocalDate checkOut) {
         List<Room> rooms = new ArrayList<>(roomRepo.getAll());
         List<Room> unavailableRooms = clientRepo.returnAllUnAvailableRooms(checkIn, checkOut);
@@ -89,9 +105,19 @@ public class ManagerController {
         }
         return rooms;
     }
+
+    /**
+     * @return a list of all rooms in roomRepo
+     */
     public List<Room> seeAllRooms(){
         return roomRepo.getAll();
     }
+
+    /**
+     * @param type (Single,Double,Triple,Apartment)
+     * @param nrPers the capacity of a room
+     * @return checks if the type and capacity match
+     */
     private boolean checkTypeRoom (Type type, int nrPers)
     {
 
@@ -113,30 +139,24 @@ public class ManagerController {
         }
         return false;
     }
+
+    /**
+     * @param type (Single,Double,Triple,Apartment)
+     * @param price price of the room
+     * @param nrPers capacity of a room
+     */
     public void addRoom(Type type, double price, int nrPers) {
         if (checkTypeRoom(type,nrPers)) {
             roomRepo.add(new Room(type,price,nrPers));
         }
     }
 
-//    public Room deleteRoom(Integer id){
-//        Room r = roomRepo.findById(id);
-//        if(r != null ) {
-//            for (Cleaning cleaning : getRoomCleanings(id)) {
-//                cleaningRepo.deleteCleaning(cleaning);
-//            }
-//            roomRepo.delete(id);
-//            for(Client client : clientRepo.getAll()){
-//                for(Reservation res : client.getReservationList()){
-//                    if (res.getRooms().contains(r)){
-//                        clientRepo.removeReservation(res.getId(), client.getId());
-//                    }
-//                }
-//            }
-//            return r;
-//        }
-//        return null;
-//    }
+
+    /**
+     * @param id of the room that needs to be deleted
+     * @return the Room that has been deleted. Null if Room not found
+     * Before deletig a room we must remove all the reservations which include this room and also all the cleanings which include this room
+     */
     public Room deleteRoom(Integer id){
         Room r = roomRepo.findById(id);
         if(r != null ) {
@@ -157,6 +177,12 @@ public class ManagerController {
         }
         return null;
     }
+
+    /**
+     * @param id of the room that will be updated
+     * @param room contains the new informations of the room
+     * @return returns the updated room
+     */
     public Room updateRoom(int id, Room room){
         Room r = roomRepo.findById(id);
         if(r != null )
@@ -167,6 +193,11 @@ public class ManagerController {
 
         return null;
     }
+
+    /**
+     * @param id of a room
+     * @return the room that has been found
+     */
     public Room findRoomById(int id){
         return roomRepo.findById(id);
     }
@@ -174,16 +205,34 @@ public class ManagerController {
 
     // CLEANER
 
+    /**
+     * @return the list of all the cleaners in cleanerRepo
+     */
     public List<Cleaner> seeAllCleaners(){
         return cleanerRepo.getAll();
     }
+
+    /**
+     * @param username of a cleaner
+     * @return the cleaner with the given username
+     */
     public Cleaner findCleanerByUsername(String username){
         return cleanerRepo.findByUsername(username);
     }
+
+    /**
+     * @param id of a cleaner
+     * @return the cleaner with the given id
+     */
     public Cleaner findCleanerById(int id){
         return cleanerRepo.findById(id);
     }
 
+    /**
+     * @param id of the cleaner
+     * @param salary new
+     * @return the cleaner with salary value equal to the one given in the parameter
+     */
     public Cleaner setSalaryCleaner(int id, int salary)
     {
         Cleaner c = cleanerRepo.findById(id);
@@ -195,6 +244,10 @@ public class ManagerController {
         return null;
     }
 
+    /**
+     * @param id of a cleaner
+     * @return the cleaner thas been deleted
+     */
     public Cleaner deleteCleaner(int id){
         Cleaner c = cleanerRepo.findById(id);
         if(c != null){
@@ -210,22 +263,42 @@ public class ManagerController {
 
     // CLEANING
 
+    /**
+     * @param roomId id of a room
+     * @return a list of all cleanings made in the room with roomid
+     */
     public List<Cleaning> getRoomCleanings(int roomId){
         return cleaningRepo.getCleaningsForRoom(roomId);
     }
+
+    /**
+     * @param cleanerId id of a cleaner
+     * @return a list if all the cleanings made by a cleaner
+     */
     public List<Cleaning> getCleanerCleanings(int cleanerId){
         return cleaningRepo.getCleaningsForCleaner(cleanerId);
     }
+
+    /**
+     * @return list of all Cleanings from cleaningRepo
+     */
     public List<Cleaning> getCleanings(){
         return cleaningRepo.getCleanings();
     }
 
     // RESERVATION
 
+    /**
+     * @return all REservations from clientRepository
+     */
     public List<Reservation> seeAllReservations(){
         return clientRepo.getAllReservations();
     }
 
+    /**
+     * @param rid Id of a room
+     * @return a list of all the reservations made on a room
+     */
     public List<Reservation> findReservationsForRoom(int rid){
         List<Reservation> reservations = new ArrayList<>();
         Room r = roomRepo.findById(rid);
@@ -237,6 +310,10 @@ public class ManagerController {
         return reservations;
     }
 
+    /**
+     * @param client
+     * @return a list of allthe reservations made by a client
+     */
     public List<Reservation> findReservationsForClient(Client client) {
         return clientRepo.getReservationsForClient(client.getId());
     }
