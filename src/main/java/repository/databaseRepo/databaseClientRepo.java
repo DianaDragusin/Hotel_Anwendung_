@@ -369,25 +369,27 @@ public class databaseClientRepo implements IClientRespository {
             for (int res : res_ids) {
                 Query query1 = manager.createNativeQuery("SELECT startDate FROM Reservation WHERE id=:resId");
                 query1.setParameter("resId", res);
-                LocalDate finalStart = (LocalDate) query1.getSingleResult();
+                Timestamp TStart = (Timestamp) query1.getSingleResult();
+                LocalDate finalStart = TStart.toLocalDateTime().toLocalDate();
 
                 Query query2 = manager.createNativeQuery("SELECT endDate FROM Reservation WHERE id=:resId");
                 query2.setParameter("resId", res);
-                LocalDate finalEnd = (LocalDate) query2.getSingleResult();
+                Timestamp TEnd = (Timestamp) query2.getSingleResult();
+                LocalDate finalEnd = TEnd.toLocalDateTime().toLocalDate();
 
                 Query query3 = manager.createNativeQuery("SELECT price FROM Reservation WHERE id=:resId");
                 query3.setParameter("resId", res);
                 int finalPrice = (int) query3.getSingleResult();
 
-                Query query4 = manager.createNativeQuery("SELECT room_id FROM reservation-room WHERE reservation_id=:resId");
+                Query query4 = manager.createNativeQuery("SELECT room_id FROM reservation_room WHERE reservation_id=:resId");
                 query4.setParameter("resId", res);
-                List<Integer> roomIds = (List<Integer>) query2.getResultList();
+                List<Integer> roomIds = (List<Integer>) query4.getResultList();
 
                 List<Room> finalRooms = new ArrayList<>();
                 for (int room : roomIds) {
                     Query query5 = manager.createNativeQuery("SELECT * FROM Room WHERE id=:roomId", Room.class);
                     query5.setParameter("roomId", room);
-                    Room finalRoom = (Room) query3.getSingleResult();
+                    Room finalRoom = (Room) query5.getSingleResult();
                     finalRooms.add(finalRoom);
                 }
                 Reservation finalReservation = new Reservation();
