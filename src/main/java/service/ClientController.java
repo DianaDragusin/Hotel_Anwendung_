@@ -25,6 +25,10 @@ public class ClientController {
         this.cleanerRepo = cleanerRepo;
         populateReservation();
     }
+
+    /**
+     * Populates the reservation list
+     */
     private void populateReservation(){
         Option option1 = new Option(600,new ArrayList<>(Arrays.asList(roomRepo.findById(1),roomRepo.findById(2))));
         makeReservation(option1,1,LocalDate.of(2022,12,12), LocalDate.of(2022,12,14));
@@ -43,6 +47,12 @@ public class ClientController {
 
     }
 
+    /**
+     * Finds all available rooms on a specific date
+     * @param checkIn the check-in date of the reservation
+     * @param checkOut the check-out date of the reservation
+     * @return a list of available rooms
+     */
     public List<Room> searchAvailableRoom(LocalDate checkIn, LocalDate checkOut)  {
         List<Room> rooms = new ArrayList<>(roomRepo.getAll());
         List<Room> unavailableRooms = clientRepo.returnAllUnAvailableRooms(checkIn, checkOut);
@@ -53,6 +63,11 @@ public class ClientController {
         return rooms;
     }
 
+    /**
+     * Finds the coupons of a client
+     * @param id the id of the client
+     * @return a list of coupons
+     */
     public List<Coupon> showCoupons(Integer id) {
         return clientRepo.findById(id).getCouponList();
     }
@@ -60,6 +75,12 @@ public class ClientController {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ALGORITM GENERARE OPTIUNI
 
+    /**
+     * Generates all combinations of a number in a range
+     * @param n number
+     * @param r range
+     * @return a list of arrays with the combinations
+     */
     // functie generare combinatii de n cate r
     // returneaza o lista de array-uri = combinatii
     private List<int[]> generateCombinations(int n, int r) {
@@ -82,6 +103,13 @@ public class ClientController {
         return combinations;
     }
 
+    /**
+     * Transforms the combinations of numbers in combinations of rooms from a list
+     * @param n number
+     * @param k range
+     * @param nrPersons list of number of persons -> rooms
+     * @return a list of combinations of rooms
+     */
     // scrie combinatiile de numere ca si combinatii ale unor elemente dintr-o lista de nrPersons
     private List<int[]> transform_combinations(int n, int k, List<Integer> nrPersons){
         List<int[]> list = generateCombinations(n,k);
@@ -98,6 +126,12 @@ public class ClientController {
         return room_combs;
     }
 
+    /**
+     * Checks if a list of arrays contains an array
+     * @param list a list of arrays
+     * @param array an array
+     * @return true if list contains array or false else
+     */
     //verifica daca o lista de array-uri de int-uri contine un array din parametru
     private static boolean contains_array(List<int[]> list, int[] array) {
         for (int[] i : list) {
@@ -108,6 +142,12 @@ public class ClientController {
         return false;
     }
 
+    /**
+     * Finds a room by type in a room list
+     * @param rooms the list of rooms
+     * @param type the type of rooms
+     * @return the first room of the given type or null if it doesn't exist
+     */
     private Room findARoomByType(List<Room> rooms,Type type) {
         for(Room r : rooms){
             if(r.getType().equals(type)){
@@ -117,6 +157,11 @@ public class ClientController {
         return null;
     }
 
+    /**
+     * Finds type of room by the number of persons
+     * @param nrPers the number of persons
+     * @return type of room
+     */
     private Type findTypeByNrPers(int nrPers){
         if(nrPers == 1){
             return Type.SINGLE;
@@ -128,17 +173,25 @@ public class ClientController {
         return Type.APARTMENT;
     }
 
-    public Option cheapestOption(List<Option> options) {
-        Option optionMinPreis = options.get(0);
-        for (Option option : options) {
-            if (option.getTotalPrice() < optionMinPreis.getTotalPrice()) {
-                optionMinPreis.setId(option.getId());
-                optionMinPreis.setRooms(option.getRooms());
-                optionMinPreis.setTotalPrice(option.getTotalPrice());
-            }
-        }
-        return optionMinPreis;
-    }
+//    public Option cheapestOption(List<Option> options) {
+//        Option optionMinPreis = options.get(0);
+//        for (Option option : options) {
+//            if (option.getTotalPrice() < optionMinPreis.getTotalPrice()) {
+//                optionMinPreis.setId(option.getId());
+//                optionMinPreis.setRooms(option.getRooms());
+//                optionMinPreis.setTotalPrice(option.getTotalPrice());
+//            }
+//        }
+//        return optionMinPreis;
+//    }
+
+    /**
+     * Generates options for making a reservation
+     * @param checkIn the start date of the reservation
+     * @param checkOut the end date of the reservation
+     * @param nrTotalPers the total number of persons of the reservation
+     * @return a list of options sorted by the cheapest option
+     */
     public List<Option> generateOptions(LocalDate checkIn, LocalDate checkOut, int nrTotalPers){
         List<Room> availableRooms = searchAvailableRoom(checkIn,checkOut);
 
@@ -204,6 +257,15 @@ public class ClientController {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Makes a reservation with coupon
+     * @param option the option
+     * @param couponid the id of the coupon
+     * @param clientId the id of the client
+     * @param start the start date
+     * @param end the end date
+     * @return the made reservation or null if the coupon not found
+     */
     public Reservation makeReservationWithCoupon(Option option, int couponid, int clientId, LocalDate start, LocalDate end) {
         // work to do
        // System.out.println("Se creeaza rezervarea cu cupon.");
@@ -219,10 +281,16 @@ public class ClientController {
             return reservation;
         }
         else return null;
-
-
     }
 
+    /**
+     * Makes a reservation
+     * @param option the option
+     * @param clientId the id of the client
+     * @param start the start date
+     * @param end the end date
+     * @return the made reservation
+     */
     public Reservation makeReservation(Option option, Integer clientId, LocalDate start, LocalDate end) {
         // work to do
         Reservation reservation = new Reservation(start, end, option.getTotalPrice());
@@ -231,6 +299,12 @@ public class ClientController {
         return reservation;
     }
 
+    /**
+     * Applies a coupon on a price
+     * @param coupon the coupon
+     * @param price the price
+     * @return the new price
+     */
     private int applyCoupon(Coupon coupon, int price) {
 
         float per = (float)(100 - coupon.getPercentage()) / 100;
@@ -239,6 +313,12 @@ public class ClientController {
         return price;
 
     }
+
+    /**
+     * Finds a client by id
+     * @param id the id of the client
+     * @return the client or null if not found
+     */
     public Client findUserById (int id)
     {
         List<Client>clients = clientRepo.getAll();
@@ -250,7 +330,12 @@ public class ClientController {
         return null;
     }
 
-
+    /**
+     * Finds a reservation by id
+     * @param clientId the id of the client
+     * @param reservationId the id of the reservation
+     * @return the reservation or null if not found
+     */
     public Reservation findReservationById (int clientId, int reservationId)
     {
         List<Client>clients = clientRepo.getAll();
@@ -266,13 +351,16 @@ public class ClientController {
                         return res;
                 }
             }
-
-
         }
         return null;
     }
 
-
+    /**
+     * Deletes a reservation
+     * @param resId the id of the reservation
+     * @param clientId the id of the client
+     * @return the deleted reservation or null if not found
+     */
     public Reservation deleteReservation(int resId, int clientId) {
         Reservation r = findReservationById(clientId,resId);
         if (r != null) {
@@ -282,10 +370,22 @@ public class ClientController {
         return null;
     }
 
+    /**
+     * @param id the id of the client
+     * @return all reservations of a client
+     */
     public List<Reservation> seeAllReservations(int id) {
         return clientRepo.getReservationsForClient(id);
     }
 
+    /**
+     * Registers a client
+     * @param firstName the first name of the client
+     * @param lastName the last name of the client
+     * @param username the username of the client
+     * @param password the password of the client
+     * @return the created client or null if the username already exists
+     */
     public Client register(String firstName, String lastName, String username, String password) {
         if (clientRepo.findByUsername(username) == null){
             Client c = new Client(firstName,lastName,username,password);
@@ -295,6 +395,12 @@ public class ClientController {
         return null;
     }
 
+    /**
+     * Changes data of a client
+     * @param newFirstName the new first name
+     * @param newLastName the new last name
+     * @param id the id of the client
+     */
     public void changeDetails(String newFirstName, String newLastName, int id) {
         if (clientRepo.findById(id)!=null) {
             clientRepo.findById(id).setFirstName(newFirstName);
@@ -302,6 +408,12 @@ public class ClientController {
         }
     }
 
+    /**
+     * Logs a client in
+     * @param username the username of the client
+     * @param password the password of the client
+     * @throws CustomIllegalArgument if the login credentials are not in the system
+     */
     public void login(String username, String password)throws CustomIllegalArgument {
         int ok = 0;
         for (Client c : clientRepo.getAll()) {
@@ -315,25 +427,52 @@ public class ClientController {
 
     }
 
+    /**
+     * Changes the password of a client
+     * @param id the id of the client
+     * @param newPassword the new password of the client
+     */
     public void changePassword(int id, String newPassword) {
         Client c = clientRepo.findById(id);
         c.setPassword(newPassword);
         clientRepo.update(id,c);
     }
 
+    /**
+     * Find a client by username
+     * @param username the username of the client
+     * @return the client or null if not found
+     */
     public Client findClientByUsername(String username) {
         return clientRepo.findByUsername(username);
-
     }
 
+    /**
+     * Adds a coupon for client
+     * @param c the coupon
+     * @param clientId the id of the client
+     */
     public void addCoupon(Coupon c, int clientId)
     {
         clientRepo.addCoupon(c,clientId);
     }
+
+    /**
+     * Removes a coupon
+     * @param couponid the id of the coupon
+     * @param client_id the id of the client
+     */
     public void removeCoupon(int couponid, int client_id)
     {
         clientRepo.removeCoupon(couponid,client_id);
     }
+
+    /**
+     * Finds a coupon by id
+     * @param couponId the id of the coupon
+     * @param clientid the id of the client
+     * @return the coupon or null if not found
+     */
     public Coupon findCouponById(int couponId, int clientid)
     {
         return clientRepo.findCouponById(couponId,clientid);
