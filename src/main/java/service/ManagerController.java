@@ -293,7 +293,7 @@ public class ManagerController {
     // RESERVATION
 
     /**
-     * @return all REservations from clientRepository
+     * @return all Reservations from clientRepository
      */
     public List<Reservation> seeAllReservations(){
         return clientRepo.getAllReservations();
