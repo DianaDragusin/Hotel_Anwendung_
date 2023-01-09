@@ -34,10 +34,10 @@ public class Main {
                     EntityManager manager = factory.createEntityManager();
                     manager.getTransaction().begin();
                     Query query1 = manager.createNativeQuery(" use master\n" +
-                            " alter database Hotel3 set single_user with rollback immediate\n" +
-                            "DROP DATABASE Hotel3");
+                            " alter database Hotel2 set single_user with rollback immediate\n" +
+                            "DROP DATABASE Hotel2");
                     query1.executeUpdate();
-                    Query query2 = manager.createNativeQuery("CREATE DATABASE Hotel3");
+                    Query query2 = manager.createNativeQuery("CREATE DATABASE Hotel2");
                     query2.executeUpdate();
                 }
             }, "Shutdown-thread"));
