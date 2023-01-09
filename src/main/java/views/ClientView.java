@@ -146,7 +146,6 @@ public class ClientView {
     }
     private void printOptions(List<Option> options)
     {
-        System.out.println("options size="+options.size());
         for (Option option :options)
         {
             System.out.println(option.toString());
@@ -207,7 +206,7 @@ public class ClientView {
         System.out.println("What option do you prefer:");
         try {
             int optionnr = Integer.parseInt(myObj.nextLine());
-            if (couponans >0 && options.size() > 0)
+            if (couponans >-1 && options.size() > 0)
             {
                 makeReservationWithCouponStatus(findOptionById(options,optionnr),couponans, clientId,from,to);
                 clientcontroller.removeCoupon(couponans,clientId);

@@ -447,6 +447,7 @@ public class databaseClientRepo implements IClientRespository {
     {
        // manager.getTransaction().begin();
         Coupon coupon = manager.find(Coupon.class,couponId);
+        System.out.println(coupon);
        // manager.getTransaction().commit();
         return coupon;
         /*

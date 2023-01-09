@@ -6,7 +6,9 @@ import repository.IClientRespository;
 import repository.IRoomRepository;
 import utils.CustomIllegalArgument;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -190,6 +192,11 @@ public class ClientController {
                     optionId++;
                 }
             }
+        }
+        int daysBetween = (int) ChronoUnit.DAYS.between(checkIn, checkOut)  ;
+        System.out.println("Days between = " + daysBetween);
+        for(Option o : final_options){
+            o.setTotalPrice(o.getTotalPrice() * daysBetween);
         }
         final_options.sort(Comparator.comparing(Option::getTotalPrice));
         return final_options;
