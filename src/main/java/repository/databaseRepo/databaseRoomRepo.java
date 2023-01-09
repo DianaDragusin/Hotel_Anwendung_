@@ -15,7 +15,7 @@ public class databaseRoomRepo implements IRoomRepository {
 
     public databaseRoomRepo(EntityManager manager) {
         this.manager = manager;
-        populate_rooms();
+      //  populate_rooms();
 
     }
 

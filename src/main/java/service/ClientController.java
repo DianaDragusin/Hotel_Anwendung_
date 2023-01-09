@@ -21,7 +21,7 @@ public class ClientController {
         this.clientRepo = clientRepo;
         this.roomRepo = roomRepo;
         this.cleanerRepo = cleanerRepo;
-        populateReservation();
+      //  populateReservation();
     }
     private void populateReservation(){
         Option option1 = new Option(600,new ArrayList<>(Arrays.asList(roomRepo.findById(1),roomRepo.findById(2))));
@@ -40,7 +40,7 @@ public class ClientController {
         makeReservation(option7,5,LocalDate.of(2018,5,1), LocalDate.of(2018,5,5));
 
     }
-    // make private
+
     public List<Room> searchAvailableRoom(LocalDate checkIn, LocalDate checkOut)  {
         List<Room> rooms = new ArrayList<>(roomRepo.getAll());
         List<Room> unavailableRooms = clientRepo.returnAllUnAvailableRooms(checkIn, checkOut);
@@ -244,7 +244,7 @@ public class ClientController {
         return null;
     }
 
-   // not working
+
     public Reservation findReservationById (int clientId, int reservationId)
     {
         List<Client>clients = clientRepo.getAll();

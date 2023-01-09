@@ -22,7 +22,7 @@ public class databaseClientRepo implements IClientRespository {
 
     public databaseClientRepo(EntityManager manager) {
         this.manager = manager;
-        populate_clients();
+      //  populate_clients();
     }
 
     private void populate_clients(){

@@ -20,13 +20,12 @@ public class CleanerController {
         this.cleanerRepo = cleanerRepo;
         this.roomRepo = roomRepo;
         this.cleaningRepo = cleaningRepo;
-        populate_cleanings();
+       // populate_cleanings();
     }
     private void populate_cleanings(){
         Room rooms1 = roomRepo.findById(1);
         Room rooms2 =  roomRepo.findById(2);
-        //Cleaner cleaner2 = new Cleaner("Laura", "Halmaciu","lauramaciu","2222");
-        //Cleaner cleaner3 = new Cleaner("Catalina", "Vasiu","catasiu","24siu");
+
         cleanRoom(1,rooms1.getId(),LocalDate.of(2022,12,12));
         cleanRoom(1,rooms2.getId(),LocalDate.of(2022,12,12));
         cleanRoom(2,9,LocalDate.of(2022,12,12));

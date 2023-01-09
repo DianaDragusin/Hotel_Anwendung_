@@ -48,10 +48,11 @@ public class Cleaning {
 
     @Override
     public String toString() {
+
         return "Cleaning{" +
                 "id=" + id +
-                ", cleaner=" + cleaner +
-                ", room=" + room +
+                ", cleaner=" + cleaner.getUsername() +
+                ", room=" + room.getId() + " " + room.getType()+
                 ", cleanDate=" + cleanDate +
                 '}';
     }

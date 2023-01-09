@@ -193,6 +193,7 @@ public class ClientView {
         } catch (Exception exception)
         {
             System.out.println("Invalid input type!");
+            return;
         }
 
         Scanner myObj = new Scanner(System.in);
@@ -206,7 +207,7 @@ public class ClientView {
         System.out.println("What option do you prefer:");
         try {
             int optionnr = Integer.parseInt(myObj.nextLine());
-            if (couponans >-1 && options.size() > 0)
+            if (couponans >0 && options.size() > 0)
             {
                 makeReservationWithCouponStatus(findOptionById(options,optionnr),couponans, clientId,from,to);
                 clientcontroller.removeCoupon(couponans,clientId);

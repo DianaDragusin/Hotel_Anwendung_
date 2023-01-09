@@ -262,17 +262,26 @@ public class ManagerView {
     public void printAllCleanings(){
         System.out.println("These are the cleanings:");
         for(Cleaning c : managercontroller.getCleanings()){
-            System.out.println(c);
+
+            System.out.println("Cleaner " + c.getCleaner().getUsername() + " cleaned room" + c.getRoom().getId() + " on " + c.getCleanDate() );
         }
-        System.out.println('\n');
+
     }
 
     public void seeAllReservations(){
         for(Client client : managercontroller.seeAllClients()){
             if(managercontroller.findReservationsForClient(client).size() != 0){
-                System.out.println(client.getUsername());
+                System.out.println("\n");
+                System.out.println(client.getUsername()+ ":");
                 for(Reservation r : managercontroller.findReservationsForClient(client)){
-                    System.out.println(r);
+                    System.out.println("\nReservation(" + r.getId() +"):  checkIn " +r.getStart() + " checkout " + r.getEnd() + " Total Price " + r.getPrice() + ", " );
+                    System.out.println("Rooms: ");
+                    for (Room room : r.getRooms())
+                    {
+                        System.out.print("Room(" + room.getId() + "," + room.getType() + "), ");
+                    }
+
+                    //System.out.println(r);
                 }
             }
         }
